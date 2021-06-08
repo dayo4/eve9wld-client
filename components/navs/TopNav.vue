@@ -1,11 +1,11 @@
 <template>
     <nav ref="topNav" id="TopNav" class="flex a-i-center j-c-center noselect">
         <div class="bg-gradient-1 flex a-i-center j-c-between shadow-11">
-            <router-link to="/" class="Logo flex a-i-center px-2">
+            <NuxtLink to="/" class="Logo flex a-i-center px-2">
                 <div v-html="$appLogo('logo-x-small logo-static mr-2')"></div>
                 <!-- <img src="/defaults/logo/scavorb.png" width="45" height="45" class="mr-4" /> -->
                 <b class="hide-sm-down">scavorb</b>
-            </router-link>
+            </NuxtLink>
 
             <div class="SearchBox flex ml-2 pl-2 a-i-center shadow-6">
                 <input
@@ -34,14 +34,14 @@
                             v-show="miniScreen === true"
                             class="Dropdown t-white bg-grey p-2 br2"
                         >
-                            <router-link
+                            <NuxtLink
                                 :to="{ name: link.name }"
                                 v-for="(link, i) in navLinks"
                                 :key="i"
                             >
                                 <span :class="link.icon"></span>
                                 <span>{{ link.name }}</span>
-                            </router-link>
+                            </NuxtLink>
                         </div>
                     </transition>
                 </a>

@@ -44,6 +44,12 @@ body {
     overflow: -moz-scrollbars-none;
 }
 
+/* To control text editors image overflow */
+
+img, figure {
+    max-width: 100% !important;
+}
+
 body {
     /* background: radial-gradient( circle farthest-side at top left , #006064 40%, #880e4f 50%, #0097a7 ); */
     /* background-repeat: no-repeat; */

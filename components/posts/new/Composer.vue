@@ -6,7 +6,7 @@
                 ref="titleInput"
                 @input="setTitle"
                 v-on:paste="plainText"
-                class="Post_Title bg-white br4 p-5"
+                class="Post_Title bg-white br4 p-3"
                 contenteditable="true"
                 placeholder="Enter Post Title"
             ></div>
@@ -14,15 +14,17 @@
             <div
                 v-if="errors && errors['Title']"
                 :class="errors && errors['Title'] ? 'vibrate' : ''"
-                class="font-3 p-1 bg-white t-red br1 ml-8"
+                class="font-3 p-1 bg-white t-red br1 ml-4"
                 style="width:95%;"
-            >Error: {{ showError('Title') }}</div>
+            >
+                Error: {{ showError("Title") }}
+            </div>
 
             <div class="t-white bold-4 font-6">SLUG :</div>
             <div
                 ref="slugInput"
                 @input="setSlug"
-                class="Post_Title bg-white br4 p-5"
+                class="Post_Title bg-white br4 p-3"
                 contenteditable="true"
                 placeholder="Enter Post Permalink"
             ></div>
@@ -30,7 +32,6 @@
 
         <!-- editor -->
         <TextEditor
-            id="main-ql-editor"
             @contentUpdated="setContent"
             :initialContent="contentToEdit ? contentToEdit.content : null"
             :config="editorConfig"
@@ -71,7 +72,7 @@ export default Vue.extend({
         user: () => $Auth.user,
         editorConfig: () => $Posts.$compose.editorConfig,
         /* These bellow only matter when editing or updating existing posts. Otherwise they'll be null */
-        currentPost_id: () => $Posts.$compose.currentPost_id,
+        currentMode: () => $Posts.$compose.currentMode,
         contentToEdit: () => $Posts.$compose.contentToEdit,
     },
 
@@ -138,7 +139,8 @@ export default Vue.extend({
             if (this.validate())
             {
                 $Obstacl.create('#saveBtn', {
-                    action: this.captureContentImages,
+                    action: this.saveContent,
+                    // action: this.captureContentImages,
                 })
 
             }
@@ -156,72 +158,10 @@ export default Vue.extend({
             }
         },
 
-        captureContentImages () {
-            /* Before content is saved. convert all base64 image src to "file"... */
-            $Process.add('Intializing...')
-            const editor = document.getElementById('main-ql-editor') as HTMLElement
-            const fetchedImages = editor.getElementsByTagName('img')
-            const uploadables = Array.prototype.filter.call(fetchedImages, function (img) {
-                return img.src.match(/^data:/)
-            })
-
-            if (uploadables.length > 0)
-            {
-                // console.log(uploadables)
-                let imageUrlArray: Array<string> = []
-                $Process.add('Uploading Images...')
-                let _this = this
-                Array.prototype.forEach.call(uploadables, function (img: HTMLImageElement) {
-
-                    const canvas = document.createElement('canvas')
-                    canvas.width = img.width
-                    canvas.height = img.height
-                    const ctx = canvas.getContext('2d')
-                    ctx.drawImage(img, 0, 0, img.width, img.height)
-
-                    ctx.canvas.toBlob((blob) => {
-                        const file = new File([ blob ], 'filename', {
-                            type: "image/jpeg",
-                        })
-                        // console.log(file)
-                        // imgArray.push(filename)
-                        const formData = new FormData()
-                        formData.append('contentImages', file)
-
-                        $Posts.$compose.uploadImages(formData).then((data) => {
-                            if (data)
-                            {
-                                //@ts-ignore
-                                const url = _this.$postBaseUrl + data.imageUrl  //${ this.user.id }/${ filename }.jpeg`		{
-                                img.src = url
-                                imageUrlArray.push(data.imageUrl)
-                                // console.log(img)
-                                if (imageUrlArray.length === uploadables.length)
-                                {
-
-                                    _this.saveContent(imageUrlArray)
-                                }
-                            } else
-                            {
-                                imageUrlArray.length > 0 ? $Posts.$compose.removeImages(imageUrlArray) : null
-
-                                $Process.abort()
-                            }
-                        })
-                    }, 'image/jpeg')
-                })
-            } else
-            {
-                $Process.add('Saving content...')
-                this.saveContent()
-            }
-
-        },
-
         saveContent (contentImages?: any) {
             // console.log(contentImages)
 
-            if (!this.currentPost_id)
+            if (this.currentMode != 'edit-post')
             {
                 $Posts.$compose.newPost({
                     title: this.title,
@@ -247,7 +187,6 @@ export default Vue.extend({
         plainText (e: ClipboardEvent) {
             $General.pasteAsPlainText(e)
         }
-
     },
 
     mounted () {
@@ -256,6 +195,7 @@ export default Vue.extend({
             this.title = (this.$refs.titleInput as HTMLDivElement).textContent = this.contentToEdit.title
             this.slug = (this.$refs.slugInput as HTMLDivElement).textContent = this.contentToEdit.slug
         }
+
     }
 })
 
@@ -266,11 +206,6 @@ export default Vue.extend({
 
 </script>
 <style lang="scss">
-#main-ql-editor {
-    & .ql-editor {
-        min-height: 700px !important;
-    }
-}
 .Post_Title_Container {
     border-radius: 5px 5px 0 0;
     background-color: $cyan--3;

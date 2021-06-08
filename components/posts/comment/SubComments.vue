@@ -11,14 +11,21 @@
             <div
                 class="Name flex nowrap a-i-center j-c-start w-full text-left t-blue-grey bold-5 font-3"
             >
-                <div
-                    class="bg-blue-grey-4 shadow-"
-                >{{ activeComment.user.first_name + ' ' + activeComment.user.last_name }}</div>
+                <div class="bg-blue-grey-4 shadow-">
+                    {{
+                        activeComment.user.first_name +
+                            " " +
+                            activeComment.user.last_name
+                    }}
+                </div>
             </div>
             <div class="bg-blue-grey-4 shadow-4 br3">
                 <!--Content Minimizer Component -->
                 <Minimizer :initialHeight="120">
-                    <div class="SourceContent p-3" v-html="activeComment.content"></div>
+                    <div
+                        class="SourceContent p-3"
+                        v-html="activeComment.content"
+                    ></div>
                 </Minimizer>
 
                 <span class="UserImage br5">
@@ -47,35 +54,61 @@
                         <!-- DROPDOWN COMPONENT-->
                         <Dropdown
                             :ownID="comment.id"
-                            :optPos="{ right: -70}"
+                            :optPos="{ right: -70 }"
                             class="Dropdomn icon-dot-3 btn t-blue-grey font-12"
                         >
                             <!-- slots -->
                             <template v-slot:default>
                                 <router-link
-                                    v-if="!user || user.username !== comment.user.username"
-                                    :to="{name:'user-profile', params:{username: comment.user.username}}"
+                                    v-if="
+                                        !user ||
+                                            user.username !==
+                                                comment.user.username
+                                    "
+                                    :to="{
+                                        name: 'profile',
+                                        params: {
+                                            username: comment.user.username
+                                        }
+                                    }"
                                 >
                                     <span class="icon-user"></span>
                                     <span>Profile</span>
                                 </router-link>
                                 <a
-                                    v-if="user && user.username === comment.user.username"
+                                    v-if="
+                                        user &&
+                                            user.username ===
+                                                comment.user.username
+                                    "
                                     @click="edit(comment.id)"
                                 >
                                     <span class="icon-edit"></span>
                                     <span>Edit</span>
                                 </a>
                                 <a
-                                    v-if="user && user.username === comment.user.username"
+                                    v-if="
+                                        user &&
+                                            user.username ===
+                                                comment.user.username
+                                    "
                                     @click="del(comment.id)"
                                 >
                                     <span class="icon-trash-empty t-red"></span>
                                     <span>Delete</span>
                                 </a>
                                 <a
-                                    v-if="user && user.username !== comment.user.username"
-                                    @click="reportComment(comment.id, comment.user.username)"
+                                    v-if="
+                                        user &&
+                                            user.username !==
+                                                comment.user.username
+                                    "
+                                    @click="
+                                        reportComment(
+                                            comment.id,
+                                            comment.user.username
+                                        )
+                                    "
                                 >
                                     <span class="icon-info t-red"></span>
                                     <span>Report</span>
@@ -84,14 +117,21 @@
                         </Dropdown>
                     </div>
 
-                    <div
-                        class="bg-grey-5"
-                    >{{ comment.user.first_name + ' ' + comment.user.last_name }}</div>
+                    <div class="bg-grey-5">
+                        {{
+                            comment.user.first_name +
+                                " " +
+                                comment.user.last_name
+                        }}
+                    </div>
                 </div>
                 <div class="shadow-2 bg-grey-5 br3">
                     <!--Content Minimizer Component -->
                     <Minimizer :initialHeight="120">
-                        <div class="CommentContent p-3" v-html="comment.content"></div>
+                        <div
+                            class="CommentContent p-3"
+                            v-html="comment.content"
+                        ></div>
                     </Minimizer>
 
                     <span class="UserImage br5">
@@ -107,7 +147,9 @@
                         <span class="icon-thumbs-up-alt"></span>
                         <span style="margin: 4px 0px">44</span>
                         <span class="icon-thumbs-down-alt"></span> |
-                        <span class="icon-clock">{{ $moment(comment.created_at).fromNow()}}</span>
+                        <span class="icon-clock">{{
+                            $moment(comment.created_at).fromNow()
+                        }}</span>
                     </div>
                 </div>
             </div>
@@ -115,7 +157,14 @@
         <section v-else>
             <h2
                 class="t-blue-grey text-center text-cap font-7 mt-10 letter-space-1"
-            >Reply to {{activeComment.user.first_name + ' ' + activeComment.user.last_name}}</h2>
+            >
+                Reply to
+                {{
+                    activeComment.user.first_name +
+                        " " +
+                        activeComment.user.last_name
+                }}
+            </h2>
         </section>
         <!--Sub Comments-->
     </div>

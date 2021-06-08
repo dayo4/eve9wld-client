@@ -10,10 +10,13 @@
                 <button
                     @click="triggerImageTransformer"
                     class="btn icon-picture my-8"
-                >Add Featured Image</button>
-                <div
-                    class="t-blue-grey--2 mb-8"
-                >This is the main post image displayed at the top of the post page.</div>
+                >
+                    Add Featured Image
+                </button>
+                <div class="t-blue-grey--2 mb-8">
+                    This is the main post image displayed at the top of the post
+                    page.
+                </div>
                 <ImageTransformer
                     @ready="addPostImage"
                     ref="imageTransformer"
@@ -25,16 +28,22 @@
                     <img
                         v-if="postImageSrc"
                         ref="postImage"
-                        :src="postImageSrc.match(/^data:/) ? postImageSrc : $postBaseUrl + postImageSrc "
+                        :src="
+                            postImageSrc.match(/^data:/)
+                                ? postImageSrc
+                                : $postBaseUrl + postImageSrc
+                        "
                         alt="post image"
                     />
                 </div>
 
                 <hr />
 
-                <div
-                    class="t-blue-grey--2 mt-10"
-                >You can save, edit and update your content all you want. Hit the "Publish" button whenever you are ready to go live with it.</div>
+                <div class="t-blue-grey--2 mt-10">
+                    You can save, edit and update your content all you want. Hit
+                    the "Publish" button whenever you are ready to go live with
+                    it.
+                </div>
                 <button class="btn icon-publish my-9">PUBLISH</button>
             </div>
         </div>
@@ -45,12 +54,15 @@
                 ref="saveBtn"
                 @click="startProcessing"
                 class="icon-floppy btn cyan-gradient-btn"
-            >{{ currentPost_id ? 'UPDATE' : 'SAVE NEW' }}</button>
+            >
+                {{ currentMode === "edit-post" ? "UPDATE" : "SAVE NEW" }}
+            </button>
             <span
                 ref="previewBtn"
                 class="btn cyan-gradient-btn"
-                @click="preview(currentPost_id)"
-            >PREVIEW</span>
+                @click="preview(contentToEdit.slug)"
+                >PREVIEW</span
+            >
         </div>
     </Container>
 </template>
@@ -71,14 +83,16 @@ export default Vue.extend({
     },
 
     computed: {
-        currentPost_id: () => $Posts.$compose.currentPost_id,
-        postImageSrc: () => $Posts.$compose.featuredImage.postImageSrc
+        currentMode: () => $Posts.$compose.currentMode,
+        postImageSrc: () => $Posts.$compose.featuredImage.postImageSrc,
+        contentToEdit: () => $Posts.$compose.contentToEdit,
+
     },
 
     methods: {
         preview (slug: string) {
 
-
+            console.log(this.contentToEdit)
             if (!slug)
             {
                 $Notify.info('You have to Save content first before you can preview.')

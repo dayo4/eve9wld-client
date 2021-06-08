@@ -1,3 +1,5 @@
+import myRoutes from './routes/index'
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -10,6 +12,11 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       // { hid: 'description', name: 'description', content: "scavorb - websites and web apps development for artists and designers. Have your personal and business website's UI professionally designed for the best user experience and satisfaction." }
     ],
+    // script: [
+    //   {
+    //     src: 'https://cdnjs.cloudflare.com/ajax/libs.js'
+    //   }
+    // ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
@@ -19,8 +26,22 @@ export default {
     ],
 
   },
-
+  target: 'static',
+  generate: {
+    crawler: true,
+    exclude: [
+      /^\/admin/, '/manage-settings', '/compose', /^\/message/, /^\/cart\$/, '/checkout', /^\/gallery\$/, /^\/post\$/
+    ],
+    routes: [ '/profile/dayo' ]
+  },
+  // dir: {
+  //   // Rename `pages` directory to `routes`
+  //   pages: 'views'
+  // },
   // Global CSS: https://go.nuxtjs.dev/config-css
+  env: {
+    // baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+  },
   css: [
     '../../GreyCore/GC/dist/greycore.css',
     "../../GreyCore/icons/css/fontello.css",
@@ -32,38 +53,23 @@ export default {
   ],
 
   ssr: false,
-  // loading: false,
-  loading: "@/components/GlobalComponents/notification/Process.vue",
-  loadingIndicator: "@/components/GlobalComponents/notification/initial_page_loading_indicator.html",
+  loading: false,
+  // loading: "@/components/GlobalComponents/notification/Process.vue",
+  // loadingIndicator: "@/components/GlobalComponents/notification/initial_page_loading_indicator.html",
 
-  // router: {
-  //   extendRoutes(routes, resolve) {
-  //     routes.push({
-  //       name: 'home',
-  //       path: '/',
-  //       component: resolve('@/pages/index.vue')
-  //     }, {
-  //       name: '401',
-  //       path: '/401',
-  //       component: resolve('@/pages/401.vue')
-  //     }, {
-  //       name: '404',
-  //       path: '*',
-  //       component: resolve('@/pages/404.vue')
-  //     })
-  //   },
+  router: {
+    extendRoutes (routes, resolve) {
+      routes.push(
+        ...myRoutes
+      )
+    },
 
-  //   middleware: 'auth'
-  // },
-  generate: {
-    // routes: [
-    //   '/'
-    // ]
+    middleware: 'auth'
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '~plugins/nuxt_vue_plugins/vue-tooltip.ts' },
+    // { src: '~plugins/nuxt_vue_plugins/vue-tooltip.ts' },
     { src: '~plugins/nuxt_vue_plugins/global-variables.ts' },
     // { src: '~/nuxt_plugins/global-variables.ts', mode: 'client' }, // only on client side
   ],
@@ -76,7 +82,7 @@ export default {
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
     '@nuxtjs/style-resources',
-    '@nuxtjs/router',
+    // '@nuxtjs/router',
     // ['@nuxtjs/router',
     //   {
     //     path: '~/router/router.js',
@@ -86,6 +92,7 @@ export default {
     //   }
     // ],
   ],
+  components: true,
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -112,7 +119,6 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    transpile: [ 'vue-tooltip' ]
   },
 
   server: {

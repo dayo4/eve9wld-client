@@ -9,7 +9,7 @@
         <!-- <Auth /> -->
 
         <transition name="fade-in">
-            <router-view></router-view>
+            <Nuxt></Nuxt>
         </transition>
 
         <!-- <BottomNav /> -->

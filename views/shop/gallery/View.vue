@@ -150,12 +150,47 @@ import Vue from "vue"
 // import { $Notify, $Obstacl } from "@/plugins"
 
 import Container from '@/components/navs/reusables/Container.vue'
-import { $General, $Axios } from '@/plugins'
+import { $General, $Axios, $Notify } from '@/plugins'
 import { $Products, $Shopping } from "@/myStore"
 
 export default Vue.extend({
     components: {
         Container,
+    },
+            beforeRouteEnter (to, from, next) {
+             if ($Products.products.length > 0)
+          {
+            const foundProduct = $Products.products.find((product) => {
+                //@ts-ignore
+              return product.slug === to.params.slug
+            })
+
+            if (foundProduct)
+            {
+              $Products.$single.product = foundProduct
+              next()
+            }
+            else
+              fetchFromServer()
+          }
+          else
+          {
+            fetchFromServer()
+          }
+
+          function fetchFromServer () {
+            $Products.$single.fetch({
+              slug: to.params.slug
+            }).then((loaded) => {
+
+              next()
+
+              if (!loaded)
+              {
+                $Notify.error('unable to connect')
+              }
+            })
+          }
     },
     head () {
         return $General.metaInfo({ title: $Products.$single.product.name, type: 'article' })

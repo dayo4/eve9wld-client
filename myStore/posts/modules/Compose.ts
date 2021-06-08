@@ -3,48 +3,16 @@ import { $Axios, $Process, $Notify } from '@/plugins'
 
 
 export class Compose {
-    content = ''
-    currentPost_id = null
-    contentToEdit = null
+    // content = ''
+    currentMode = 'new-post'
+    contentToEdit = null /* if in editing mode */
     featuredImage = {
         postImageSrc: null,
         formData: null
     }
 
     editorConfig = [
-        [
-            { header: [ false, 1, 2, 3, 4, 5, 6 ] }
-        ],
-        [
-            { font: [] },
-            // { size: [] }
-        ],
-        [ "bold", "italic", "underline", "strike" ],
-        [
-            { align: "" },
-            { align: "center" },
-            { align: "right" },
-            { align: "justify" }
-        ],
-        [ "blockquote", "code-block" ],
-        [
-            { script: "sub" },
-            { script: "super" }
-        ],
-        [
-            { list: "ordered" },
-            { list: "bullet" },
-            { list: "check" }
-        ],
-        [
-            { indent: "-1" },
-            { indent: "+1" }
-        ],
-        [
-            { color: [] },
-            { background: [] }
-        ],
-        [ "link", "image", "video" ], [ "clean" ]
+
     ]
 
     setFeaturedImage (data: object) {
@@ -55,10 +23,16 @@ export class Compose {
     async newPost (payload: { title: string, slug: string, content: string, contentImages: string[] }) {
         try
         {
+            /* returned data will be only the 'id' of the new post */
             const { data } = await $Axios.post("posts/new/" + $Auth.user.id, {
                 ...payload
             })
-            this.currentPost_id = data
+            this.contentToEdit = {
+                id: data,
+                title: payload.title,
+                slug: payload.slug
+            }
+            this.currentMode = 'edit-post'
             if (this.featuredImage.formData)
             {
                 this.uploadImages(this.featuredImage.formData)
@@ -79,7 +53,7 @@ export class Compose {
     }
 
     /* This fetches posts for editing and update. */
-    async fetch (payload: { slug: string }, preview = false) {
+    async fetchForEditing (payload: { slug: string }, preview = false) {
         $Process.add('Fetching content')
         try
         {
@@ -87,12 +61,12 @@ export class Compose {
             if (data)
             {
                 this.contentToEdit = data
-                this.currentPost_id = data.id
+                this.currentMode = 'edit-post'
                 this.featuredImage.postImageSrc = data.img
                 return data
             }
         }
-        catch{
+        catch {
             $Notify.error()
         }
         finally { $Process.hide() }
@@ -104,7 +78,7 @@ export class Compose {
         {
             const { data } = await $Axios.patch('posts/' + $Auth.user.id, {
                 ...payload,
-                postsIds: [ this.currentPost_id ]
+                postsIds: [ this.contentToEdit.id ]
             })
             if (data)
                 if (this.featuredImage.formData)
@@ -114,7 +88,7 @@ export class Compose {
             $Notify.success('Updated!')
             return data
         }
-        catch{
+        catch {
             $Notify.error()
             if (payload.contentImages)
                 //remove any image allready uploaded if error occured
@@ -126,7 +100,7 @@ export class Compose {
     async uploadImages (formData: FormData) {
         try
         {
-            const { data } = await $Axios.patch('posts/uploadImages/' + this.currentPost_id + '/' + $Auth.user.id,
+            const { data } = await $Axios.patch('posts/uploadImages/' + this.contentToEdit.id + '/' + $Auth.user.id,
                 formData
             )
             if (data)
@@ -152,7 +126,7 @@ export class Compose {
                 $Notify.success('Deleted!')
 
         }
-        catch{
+        catch {
             $Notify.error()
         }
     }

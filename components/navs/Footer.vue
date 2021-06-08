@@ -1,13 +1,15 @@
 <template>
     <footer
-        v-show="!['user-profile','posts'].includes($route.name)"
+        v-show="!['profile', 'posts'].includes($route.name)"
         class="Footer t-blue-grey text-center"
     >
         <div>
             <span class="icon-copyright mr-2">2021 scavorb</span>
         </div>
         <div class="mt-3">
-            <router-link class="t-blue--3 no-deco" to="/privacy">Privacy</router-link>
+            <router-link class="t-blue--3 no-deco" to="/privacy"
+                >Privacy</router-link
+            >
         </div>
     </footer>
 </template>

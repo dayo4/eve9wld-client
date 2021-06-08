@@ -1,13 +1,14 @@
+
 const routes = [
   {
     path: "/admin-dashboard",
-    component: () => import("@/views/admin/Index.vue").then(m => m.default || m),
+    component: "@/views/admin/Index.vue",
 
     children: [
       {
         path: "",
         name: "admin-dashboard",
-        component: () => import(/* webpackChunkName: "dsh" */ "@/views/admin/Dashboard.vue").then(m => m.default || m)
+        component: "@/views/admin/Dashboard.vue"
       },
     ]
   }

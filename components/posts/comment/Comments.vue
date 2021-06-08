@@ -1,14 +1,19 @@
 <template>
     <transition name="slide-fade">
-        <div v-if="showComments" class="CommentsModal modal flex a-i-center j-c-center">
+        <div
+            v-if="showComments"
+            class="CommentsModal modal flex a-i-center j-c-center"
+        >
             <div class="Content xs12 sm9 md7 lg6">
                 <!-- HEADER-->
                 <h3
                     class="Head flex a-i-center j-c-between bg-white t-blue-grey font-7 p-2 my-0 noselect"
                 >
-                    <span
-                        class="Header text-up font-5"
-                    >Comments ({{subCommentMode ? subCommentCount : commentCount}})</span>
+                    <span class="Header text-up font-5"
+                        >Comments ({{
+                            subCommentMode ? subCommentCount : commentCount
+                        }})</span
+                    >
                     <div class="Actions flex">
                         <div class="labeled-action" @click="goBack">
                             <span class="icon-left-open-big"></span>
@@ -75,70 +80,124 @@
                                     <!-- DROPDOWN COMPONENT-->
                                     <Dropdown
                                         :ownID="comment.id"
-                                        :optPos="{ right: -100}"
+                                        :optPos="{ right: -100 }"
                                         class="Dropdomn icon-dot-3 btn t-blue-grey font-12"
                                     >
                                         <!-- slots -->
                                         <template v-slot:default>
                                             <router-link
-                                                v-if="!user || user.username !== comment.user.username"
-                                                :to="{name:'user-profile', params:{username: comment.user.username}}"
+                                                v-if="
+                                                    !user ||
+                                                        user.username !==
+                                                            comment.user
+                                                                .username
+                                                "
+                                                :to="{
+                                                    name: 'profile',
+                                                    params: {
+                                                        username:
+                                                            comment.user
+                                                                .username
+                                                    }
+                                                }"
                                             >
                                                 <span class="icon-user"></span>
                                                 <span>Profile</span>
                                             </router-link>
                                             <a
-                                                v-if="user && user.username === comment.user.username"
+                                                v-if="
+                                                    user &&
+                                                        user.username ===
+                                                            comment.user
+                                                                .username
+                                                "
                                                 @click="edit(comment.id)"
                                             >
                                                 <span class="icon-edit"></span>
                                                 <span>Edit</span>
                                             </a>
                                             <a
-                                                v-if="user && user.username === comment.user.username"
-                                                @click="delete(comment.id)"
+                                                v-if="
+                                                    user &&
+                                                        user.username ===
+                                                            comment.user
+                                                                .username
+                                                "
+                                                @click="delete comment.id"
                                             >
-                                                <span class="icon-trash-empty t-red"></span>
+                                                <span
+                                                    class="icon-trash-empty t-red"
+                                                ></span>
                                                 <span>Delete</span>
                                             </a>
                                             <a
-                                                v-if="user && user.username !== comment.user.username"
-                                                @click="report(comment.id, comment.user.username)"
+                                                v-if="
+                                                    user &&
+                                                        user.username !==
+                                                            comment.user
+                                                                .username
+                                                "
+                                                @click="
+                                                    report(
+                                                        comment.id,
+                                                        comment.user.username
+                                                    )
+                                                "
                                             >
-                                                <span class="icon-info t-red"></span>
+                                                <span
+                                                    class="icon-info t-red"
+                                                ></span>
                                                 <span>Report</span>
                                             </a>
                                         </template>
                                     </Dropdown>
                                 </div>
 
-                                <div
-                                    class="bg-grey-5 mr-2"
-                                >{{ comment.user.first_name + ' ' + comment.user.last_name }}</div>
+                                <div class="bg-grey-5 mr-2">
+                                    {{
+                                        comment.user.first_name +
+                                            " " +
+                                            comment.user.last_name
+                                    }}
+                                </div>
                             </div>
                             <div class="shadow-2 bg-grey-5 br3">
                                 <!--Content Minimizer Component -->
                                 <Minimizer :initialHeight="120">
-                                    <div class="CommentContent p-2" v-html="comment.content"></div>
+                                    <div
+                                        class="CommentContent p-2"
+                                        v-html="comment.content"
+                                    ></div>
                                 </Minimizer>
 
                                 <span class="UserImage br5">
                                     <img
                                         class="br5 noselect"
-                                        :src="$userBaseUrl + comment.user.profile_image"
+                                        :src="
+                                            $userBaseUrl +
+                                                comment.user.profile_image
+                                        "
                                         draggable="false"
                                     />
                                 </span>
 
-                                <div class="Actions font-3 t-grey bold-2 p-2 noselect">
-                                    <span @click="replies(comment, true)" class="icon-reply">Reply</span>
-                                    <span @click="replies(comment)">{{comment.comments}} Replies</span>
+                                <div
+                                    class="Actions font-3 t-grey bold-2 p-2 noselect"
+                                >
+                                    <span
+                                        @click="replies(comment, true)"
+                                        class="icon-reply"
+                                        >Reply</span
+                                    >
+                                    <span @click="replies(comment)"
+                                        >{{ comment.comments }} Replies</span
+                                    >
                                     <span class="icon-thumbs-up-alt"></span>
                                     <span style="margin: 4px 0px">544</span>
                                     <span class="icon-thumbs-down-alt"></span> |
-                                    <span
-                                        class="icon-clock"
-                                    >{{ $moment(comment.created_at).fromNow()}}</span>
+                                    <span class="icon-clock">{{
+                                        $moment(comment.created_at).fromNow()
+                                    }}</span>
                                 </div>
                             </div>
                         </div>
@@ -146,7 +205,9 @@
                     <section v-else>
                         <h2
                             class="t-blue-grey text-center text-cap font-7 mt-5 letter-space-1"
-                        >Be The First To Post A Comment</h2>
+                        >
+                            Be The First To Post A Comment
+                        </h2>
                     </section>
                     <!--Major Comments-->
                 </div>

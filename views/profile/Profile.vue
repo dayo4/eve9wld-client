@@ -3,19 +3,28 @@
         <div>
             <div
                 class="text-center page-head-bg-grad t-white bold-4 font-9 px-5 py-4"
-            >{{ topInfo.header }}</div>
+            >
+                {{ topInfo.header }}
+            </div>
             <div class="Title">{{ topInfo.title }}</div>
 
             <!-- <transition name="slide-down-fade"> -->
             <section class="flex j-c-center a-i-center">
                 <keep-alive>
-                    <component @tabClicked="switchTab" @return="switchTab" :is="currentTab"></component>
+                    <component
+                        @tabClicked="switchTab"
+                        @return="switchTab"
+                        :is="currentTab"
+                    ></component>
                 </keep-alive>
             </section>
             <!-- </transition> -->
         </div>
 
-        <ProfileBottomNav :currentTab="currentTab" @return="switchTab"></ProfileBottomNav>
+        <ProfileBottomNav
+            :currentTab="currentTab"
+            @return="switchTab"
+        ></ProfileBottomNav>
     </div>
 </template>
 <script lang="ts">
@@ -28,6 +37,7 @@ import Portfolio from "@/components/profile_tabs/mainTabs/Portfolio.vue"
 import About from "@/components/profile_tabs/mainTabs/About.vue"
 import Posts from "@/components/profile_tabs/mainTabs/PostsTab.vue"
 import { $Profile } from "@/myStore"
+import { $Notify } from "@/plugins"
 
 export default Vue.extend({
     layout: "profile",
@@ -38,6 +48,21 @@ export default Vue.extend({
         Portfolio,
         About,
         Posts,
+    },
+    beforeRouteEnter (to, from, next) {
+        next(vm => {
+            $Profile.fetch({
+                username: to.params.username
+            }).then((loaded) => {
+
+                next()
+
+                if (!loaded)
+                {
+                    $Notify.error('unable to connect')
+                }
+            })
+        })
     },
 
     data () {

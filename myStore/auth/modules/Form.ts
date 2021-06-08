@@ -61,13 +61,13 @@ export class Form {
         const sr = this.response
         try
         {
-            // const { data } = await $Axios.post("login", {
-            const { data } = await $Axios.post("jwt-auth/v1/token", {
-                // email: payload.email,
-                username: 'dayorx68',
+            const { data } = await $Axios.post("login", {
+                // const { data } = await $Axios.post("jwt-auth/v1/token", {
+                email: payload.email,
+                // username: 'dayorx68',
                 // username: 'myself',
-                // password: payload.password,
-                password: '638367%test',
+                password: payload.password,
+                // password: '638367%test',
                 // password: '638367me',
                 // stage
             })
@@ -94,13 +94,13 @@ export class Form {
             if (data)
             {
                 $LSAgent.setToken(data.token)
-                // $LSAgent.setData(data.user, 'userDetails')
+                $LSAgent.setData(data.user, 'userDetails')
 
-                if (this.query.redirect) //if you was redirected here to login from another page
-                    $Router.replace({ path: this.query.redirect })
+                // if (this.query.redirect) //if you were redirected here to login from another page
+                //     $Router.replace({ path: this.query.redirect })
 
                 this.status = false
-                console.log(data.data)
+                // console.log(data.data)
                 return {}
             }
         }

@@ -2,9 +2,21 @@
     <div class="GBLMContainer flex">
         <!-- MAIN CONTENT SLOT -->
         <div
-            :id="ownID?ownID:''"
+            :id="ownID ? ownID : ''"
             class="MC-ViewArea"
-            :class="MainCB ? MainCB : `${ noSideNav ? `xs12 ${!['home'].includes($route.name) ? 'padded' : ''}` : 'xs12 lg9'}`"
+            :class="
+                MainCB
+                    ? MainCB
+                    : `${
+                          noSideNav
+                              ? `xs12 ${
+                                    !['home'].includes($route.name)
+                                        ? 'padded'
+                                        : ''
+                                }`
+                              : 'xs12 lg9'
+                      }`
+            "
         >
             <slot></slot>
         </div>
@@ -47,12 +59,14 @@ export default Vue.extend({
 .GBLMContainer {
     position: relative;
     height: 100%;
+    width: 100%;
 }
 .MC-ViewArea {
     position: relative;
     padding-top: 52px;
     padding-bottom: 165px; /* Bottom-nav height + Footer height + 0px*/
     height: 100%;
+    width: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
 }

@@ -13,15 +13,18 @@
                     <!-- DROPDOWN COMPONENT-->
                     <Dropdown
                         :ownID="user.id"
-                        :pos="{type: 'relative',top:6, right: 0}"
-                        :optPos="{ right: 40}"
+                        :pos="{ type: 'relative', top: 6, right: 0 }"
+                        :optPos="{ right: 40 }"
                         class="Dropdomn icon-ellipsis-vert shadow-0 btn t-white bg-blue-grey font-10"
                         style="width:30px;"
                     >
                         <!-- slots -->
                         <template v-slot:default>
                             <router-link
-                                :to="{name:'user-profile', params:{username: user.username}}"
+                                :to="{
+                                    name: 'profile',
+                                    params: { username: user.username }
+                                }"
                                 target="_blank"
                             >
                                 <span class="icon-user"></span>
@@ -53,10 +56,14 @@
                     height="150"
                 />
                 <div class="Details ml-10 pl-5">
-                    <div class="mb-4" v-for="(item, key, index) in user" :key="index">
+                    <div
+                        class="mb-4"
+                        v-for="(item, key, index) in user"
+                        :key="index"
+                    >
                         <div v-if="key !== 'history'">
-                            <span class="font-6 bold-4">{{key}}:</span>
-                            <span class="font-5 bold-2">{{' '+item}}</span>
+                            <span class="font-6 bold-4">{{ key }}:</span>
+                            <span class="font-5 bold-2">{{ " " + item }}</span>
                         </div>
                     </div>
                 </div>
@@ -64,17 +71,27 @@
         </section>
 
         <section class="History">
-            <h2 class="text-center t-blue-grey--1 ml-10 pl-5">User's Account Status History</h2>
+            <h2 class="text-center t-blue-grey--1 ml-10 pl-5">
+                User's Account Status History
+            </h2>
 
-            <div v-for="(h, index) in user.history" :key="index" class="my-2 py-2">
-                <h3 class>{{h.type}}</h3>
-                <div>{{$moment(h.created_at).format('llll')}}</div>
-                <div>{{h.reason}}</div>
+            <div
+                v-for="(h, index) in user.history"
+                :key="index"
+                class="my-2 py-2"
+            >
+                <h3 class>{{ h.type }}</h3>
+                <div>{{ $moment(h.created_at).format("llll") }}</div>
+                <div>{{ h.reason }}</div>
             </div>
         </section>
 
         <!-- Account Status Update COMPONENT -->
-        <AccStatusUpdate :user="user" :show="modal" @close="closeModal"></AccStatusUpdate>
+        <AccStatusUpdate
+            :user="user"
+            :show="modal"
+            @close="closeModal"
+        ></AccStatusUpdate>
     </div>
 </template>
 <script lang="ts">

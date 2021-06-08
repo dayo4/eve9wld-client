@@ -6,67 +6,95 @@
             <section v-if="!selectedUser" class="UsersBox">
                 <!-- SEARCH -->
                 <section class="SearchBox flex pl-4 a-i-center shadow-6">
-                    <input type="search" placeholder="Search for users..." class="grow" />
-                    <span class="SearchIcon icon-search-2 flex a-i-center font-6 px-5"></span>
+                    <input
+                        type="search"
+                        placeholder="Search for users..."
+                        class="grow"
+                    />
+                    <span
+                        class="SearchIcon icon-search-2 flex a-i-center font-6 px-5"
+                    ></span>
                 </section>
 
                 <!-- CUSTOM SORT AND PREFERENCES -->
                 <section class="CustSort noselect">
                     <Dropdown
                         ownID="pages"
-                        :text="'Filter: '+ filter"
-                        :pos="{type:'relative',top:7, left: 5}"
-                        :optPos="{left: 30}"
+                        :text="'Filter: ' + filter"
+                        :pos="{ type: 'relative', top: 7, left: 5 }"
+                        :optPos="{ left: 30 }"
                         class="Options icon-search-2 btn"
                     >
                         <!-- slots -->
                         <template v-slot:default>
-                            <a @click="filterBy('All Users',{})">All Users</a>
-                            <a @click="filterBy('Active',{active:true})">Active</a>
-                            <a @click="filterBy('Inactive',{active:false})">Inactive</a>
-                            <a @click="filterBy('Blacklisted',{blacklisted:true})">Blacklisted</a>
+                            <a @click="filterBy('All Users', {})">All Users</a>
+                            <a @click="filterBy('Active', { active: true })"
+                                >Active</a
+                            >
+                            <a @click="filterBy('Inactive', { active: false })"
+                                >Inactive</a
+                            >
+                            <a
+                                @click="
+                                    filterBy('Blacklisted', {
+                                        blacklisted: true
+                                    })
+                                "
+                                >Blacklisted</a
+                            >
                         </template>
                     </Dropdown>
 
                     <Dropdown
                         ownID="PostSort"
                         :text="'Sort By: ' + sort"
-                        :pos="{type:'relative',top:7, right: 5}"
+                        :pos="{ type: 'relative', top: 7, right: 5 }"
                         class="Options icon-sort-alt-up btn"
                     >
                         <!-- slots -->
                         <template v-slot:default>
-                            <a @click="sortBy('Newest','desc')">Newest</a>
-                            <a @click="sortBy('Oldest','asc')">Oldest</a>
+                            <a @click="sortBy('Newest', 'desc')">Newest</a>
+                            <a @click="sortBy('Oldest', 'asc')">Oldest</a>
                         </template>
                     </Dropdown>
                 </section>
 
                 <!-- USERS -->
                 <section>
-                    <h4 class="Head bg-gradient-2 flex a-i-center j-c-between noselect">
+                    <h4
+                        class="Head bg-gradient-2 flex a-i-center j-c-between noselect"
+                    >
                         <div class="font-6 ml-2 mt-1 pb-1">
                             USERS
-                            <span class="bg-white t-cyan--2 br2 ml-2 px-1">{{count}}</span>
+                            <span class="bg-white t-cyan--2 br2 ml-2 px-1">{{
+                                count
+                            }}</span>
                         </div>
                         <span class="icon-ellipsis-vert"></span>
                     </h4>
                     <div class="Body">
-                        <div v-for="user in users" :key="user.id" class="flex a-i-center">
+                        <div
+                            v-for="user in users"
+                            :key="user.id"
+                            class="flex a-i-center"
+                        >
                             <img
                                 @click="openUser(user.id)"
-                                :src="$userBaseUrl+user.profile_image"
+                                :src="$userBaseUrl + user.profile_image"
                                 :alt="user.username"
                                 class="mr-3 cursor-pointer"
                                 width="50"
                                 height="50"
                             />
-                            <span class="grow">{{user.first_name}} {{user.last_name}}</span>
+                            <span class="grow"
+                                >{{ user.first_name }}
+                                {{ user.last_name }}</span
+                            >
                             <!-- DROPDOWN COMPONENT-->
                             <Dropdown
                                 :ownID="user.id"
-                                :pos="{type:'relative', top:0, right: 5}"
-                                :optPos="{ right: 40}"
+                                :pos="{ type: 'relative', top: 0, right: 5 }"
+                                :optPos="{ right: 40 }"
                                 class="Dropdomn icon-ellipsis-vert shadow-0 btn t-grey--1 bg-grey-2 font-10"
                                 style="width:30px;"
                             >
@@ -77,7 +105,10 @@
                                         <span>Open</span>
                                     </a>
                                     <router-link
-                                        :to="{name:'user-profile', params:{username: user.username}}"
+                                        :to="{
+                                            name: 'profile',
+                                            params: { username: user.username }
+                                        }"
                                         target="_blank"
                                     >
                                         <span class="icon-user"></span>

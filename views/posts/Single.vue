@@ -3,12 +3,14 @@
         <div class="flex j-c-center mx-4">
             <div class="Wrapper xs12 sm10 md9 lg10">
                 <!-- POST USER -->
-                <section class="UserDetails flex a-i-center bg-white px-3 mb-2 mt-8">
+                <section
+                    class="UserDetails flex a-i-center bg-white px-3 mb-2 mt-8"
+                >
                     <div></div>
                     <div class="Info flex col text-center w-full mr-2">
-                        <div
-                            class="font-6 bold-3 t-blue-grey--1 text-cap m-1"
-                        >{{ post.user.first_name }} {{ post.user.last_name }}</div>
+                        <div class="font-6 bold-3 t-blue-grey--1 text-cap m-1">
+                            {{ post.user.first_name }} {{ post.user.last_name }}
+                        </div>
 
                         <div class="flex a-s-center">
                             <!-- <button
@@ -19,9 +21,13 @@
                                 v-if="user && user.id === post.user_id"
                                 @click="editPost(post.slug)"
                                 class="icon-edit btn a-s-center font-3 py-1 px-2 m-1 bg-pink--2 t-white br1"
-                            >Edit Post</button>
+                            >
+                                Edit Post
+                            </button>
                         </div>
-                        <i class="t-cyan--2 font-3 p-1 b1 br3">{{ post.user.status }}</i>
+                        <i class="t-cyan--2 font-3 p-1 b1 br3">{{
+                            post.user.status
+                        }}</i>
                     </div>
                     <div class="Image noselect">
                         <img
@@ -36,7 +42,9 @@
                 <section class="Head flex col j-c-center p-4">
                     <div
                         class="Title a-s-center font-9 bold-3 t-blue-grey text-cap text-center letter-space-1 px-8 mb-8"
-                    >{{ post.title }}</div>
+                    >
+                        {{ post.title }}
+                    </div>
                     <div class="FeaturedImage a-s-center br4 p-0 noselect">
                         <img
                             class="w-full br4"
@@ -48,7 +56,7 @@
                 </section>
 
                 <!-- META -->
-                <section class="Meta mt-2">
+                <section class="Meta mt-1">
                     <hr />
                     <div class="m-1 t-blue-grey">
                         <b>Updated:</b>
@@ -59,9 +67,11 @@
                         <div
                             class="icon-forward pink-gradient-btn flex a-i-center j-c-center t-white font-12 br5 bg-pink--4"
                         ></div>
-                        <div class="font-7 pl-10 py-2 pr-4 br4 flex j-c-around">
+                        <div class="font-7 pl-5 py-1 pr-2 br4 flex j-c-around">
                             <a
-                                :href="`https://www.facebook.com/sharer.php?u=${href}`"
+                                :href="
+                                    `https://www.facebook.com/sharer.php?u=${href}`
+                                "
                                 target="_blank"
                                 @mouseout="shareIconsTooltip = ''"
                                 @mouseover="shareIconsTooltip = 'facebook'"
@@ -92,7 +102,8 @@
                             <i
                                 class="Tooltip font-4 text-center"
                                 :class="shareIconsTooltip ? '' : 'transform'"
-                            >{{ shareIconsTooltip }}</i>
+                                >{{ shareIconsTooltip }}</i
+                            >
                         </div>
                     </div>
                     <hr />
@@ -100,7 +111,11 @@
                         <span
                             @click="showCommentModal(post)"
                             class="icon-comment btn cyan-gradient-btn"
-                        >Comments {{post.comments ? `(${post.comments})` : ''}}</span>
+                            >Comments
+                            {{
+                                post.comments ? `(${post.comments})` : ""
+                            }}</span
+                        >
                         <!-- <span
                             class="icon-thumbs-up-alt btn pink-gradient-btn"
                             @click="thumbUp"
@@ -109,45 +124,71 @@
                 </section>
 
                 <!-- BODY -->
-                <section v-html="post.content" class="Body p-9"></section>
+                <section v-html="post.content" class="Body p-5"></section>
 
                 <hr class="shadow-9" />
 
                 <div
-                    class="Divider px-8 mt-10 font-9 bold-3 t-blue-grey text-cap text-center letter-space-1"
-                >Author</div>
+                    class="Divider px-5 mt-5 font-9 bold-3 t-blue-grey text-cap text-center letter-space-1"
+                >
+                    Author
+                </div>
                 <!-- FOOT -->
                 <section class="Foot">
-                    <div class="UserDetails py-1 px-3 mb-2 mt-8">
-                        <div class="Info flex col text-center w-full mr-2">
+                    <div class="UserDetails py-1 px-2 mb-2 mt-4">
+                        <div class="Info flex col text-center w-full mr-1">
                             <div
                                 class="font-6 bold-3 t-blue-grey--1 text-cap m-1"
-                            >{{ post.user.first_name }} {{ post.user.last_name }}</div>
+                            >
+                                {{ post.user.first_name }}
+                                {{ post.user.last_name }}
+                            </div>
                             <div class="flex a-s-center">
                                 <button
-                                    @click="$router.push({name:'user-profile', params:{username: post.user.username}})"
+                                    @click="
+                                        $router.push({
+                                            name: 'user-profile',
+                                            params: {
+                                                username: post.user.username
+                                            }
+                                        })
+                                    "
                                     class="icon-user btn font-3 py-1 px-2 m-1 bg-pink--2 t-white br1"
-                                >View Profile</button>
+                                >
+                                    View Profile
+                                </button>
                                 <button
                                     v-if="user && user.id === post.user_id"
                                     @click="editPost(post.slug)"
                                     class="icon-edit btn a-s-center font-3 py-1 px-2 m-1 bg-pink--2 t-white br1"
-                                >Edit Post</button>
+                                >
+                                    Edit Post
+                                </button>
                             </div>
 
                             <!-- user Image and About -->
-                            <div class="flex wrap sm-nowrap j-c-center a-i-center">
+                            <div
+                                class="flex wrap sm-nowrap j-c-center a-i-center"
+                            >
                                 <div class="Image noselect">
                                     <img
-                                        :src="$userBaseUrl + post.user.profile_image"
+                                        :src="
+                                            $userBaseUrl +
+                                                post.user.profile_image
+                                        "
                                         alt="user"
                                         draggable="false"
                                     />
                                 </div>
 
                                 <!--Content Minimizer Component -->
-                                <Minimizer :initialHeight="90" :closeable="false">
-                                    <div class="t-cyan--3 font-4 p-1 b1 br3">{{ post.user.about }}</div>
+                                <Minimizer
+                                    :initialHeight="90"
+                                    :closeable="false"
+                                >
+                                    <div class="t-cyan--3 font-4 p-1 b1 br3">
+                                        {{ post.user.about }}
+                                    </div>
                                 </Minimizer>
                             </div>
                         </div>
@@ -179,6 +220,19 @@ export default Vue.extend({
         Container,
         Comments: () => import("@/components/posts/comment/Comments.vue"),
         Minimizer: () => import('@/components/GlobalComponents/utils/Minimizer.vue')
+    },
+    beforeRouteEnter (to, from, next) {
+        next(vm => {
+            $Posts.$single.fetch({
+                slug: to.params.slug
+            }, to.params.preview ? true : false).then((loaded) => {
+                // next()
+                if (!loaded)
+                {
+                    $Notify.error('unable to connect')
+                }
+            })
+        })
     },
     metaInfo () {
         return $General.metaInfo({
@@ -231,11 +285,11 @@ export default Vue.extend({
         },
 
         editPost (slug) {
-            $Posts.$compose.fetch({
+            $Posts.$compose.fetchForEditing({
                 slug: slug
             }, true).then((data) => {
                 if (data)
-                    this.$router.push({ path: '/compose', query: { mode: 'edit' } })
+                    this.$router.push({ path: '/compose/' + slug, query: { mode: 'edit' } })
                 // let route = this.$router.resolve({ path: '/compose' })
                 // window.open(route.href, '_blank')
             })
@@ -361,9 +415,6 @@ export default Vue.extend({
     height: fit-content;
     width: 100%;
     overflow: hidden;
-    & img {
-        max-width: 100% !important;
-    }
 }
 
 .Divider {

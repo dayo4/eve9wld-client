@@ -3,12 +3,13 @@
 // import Vue from 'vue'
 import axios from 'axios'
 import { setupCache } from 'axios-cache-adapter'
+import { Router } from '@/middleware/auth'
 
-import { createRouter } from '@/router'
+// import { createRouter } from '@/router'
 import { $Auth } from '@/myStore'
 import LSAgent from '@/plugins/storage/LSAgent'
 
-const router = createRouter()
+const router = Router
 const devMode = process.env.NODE_ENV === 'development'
 
 // Full config:  https://github.com/axios/axios#request-config
@@ -24,9 +25,9 @@ const cache = setupCache({
   clearOnStale: false
 })
 const config = {
-  baseURL: (devMode ? 'https://orb.heroestoggery.com/wp-json/' : process.env.BASE_URL),
+  // baseURL: (devMode ? 'https://orb.heroestoggery.com/wp-json/' : process.env.BASE_URL),
   // baseURL: (devMode ? 'http://localhost/wplocal/wp-json/' : process.env.BASE_URL),
-  // baseURL: (devMode ? 'http://127.0.0.1:3000/' : process.env.BASE_URL) + 'scv-v1/',
+  baseURL: (devMode ? 'http://127.0.0.1:3000/' : process.env.BASE_URL) + 'scv-v1/',
   timeout: 60 * 1000, // Timeout
   // withCredentials: true, // Check cross-site Access-Control
   adapter: cache.adapter,

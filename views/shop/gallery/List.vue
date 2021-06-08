@@ -84,12 +84,34 @@ import Vue from "vue"
 // import { $Notify, $Obstacl } from "@/plugins"
 
 import Container from '@/components/navs/reusables/Container.vue'
-import { $General, $Obstacl } from '@/plugins'
+import { $General, $Notify, $Obstacl } from '@/plugins'
 import { $Products, $Shopping } from "@/myStore"
 
 export default Vue.extend({
     components: {
         Container,
+    },
+    beforeRouteEnter (to, from, next) {
+        // next(() => {
+        if ($Products.products.length > 0)
+        {
+            next()
+        }
+        else
+        {
+            fetchFromServer()
+        }
+
+        function fetchFromServer () {
+            $Products.fetchAll({}, true).then((loaded) => {
+                next()
+                if (!loaded)
+                {
+                    $Notify.error('unable to connect')
+                }
+            })
+        }
+        // })
     },
     head () {
         return $General.metaInfo({ title: 'Web Components $ Templates gallery' })

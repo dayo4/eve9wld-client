@@ -9,29 +9,34 @@
             <!-- FILTER -->
             <Dropdown
                 ownID="filt"
-                :text="'Filter: '+ filter"
-                :optPos="{left: 50}"
+                :text="'Filter: ' + filter"
+                :optPos="{ left: 50 }"
                 class="Options icon-search-2 btn mb-7"
             >
                 <!-- slots -->
                 <template v-slot:default>
-                    <a @click="filterBy('All',{})">All</a>
-                    <a @click="filterBy('Published', {published:true})">Published</a>
-                    <a @click="filterBy('Not Published', {published:false})">Not Published</a>
-                    <a @click="filterBy('Archived', {archived:true})">Archived</a>
+                    <a @click="filterBy('All', {})">All</a>
+                    <a @click="filterBy('Published', { published: true })"
+                        >Published</a
+                    >
+                    <a @click="filterBy('Not Published', { published: false })"
+                        >Not Published</a
+                    >
+                    <a @click="filterBy('Archived', { archived: true })"
+                        >Archived</a
+                    >
                 </template>
             </Dropdown>
 
             <transition name="slide-down-fade">
                 <section class="TopActions flex j-c-between noselect mx-4">
-                    <span
-                        @click="selectAll"
-                        class="btn cyan-gradient-btn"
-                    >{{selectedPosts.length > 2 ? 'UnSelect All' : 'Select All'}}</span>
+                    <span @click="selectAll" class="btn cyan-gradient-btn">{{
+                        selectedPosts.length > 2 ? "UnSelect All" : "Select All"
+                    }}</span>
                     <Dropdown
                         ownID="actions"
                         text="Actions"
-                        :pos="{top:0, right: 0}"
+                        :pos="{ top: 0, right: 0 }"
                         class="icon-hammer btn pink-gradient-btn font-4 bg-trans-2"
                     >
                         <!-- slots -->
@@ -41,24 +46,36 @@
                                 <span>Delete</span>
                             </a>
                             <a
-                                v-show="changeActions('published', false) || changeActions('archived', true)"
+                                v-show="
+                                    changeActions('published', false) ||
+                                        changeActions('archived', true)
+                                "
                                 @click="publish"
                             >
                                 <span class="icon-angle-double-up"></span>
                                 <span>Publish</span>
                             </a>
-                            <a v-show="changeActions('published', true)" @click="publish(false)">
+                            <a
+                                v-show="changeActions('published', true)"
+                                @click="publish(false)"
+                            >
                                 <span class="icon-angle-double-down"></span>
                                 <span>Unpublish</span>
                             </a>
                             <a
-                                v-show="changeActions('published', true) || changeActions('published',false)"
+                                v-show="
+                                    changeActions('published', true) ||
+                                        changeActions('published', false)
+                                "
                                 @click="archive"
                             >
                                 <span class="icon-archive"></span>
                                 <span>Archive</span>
                             </a>
-                            <a v-show="changeActions('archived', true)" @click="archive(false)">
+                            <a
+                                v-show="changeActions('archived', true)"
+                                @click="archive(false)"
+                            >
                                 <span class="icon-ccw"></span>
                                 <span>Unarchive</span>
                             </a>
@@ -68,7 +85,11 @@
             </transition>
 
             <section v-if="posts.length > 0" class="PostsWrapper">
-                <article v-for="post in posts" :key="post.id" class="Post flex a-i-center px-4">
+                <article
+                    v-for="post in posts"
+                    :key="post.id"
+                    class="Post flex a-i-center px-4"
+                >
                     <div class="PostImage flex a-i-center">
                         <img :src="$postBaseUrl + post.img" draggable="false" />
                     </div>
@@ -85,12 +106,14 @@
                     <!-- Dropdown component -->
                     <Dropdown
                         :ownID="post.id"
-                        :pos="{type: 'absolute', right: 10}"
+                        :pos="{ type: 'absolute', right: 10 }"
                         class="Action btn icon-ellipsis-vert font-8 bg-trans-2"
                     >
                         <!-- slots -->
                         <template v-slot:default>
-                            <router-link :to="{path:'/posts-preview/'+post.slug}">
+                            <router-link
+                                :to="{ path: '/posts-preview/' + post.slug }"
+                            >
                                 <span class="icon-eye"></span>
                                 <span>View</span>
                             </router-link>
@@ -109,7 +132,9 @@
             <section
                 v-else
                 class="t-blue-grey text-center bold-3 font-9 mt-8 letter-space-1"
-            >You Currently Have No Posts In This Filter</section>
+            >
+                You Currently Have No Posts In This Filter
+            </section>
         </section>
     </div>
 </template>
@@ -193,7 +218,7 @@ export default Vue.extend({
         },
 
         editPost (slug: string) {
-            $Posts.$compose.fetch({
+            $Posts.$compose.fetchForEditing({
                 slug: slug
             }, true).then((data) => {
                 if (data)

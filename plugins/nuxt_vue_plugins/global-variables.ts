@@ -4,7 +4,7 @@ import { $General } from '@/plugins'
 import moment from 'moment'
 
 // GLOBAL VUE VARIABLES
-const BASE_URL = process.env.NODE_ENV === 'production' ? process.env.BASE_URL : 'http://127.0.0.1:3000/'
+const BASE_URL = process.env.NODE_ENV === 'production' ? (process.server ? process.env.BASE_URL : '/') : 'http://127.0.0.1:3000/'
 
 const appLogo = $General.appLogo
 
