@@ -26,12 +26,12 @@ export class SubComments {
 
             return data
         }
-        catch{
+        catch {
             $Notify.error()
         }
     }
 
-    async fetchAll (socket: SocketIOClient.Socket, comment_id: number, payload: Query = {}, refresh: boolean = false) {
+    async fetchAll (socket, comment_id: number, payload: Query = {}, refresh: boolean = false) {
         let _this = this
 
         const query: Query = {
@@ -80,7 +80,7 @@ export class SubComments {
                 return data
             }
         }
-        catch{
+        catch {
             $Notify.error('Unable to fetch comment for editing.')
 
             $Process.abort()
@@ -99,7 +99,7 @@ export class SubComments {
                 return data
             }
         }
-        catch{
+        catch {
             $Notify.error()
         }
         finally { $Process.done() }

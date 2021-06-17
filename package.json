@@ -9,7 +9,6 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "@ckeditor/ckeditor5-build-decoupled-document": "^27.1.0",
     "@nuxt/content": "^1.11.1",
     "@nuxt/typescript-runtime": "^2.0.1",
     "@nuxtjs/axios": "^5.12.5",
@@ -18,11 +17,14 @@
     "axios-cache-adapter": "^2.7.3",
     "core-js": "^3.8.3",
     "cropperjs": "^1.5.9",
+    "install": "^0.13.0",
     "jwt-decode": "^3.1.1",
     "moment": "^2.29.1",
+    "npm": "^7.16.0",
     "nuxt": "^2.14.12",
     "obstacl": "^1.0.0",
-    "socket.io-client": "~2.3.0"
+    "socket.io-client": "^4.1.2",
+    "vue-paystack": "^2.0.4"
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.12",

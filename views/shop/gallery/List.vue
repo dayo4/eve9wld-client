@@ -14,13 +14,13 @@
         <!-- Filter -->
         <div class="Filter flex a-i-center noselect">
             <span class="bold-4 mr-3">Filter:</span>
-            <select class="btn" @change="filter">
+            <select class="btn mr-2" @change="filter">
                 <option value>All</option>
                 <option value>Navigation Bars</option>
                 <option value>Side Drawers</option>
                 <option value>Sets</option>
             </select>
-            <i></i>
+            <button class="btn bg-cyan--4 shadow-0">Apply</button>
         </div>
 
         <!-- TILES -->
@@ -175,24 +175,23 @@ export default Vue.extend({
     margin-bottom: 30px;
 }
 .Filter {
-    position: relative;
+    // position: relative;
     margin: 30px 40px;
-    // border: solid 3px;
-    & select {
-        padding-right: 26px;
-    }
-    & i {
-        position: relative;
-    }
-    & i::after {
-        content: "";
-        position: absolute;
-        top: 45%;
-        left: -20px;
-        border-top: 7px solid white;
-        border-left: 7px solid transparent;
-        border-right: 7px solid transparent;
-    }
+    // & select {
+    //     padding-right: 26px;
+    // }
+    // & i {
+    //     position: relative;
+    // }
+    // & i::after {
+    //     content: "";
+    //     position: absolute;
+    //     top: 45%;
+    //     left: -20px;
+    //     border-top: 7px solid white;
+    //     border-left: 7px solid transparent;
+    //     border-right: 7px solid transparent;
+    // }
 }
 // .TilesContainer {
 // margin-left: -15px;

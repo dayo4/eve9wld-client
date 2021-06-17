@@ -253,7 +253,7 @@ export default Vue.extend({
             /* comments properties */
             activePost: null as object,
             showComments: false,
-            socket: null as SocketIOClient.Socket
+            socket: null
         }
     },
 

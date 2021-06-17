@@ -86,6 +86,19 @@
                 profile that stands out, and We specialize in providing that.
             </div>
 
+            
+<!-- 
+            <button
+                class="snipcart-add-item"
+                data-item-id="starry-night"
+                data-item-price="79.99"
+                data-item-url="/paintings/starry-night"
+                data-item-description="High-quality replica of The Starry Night by the Dutch post-impressionist painter Vincent van Gogh."
+                data-item-image="/defaults/pgs/scavorb_gallery.jpg"
+                data-item-name="The Starry Night"
+            >
+                Add to cart
+            </button> -->
             <!-- <div v-for="(d, i) in dummy" :key="i">{{d}}</div> -->
             <section class="Section_2">
                 <h2 class="text-center t-blue-grey--1">

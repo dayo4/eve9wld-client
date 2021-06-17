@@ -28,12 +28,12 @@ export class Comments {
             const { data } = await $Axios.post(`comments/new/${$Auth.user.id}/${payload.post_id}`, { comment: payload.comment })
             return data
         }
-        catch{
+        catch {
             $Notify.error('Request could not be completed. Please try again.')
         }
     }
 
-    async fetchAll (socket: SocketIOClient.Socket, post_id: number, payload: Query = {}, refresh: boolean = false) {
+    async fetchAll (socket, post_id: number, payload: Query = {}, refresh: boolean = false) {
 
         const query: Query = {
             limit: payload.limit || 15,
@@ -84,7 +84,7 @@ export class Comments {
                 return data
             }
         }
-        catch{
+        catch {
             $Notify.error()
             $Process.abort()
         }
@@ -103,7 +103,7 @@ export class Comments {
                 return data
             }
         }
-        catch{
+        catch {
             $Notify.error('Unable to update comment.')
             $Process.abort()
         }

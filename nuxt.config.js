@@ -12,17 +12,24 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       // { hid: 'description', name: 'description', content: "scavorb - websites and web apps development for artists and designers. Have your personal and business website's UI professionally designed for the best user experience and satisfaction." }
     ],
-    // script: [
-    //   {
-    //     src: 'https://cdnjs.cloudflare.com/ajax/libs.js'
-    //   }
-    // ],
+    script: [
+      // {
+      //   src: 'https://cdn.snipcart.com/themes/v3.2.0/default/snipcart.js'
+      // }
+      // {
+      //   src: 'https://cdnjs.cloudflare.com/ajax/libs.js'
+      // }
+    ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Itim&display=swap'
-      }
+      },
+      // {
+      //   rel: 'stylesheet',
+      //   href: 'https://cdn.snipcart.com/themes/v3.2.0/default/snipcart.css'
+      // }
     ],
 
   },

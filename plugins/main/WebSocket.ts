@@ -6,8 +6,8 @@ const devMode = process.env.NODE_ENV === 'production'
 class WS {
   baseUrl = devMode ? 'wss://scavorb.com' : 'ws://127.0.0.1:3000'
 
-  createConnection (nsp: string, opts?: SocketIOClient.ConnectOpts) {
-    const defaultOptions: SocketIOClient.ConnectOpts = {
+  createConnection (nsp: string, opts?) {
+    const defaultOptions = {
       path: '/orbServer',
       secure: true,
       rejectUnauthorized: true,
@@ -17,7 +17,7 @@ class WS {
 
     const socket = webSokect(this.baseUrl + nsp, connOptions)
 
-    socket.on('connect', function (e) {
+    socket.on('connect', function () {
       // console.log('connected to ws ')
       // console.log(socket)
       connStack.push(nsp)
@@ -27,7 +27,7 @@ class WS {
 
     socket.on('disconnect', function (reason) {
       connStack.splice(connStack.indexOf(nsp), 1)
-      devMode ? console.log(socket.nsp + ' Disconnected from ws - Reason: ' + reason) : ''
+      devMode ? console.log(socket + ' Disconnected from ws - Reason: ' + reason) : ''
     })
     socket.on('error', function (reason) {
       devMode ? console.error('Error - Reason: ' + reason) : ''
@@ -41,6 +41,6 @@ class WS {
 }
 
 
-export function io (nsp: string, opts?: SocketIOClient.ConnectOpts) {
+export function io (nsp: string, opts?) {
   return new WS().createConnection(nsp, opts)
 }
