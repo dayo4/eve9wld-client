@@ -14,7 +14,9 @@ class Profile {
     $Portfolio = new Portfolio()
     $status = new Status()
 
-    data: any = null
+    data: any = {
+        name: 'Adeniyi Adedayo'
+    }
 
 
     async fetch (payload: { username: string }, refresh: boolean = false) {
@@ -23,9 +25,10 @@ class Profile {
         {
             const { data } = await $Axios.get("users/" + payload.username)
             this.data = data
+
             $Process.hide()
             // this.$images.fetch(true)
-            this.$Portfolio.fetchAll({ user_id: this.data.id, filter: { active: true } }, true)
+            // this.$Portfolio.fetchAll({ user_id: this.data.id, filter: { active: true } }, true)
             return data
         } catch {
             $Process.hide()

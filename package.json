@@ -31,7 +31,6 @@
     "@nuxt/typescript-build": "^2.0.4",
     "@nuxtjs/router": "^1.6.1",
     "@nuxtjs/style-resources": "^1.0.0",
-    "@types/socket.io-client": "^1.4.34",
     "@types/woocommerce__woocommerce-rest-api": "^1.0.1",
     "node-sass": "^5.0.0",
     "sass-loader": "^10.1.1"

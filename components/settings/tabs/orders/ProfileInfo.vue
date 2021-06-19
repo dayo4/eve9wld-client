@@ -1,32 +1,77 @@
 <template>
-    <div class="Tab xs12 sm11 lg10">
-        <h2 class="text-center t-blue-grey--1">MANAGE ACCOUNT INFORMATION</h2>
+    <div class="Tab">
+        <h2 class="text-center t-blue-grey--1">Your Profile Details</h2>
+
+        <!-- Image -->
+        <div class="flex j-c-center sm-j-c-start ">
+            <div class="ImageBorder logo-base logo-static noselect">
+                <span>
+                    <img
+                        src="/defaults/usr/me.jpg"
+                        alt="User Image"
+                        draggable="false"
+                    />
+                </span>
+                <span></span>
+            </div>
+        </div>
+        <section>
+            <button class="t-cyan--3 bg-white b1 mt-4 btn shadow-0 mb-3">
+                Change Image
+            </button>
+            <div>
+                <label class="mr-6 mb-3">Enter an image url</label>
+                <input class="mb-3" type="text" />
+                <button class="t-cyan--3 bg-white b1 mt-4 btn shadow-0">
+                    Upload from device
+                </button>
+            </div>
+        </section>
 
         <!-- Name -->
         <section>
-            <h3 class="Header">NAME</h3>
-            <span v-if="errors.name" class="t-red p-1 my-1">{{errors.name}}</span>
+            <h3 class="Header mt-6">NAME</h3>
+            <span v-if="errors.name" class="t-red p-1 my-1">{{
+                errors.name
+            }}</span>
             <div class="my-2">
                 <label for="first_name" class="mr-5">First Name</label>
-                <input name="first_name" type="text" @input="errors.name = ''" v-model="first_name" />
+                <input
+                    name="first_name"
+                    type="text"
+                    @input="errors.name = ''"
+                    v-model="first_name"
+                />
             </div>
             <div class="my-2">
                 <label for="last_name" class="mr-5">Last Name</label>
-                <input name="last_name" type="text" @input="errors.name = ''" v-model="last_name" />
+                <input
+                    name="last_name"
+                    type="text"
+                    @input="errors.name = ''"
+                    v-model="last_name"
+                />
             </div>
             <transition name="slide-fade">
                 <button
-                    v-if="first_name !== userData.first_name || last_name !== userData.last_name"
+                    v-if="
+                        first_name !== userData.first_name ||
+                            last_name !== userData.last_name
+                    "
                     class="bg-pink--3 mt-4 btn"
                     @click="saveName"
-                >Save Name</button>
+                >
+                    Save Name
+                </button>
             </transition>
         </section>
 
         <!-- About -->
         <section>
-            <h3 class="Header">About</h3>
-            <span v-if="errors.about" class="t-red p-1 my-1">{{errors.about}}</span>
+            <h3 class="Header">ABOUT</h3>
+            <span v-if="errors.about" class="t-red p-1 my-1">{{
+                errors.about
+            }}</span>
             <div>
                 <div
                     ref="about"
@@ -41,15 +86,21 @@
                     v-if="about !== '' && about !== userData.about"
                     @click="saveAbout"
                     class="bg-pink--3 mt-4 btn"
-                >Save Changes</button>
+                >
+                    Save Changes
+                </button>
             </transition>
         </section>
 
         <!-- Password -->
         <section>
-            <h3 class="Header">Password</h3>
-            <button @click="changePassword = !changePassword" class="btn">Change Password</button>
-            <span v-if="errors.password" class="t-red p-1 my-2">{{errors.password}}</span>
+            <h3 class="Header">PASSWORD</h3>
+            <button @click="changePassword = !changePassword" class="btn">
+                Change Password
+            </button>
+            <span v-if="errors.password" class="t-red p-1 my-2">{{
+                errors.password
+            }}</span>
             <transition name="slide-fade">
                 <div class="my-2" v-if="changePassword">
                     <label for="old_password" class="mr-5">Old Password</label>
@@ -79,7 +130,9 @@
                     v-if="newPassword.length >= 6"
                     @click="savePassword"
                     class="bg-pink--3 mt-4 btn"
-                >Save New Password</button>
+                >
+                    Save New Password
+                </button>
             </transition>
         </section>
 
@@ -102,13 +155,20 @@
             >Save Changes</button>
         </section>-->
 
-        <div v-if="user && user.pr != 10" class="flex j-c-between">
+        <div v-if="user && user.pr != 10" class="flex j-c-between wrap">
             <button
                 @click="deactivateAccount"
-                class="btn p-6 shadow-4 my-10"
+                class="btn p-3 shadow-4 my-5"
                 style="background-color: #bf360c;"
-            >Deactivate Account</button>
-            <button @click="deleteAccount" class="btn bg-pink--4 p-6 shadow-4 my-10">Delete Account</button>
+            >
+                Deactivate Account
+            </button>
+            <button
+                @click="deleteAccount"
+                class="btn bg-red--4 p-3 shadow-4 my-5"
+            >
+                Delete Account
+            </button>
         </div>
     </div>
 </template>
@@ -299,7 +359,7 @@ export default Vue.extend({
 .Header {
     font-size: 14px;
     color: $blue-grey-1;
-    border-top: solid 1.5px;
+    // border-top: solid 1.5px;
     border-bottom: solid 1.5px;
     padding: 5px 10px;
     display: flex;
@@ -318,5 +378,23 @@ input {
 
 section {
     margin-bottom: 35px;
+}
+
+.ImageBorder {
+    height: 100px;
+    width: 100px;
+    & > span:nth-child(1) {
+        top: 5%;
+        left: 5%;
+        width: 90%;
+        height: 90%;
+        & img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+label {
+    color: $blue-grey--1;
 }
 </style>

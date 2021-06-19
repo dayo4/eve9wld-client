@@ -11,7 +11,7 @@ import settings from "./settings"
 import gallery from "./gallery"
 import shopping from "./shopping"
 
-const NotFound = "@/views/pages/ERRORS/404.vue"
+const NotFound = () => import("@/views/pages/ERRORS/404.vue").then(m => m.default || m)
 
 export default [
     ...admin,
@@ -24,13 +24,3 @@ export default [
     ...shopping,
     { path: '/:pathMatch(.*)*', component: NotFound }
 ]
-
-// export function extendRoutes(routes, resolve) {
-//     routes.push(/* {
-//         name: 'about',
-//         path: '/about',
-//         component: resolve('@/views/pages/About.vue')
-//       }, */
-//         ...myRoutes
-//     )
-// }

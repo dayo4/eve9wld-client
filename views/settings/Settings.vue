@@ -1,36 +1,44 @@
 <template>
-    <Container ownID="MC-Settings" :noSideNav="false">
-        <div class="MainView xs12 sm11 md9 flex wrap j-c-center pl-4">
+    <!-- <Container ownID="MC-Settings" :noSideNav="false"> -->
+    <div class="container mt-10 pt-10">
+        <section class="MainView xs12">
             <!-- All tabs go here -->
             <keep-alive>
                 <component :is="activeTab"></component>
             </keep-alive>
-        </div>
+        </section>
 
         <!-- Side Nav Component -->
-        <VerticalNavigator :tabsList="tabsList" @tabClicked="switchTab" :activeTab="activeTab" />
-    </Container>
+        <section id="SetMorph"></section>
+    </div>
+    <!-- <VerticalNavigator :tabsList="tabsList" @tabClicked="switchTab" :activeTab="activeTab" /> -->
+    <!-- </Container> -->
 </template>
 <script lang="ts">
 import Vue from "vue"
 import { $Profile, $Posts, $Auth } from "@/myStore"
 import { $Process } from "@/plugins"
 
+import MorphNav from '@/components/navs/reusables/morphors'
 
 import Container from '@/components/navs/reusables/Container.vue'
-import VerticalNavigator from '@/components/navs/reusables/navigators/VerticalNavigator.vue'
+// import VerticalNavigator from '@/components/navs/reusables/navigators/VerticalNavigator.vue'
 /* Import Tabs */
-import Tab_1 from '@/components/settings/tabs/ProfileInfo.vue'
-import Tab_3 from '@/components/settings/tabs/portfolio/List.vue'
-import Tab_4 from '@/components/settings/tabs/Posts.vue'
+import Tab_1 from '@/components/settings/tabs/profile_info/Index.vue'
+import Tab_2 from '@/components/settings/tabs/profile_info/Index.vue'
+import Tab_3 from '@/components/settings/tabs/orders/Index.vue'
+import Tab_4 from '@/components/settings/tabs/portfolio/List.vue'
+import Tab_5 from '@/components/settings/tabs/Posts.vue'
 
 export default Vue.extend({
     components: {
         Container,
-        VerticalNavigator,
+        // VerticalNavigator,
         Tab_1,
+        Tab_2,
         Tab_3,
-        Tab_4
+        Tab_4,
+        Tab_5
     },
 
     beforeRouteEnter (to, from, next) {
@@ -56,7 +64,123 @@ export default Vue.extend({
                 // { id: 7, name: 'Profile Information', icon: 'icon-user' },
                 // { id: 8, name: 'Privacy Settings', icon: 'icon-key' },
                 // { id: 9, name: 'Help', icon: 'icon-help' },  
-            ]
+            ],
+
+            NavConfig: {
+                getActiveTab: (activeTab) => {
+                    //@ts-ignore
+                    this.activeTab = "Tab_" + activeTab.id
+                },
+                type: 'vertical',
+                // type: 'horizontal',
+                vertical: {
+                    mini: false,
+                },
+                horizontal: {
+                    // mini: true,
+                },
+                position: {
+                    type: 'fixed',
+                    top: '55px',
+                    bottom: '',
+                    right: '0',
+                    left: '',
+                },
+                trigger: '',
+                pri_color: '',
+                sec_color: '#006064',
+                font: {
+                    size: '16px',
+                    color: '',
+                },
+                bg: {
+                    color: '',
+                    image: '/defaults/pgs/scavorb_technolink.jp'
+                },
+                nav_width: '',
+                nav_height: '',
+                list_height: '',
+                tabs: [
+                    {
+                        id: 1,
+                        icon: 'icon-users',
+                        name: 'Profile Information',
+                        link: '',
+                    },
+                    {
+                        id: 2,
+                        icon: 'icon-cog-1',
+                        name: 'Dashboard',
+                        link: '',
+                    },
+                    {
+                        id: 3,
+                        icon: 'icon-cog-1',
+                        name: 'Orders/Downloads',
+                        link: '',
+                    },
+                    {
+                        id: 4,
+                        icon: 'icon-cog-1',
+                        name: 'Settings',
+                        link: '',
+                    },
+                    {
+                        id: 5,
+                        icon: 'icon-cog-1',
+                        name: 'something',
+                        link: '',
+                    },
+                    {
+                        id: 5,
+                        icon: 'icon-cog-1',
+                        name: 'something',
+                        link: '',
+                    },
+                    {
+                        id: 5,
+                        icon: 'icon-cog-1',
+                        name: 'something',
+                        link: '',
+                    },
+                    {
+                        id: 5,
+                        icon: 'icon-cog-1',
+                        name: 'something',
+                        link: '',
+                    },
+                    {
+                        id: 5,
+                        icon: 'icon-cog-1',
+                        name: 'something',
+                        link: '',
+                    },
+                    {
+                        id: 5,
+                        icon: 'icon-cog-1',
+                        name: 'something',
+                        link: '',
+                    },
+                    {
+                        id: 5,
+                        icon: 'icon-cog-1',
+                        name: 'something',
+                        link: '',
+                    },
+                    {
+                        id: 5,
+                        icon: 'icon-cog-1',
+                        name: 'something',
+                        link: '',
+                    },
+                    {
+                        id: 5,
+                        icon: 'icon-cog-1',
+                        name: 'something',
+                        link: '',
+                    },
+                ]
+            }
         }
     },
 
@@ -92,6 +216,8 @@ export default Vue.extend({
         {
             this.tabsList.push(...adminTabs)
         }
+
+        MorphNav('#SetMorph', this.NavConfig)
     }
 })
 </script>
@@ -107,8 +233,8 @@ export default Vue.extend({
 
 @include xs-only {
     .MainView {
-        padding-left: 6px;
-        padding-right: 50px;
+        padding: 3px;
+        // padding-right: 50px;
     }
 }
 </style>

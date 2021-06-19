@@ -4,27 +4,27 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: "@/views/pages/Home.vue",
+    component: () => import(/*webpackPrefetch: true, webpackChunkName: "hm" */ "@/views/pages/Home.vue").then(m => m.default || m),
   },
   {
     path: "/about",
     name: "about",
-    component: "@/views/pages/About.vue"
+    component: () => import(/*webpackPrefetch: true, webpackChunkName: "abt" */ "@/views/pages/About.vue").then(m => m.default || m)
   },
   {
     path: "/contact",
     name: "contact",
-    component: "@/views/pages/Contact.vue"
+    component: () => import(/* webpackPrefetch: true, webpackChunkName: "cntct" */ "@/views/pages/Contact.vue").then(m => m.default || m)
   },
   {
     path: "/project-enquiry",
     name: "project-enquiry",
-    component: "@/views/pages/ProjectEnquiry.vue"
+    component: () => import(/* webpackPrefetch: true, webpackChunkName: "prjenq" */ "@/views/pages/ProjectEnquiry.vue").then(m => m.default || m)
   },
   {
     path: "/privacy",
     name: "privacy",
-    component: "@/views/pages/Privacy.vue"
+    component: () => import("@/views/pages/Privacy.vue").then(m => m.default || m)
   },
   // {
   //   path: "/services",
@@ -34,12 +34,12 @@ const routes = [
   {
     path: "/401",
     name: "401",
-    component: "@/views/pages/ERRORS/401.vue"
+    component: () => import(/* webpackPrefetch: true */"@/views/pages/ERRORS/401.vue").then(m => m.default || m)
   },
   {
     path: "/404",
     name: "404",
-    component: "@/views/pages/ERRORS/404.vue"
+    component: () => import(/* webpackPrefetch: true */"@/views/pages/ERRORS/404.vue").then(m => m.default || m)
   },
 ]
 

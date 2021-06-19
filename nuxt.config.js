@@ -1,4 +1,4 @@
-import myRoutes from './routes/index'
+// import myRoutes from './routes/index'
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -24,7 +24,7 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Itim&display=swap'
+        // href: 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Itim&display=swap'
       },
       // {
       //   rel: 'stylesheet',
@@ -39,7 +39,7 @@ export default {
     exclude: [
       /^\/admin/, '/manage-settings', '/compose', /^\/message/, /^\/cart\$/, '/checkout', /^\/gallery\$/, /^\/post\$/
     ],
-    routes: [ '/profile/dayo' ]
+    routes: [ '/', '/profile/dayo' ]
   },
   // dir: {
   //   // Rename `pages` directory to `routes`
@@ -58,21 +58,21 @@ export default {
     '@/assets/deploy/plugins.scss',
     '@/assets/deploy/transitions.css'
   ],
-
+  middleware: ['auth'],
   ssr: false,
   loading: false,
   // loading: "@/components/GlobalComponents/notification/Process.vue",
   // loadingIndicator: "@/components/GlobalComponents/notification/initial_page_loading_indicator.html",
 
-  router: {
-    extendRoutes (routes, resolve) {
-      routes.push(
-        ...myRoutes
-      )
-    },
+  // router: {
+    // extendRoutes (routes, resolve) {
+    //   routes.push(
+    //     ...myRoutes
+    //   )
+    // },
 
-    middleware: 'auth'
-  },
+    // middleware: 'auth'
+  // },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -89,7 +89,6 @@ export default {
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
     '@nuxtjs/style-resources',
-    // '@nuxtjs/router',
     // ['@nuxtjs/router',
     //   {
     //     path: '~/router/router.js',
@@ -107,10 +106,15 @@ export default {
     // 'bootstrap-vue/nuxt',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    // https://go.nuxtjs.dev/content
-    // '@nuxt/content',
-  ],
+    '@nuxtjs/router',
 
+  ],
+  routerModule: {
+    // path: '~/router/router.js',
+    filename: 'router.js',
+    parsePages: false,
+    keepDefaultRouter: false
+  },
   styleResources: {
     scss: [
       "~assets/devOnly/_variables.scss",

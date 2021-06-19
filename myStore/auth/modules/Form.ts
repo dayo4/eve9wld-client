@@ -61,15 +61,22 @@ export class Form {
         const sr = this.response
         try
         {
-            const { data } = await $Axios.post("login", {
+            const { data } = await $Axios.post("login-wp", {
                 // const { data } = await $Axios.post("jwt-auth/v1/token", {
-                email: payload.email,
+                // email: payload.email,
+                username: 'dayo9m',
                 // username: 'dayorx68',
                 // username: 'myself',
                 password: payload.password,
                 // password: '638367%test',
                 // password: '638367me',
                 // stage
+            }, {
+                headers: {
+
+                    // 'Authorization': null,
+                    // 'myownoptions': ''
+                }
             })
             /* "data" can either be a query "{next: true}" to proceed to stage two where user will enter "names" if the user is signing in for the first time
                 or an object containing the user data.
@@ -84,25 +91,26 @@ export class Form {
             //     $LSAgent.setToken(data.token)
             //     $LSAgent.setData(data.user, 'userDetails')
 
-            //     if (this.query.redirect) if you was redirected here to login from another page
+            //     if (this.query.redirect)// if you was redirected here to login from another page
             //         $Router.replace({ path: this.query.redirect })
 
             //     this.status = false
             //     return {}
             // }
 
-            if (data)
-            {
-                $LSAgent.setToken(data.token)
-                $LSAgent.setData(data.user, 'userDetails')
+            // if (data)
+            // {
+            const { user_nicename, user_display_name } = data
+            $LSAgent.setToken(data.token)
+            $LSAgent.setData({ user_nicename, user_display_name }, 'userDetails')
 
-                // if (this.query.redirect) //if you were redirected here to login from another page
-                //     $Router.replace({ path: this.query.redirect })
+            // if (this.query.redirect) //if you were redirected here to login from another page
+            //     $Router.replace({ path: this.query.redirect })
 
-                this.status = false
-                // console.log(data.data)
-                return {}
-            }
+            this.status = false
+            // console.log(data.data)
+            return {}
+            // }
         }
         catch (e)
         {

@@ -5,46 +5,48 @@
                 <div class="Detail xs12 md8 noselect br1">
                     <div class="Intro text-center">
                         <div>SCAVORB</div>
-                        <div>Websites Design and Web Applications Development</div>
+                        <div>
+                            Websites Design and Web Applications Development
+                        </div>
                     </div>
                     <div class="More">
                         <div>
-                            We create custom personal and business websites tailored to your
-                            needs.
+                            We create custom personal and business websites
+                            tailored to your needs.
                         </div>
                         <ul>
                             UI Designs
                             <li>
-                                Have your website's UI professionally designed for the best user
-                                experience.
+                                Have your website's UI professionally designed
+                                for the best user experience.
                             </li>
                         </ul>
                         <ul>
                             Single Page Applications(SPAs)
                             <li>
-                                Give your website a mobile app appearance and experience with
-                                fast page navigation.
+                                Give your website a mobile app appearance and
+                                experience with fast page navigation.
                             </li>
                         </ul>
                         <ul>
                             Ecommerce Development
                             <li>
-                                Render your products to the market with various e-commerce
-                                integrations.
+                                Render your products to the market with various
+                                e-commerce integrations.
                             </li>
                         </ul>
                         <ul>
                             Back-end Development
                             <li>
-                                Deploy your apps with a fast back-end using powerful NodeJS
-                                frameworks.
+                                Deploy your apps with a fast back-end using
+                                powerful NodeJS frameworks.
                             </li>
                         </ul>
                         <ul>
                             CMS Development
                             <li>
-                                Publish contents with great SEO using CMSs like Wordpress,
-                                Ghost, ...
+                                Publish contents with great SEO using CMSs like
+                                Wordpress, Ghost, ...
                             </li>
                         </ul>
                     </div>
@@ -52,17 +54,26 @@
 
                 <!-- image -->
                 <div class="Img md4 hide-sm-down">
-                    <img src="/defaults/pgs/a1.png" alt="intro-image" draggable="false" />
+                    <img
+                        src="/defaults/pgs/a1.png"
+                        alt="intro-image"
+                        draggable="false"
+                    />
                 </div>
 
                 <!-- logo -->
-                <div v-html="$appLogo()" class="Logo flex j-c-center noselect"></div>
+                <div
+                    v-html="$appLogo()"
+                    class="Logo flex j-c-center noselect"
+                ></div>
 
                 <div class="flex j-c-center">
                     <button
                         @click="$router.push({ path: '/project-enquiry' })"
-                        class="btn pink-gradient-btn shadow-5 font-5 br4 py-7"
-                    >START A PROJECT NOW</button>
+                        class="btn pink-gradient-btn shadow-5 font-5 br4 py-3"
+                    >
+                        START A PROJECT NOW
+                    </button>
                 </div>
             </section>
 
@@ -71,24 +82,36 @@
             </div>
 
             <div class="Quote">
-                Every person and every business deserves a virtual online profile that
-                stands out, and We specialize in providing that.
+                Every person and every business deserves a virtual online
+                profile that stands out, and We specialize in providing that.
             </div>
 
             <!-- <div v-for="(d, i) in dummy" :key="i">{{d}}</div> -->
             <section class="Section_2">
                 <h2 class="text-center t-blue-grey--1">
-                    <span class="icon-check-1 mr-3"></span>
+                    <span class="icon-check-1 mr-2"></span>
                     <span>
                         We Deliver
                         <!-- <i class="font-2">What i offer</i> -->
                     </span>
                 </h2>
-                <div class="Tiles bg-img-masked bg-pink--3 flex wrap j-c-center py-8">
-                    <div class="flex col xs8 sm4 md3 shadow-3" v-for="(L, i) in list" :key="i">
+                <div
+                    class="Tiles bg-img-masked bg-pink--3 flex wrap j-c-center py-4"
+                >
+                    <div
+                        class="flex col xs8 sm4 md3 shadow-3"
+                        v-for="(L, i) in list"
+                        :key="i"
+                    >
                         <div class="noselect">
                             <img
-                                :src="L.link ? L.link : '/defaults/pgs/icons/' + L.img + '.jpg'"
+                                :src="
+                                    L.link
+                                        ? L.link
+                                        : '/defaults/pgs/icons/' +
+                                          L.img +
+                                          '.jpg'
+                                "
                                 draggable="false"
                             />
                         </div>
@@ -100,9 +123,9 @@
                 <div class="flex j-c-center">
                     <button
                         @click="$router.push({ name: 'about' })"
-                        class="btn cyan-gradient-btn shadow-5 font-5 br4 mt-5"
+                        class="btn cyan-gradient-btn shadow-5 font-5 br4 mt-3"
                     >
-                        <span class="icon-right-big mr-3"></span>
+                        <span class="icon-right-big mr-2"></span>
                         <span>More About Scavorb</span>
                     </button>
                 </div>
@@ -124,7 +147,11 @@
                 <div class="flex j-c-center">
                     <div class="LogoBorder logo-base logo-static noselect">
                         <span class="bg-img-masked-0">
-                            <img src="/defaults/usr/me.jpg" alt="Adedayo Adeniyi" draggable="false" />
+                            <img
+                                src="/defaults/usr/me.jpg"
+                                alt="Adedayo Adeniyi"
+                                draggable="false"
+                            />
                         </span>
                         <span></span>
                     </div>
@@ -133,11 +160,11 @@
                 <div class="flex j-c-center">
                     <button
                         @click="
-              $router.push({
-                name: 'user-profile',
-                params: { username: 'dayo' },
-              })
-            "
+                            $router.push({
+                                name: 'user-profile',
+                                params: { username: 'dayo' }
+                            })
+                        "
                         class="btn cyan-gradient-btn shadow-5 font-5 br4 mt-5"
                     >
                         <span class="icon-right-big mr-3"></span>
@@ -151,7 +178,9 @@
             </div>
 
             <!--Designs Gallery -->
-            <div class="Quote">Short preview gallery of recent site designs</div>
+            <div class="Quote">
+                Short preview gallery of recent site designs
+            </div>
 
             <section>
                 <h2 class="text-center t-blue-grey--1">
@@ -160,8 +189,14 @@
                 </h2>
 
                 <div class="flex j-c-center">
-                    <div class="GalPreview bg-img-masked-0 xs11 sm18 md5 lg4 noselect">
-                        <img src="/defaults/pgs/scavorb_gallery.jpg" alt draggable="false" />
+                    <div
+                        class="GalPreview bg-img-masked-0 xs11 sm18 md5 lg4 noselect"
+                    >
+                        <img
+                            src="/defaults/pgs/scavorb_gallery.jpg"
+                            alt
+                            draggable="false"
+                        />
                     </div>
                 </div>
 

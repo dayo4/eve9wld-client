@@ -12,7 +12,7 @@ export default function ({ app }: Context) {
         const isUser = $Auth.isUser
         const isAdmin = $Auth.isAdmin
 
-        console.log(to)
+        // console.log(to)
         // const adminRoutes = ['compose', ]
         // const adminRoutes = []
         // const adminRoutes = []

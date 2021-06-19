@@ -21,17 +21,6 @@
             <!-- </transition> -->
         </div>
 
-        <!-- Additional Icons -->
-        <div class="flex a-i-center j-c-center my-6 t-white">
-            <span class="flex a-i-center j-c-around shadow-4 bg-trans-2">
-                <span class="icon-camera font-9" title="Upload Image"></span>
-            </span>
-            <router-link :to="{ name: 'manage-settings', query: { tab: 1 } }">
-                <span class="icon-edit"></span>
-                <span>Edit Profile</span>
-            </router-link>
-        </div>
-
         <ProfileBottomNav
             :currentTab="currentTab"
             @return="switchTab"

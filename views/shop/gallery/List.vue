@@ -14,7 +14,7 @@
         <!-- Filter -->
         <div class="Filter flex a-i-center noselect">
             <span class="bold-4 mr-3">Filter:</span>
-            <select class="btn mr-2" @change="filter">
+            <select class="btn bg-white mr-2 shadow-0" @change="filter">
                 <option value>All</option>
                 <option value>Navigation Bars</option>
                 <option value>Side Drawers</option>

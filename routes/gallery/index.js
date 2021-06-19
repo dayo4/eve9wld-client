@@ -1,20 +1,18 @@
-// import { $Products } from "@/myStore"
-// import { $Notify } from "@/plugins"
+// import { $Posts } from "@/myStore"
 
 const routes = [
   {
     path: "/gallery",
-    component: "@/views/shop/gallery/Index.vue",
+    component: () => import("@/views/shop/gallery/Index.vue").then(m => m.default || m),
     children: [
       {
         path: '',
         name: "gallery",
-        component: "@/views/shop/gallery/List.vue"
+        component: () => import(/* webpackChunkName: "glr-ls" */ "@/views/shop/gallery/List.vue").then(m => m.default || m),
       },
       {
         path: '/gallery/:slug',
-        name: "gallery-view",
-        component: "@/views/shop/gallery/View.vue",
+        component: () => import(/* webpackChunkName: "glr-v" */ "@/views/shop/gallery/View.vue").then(m => m.default || m),
       },
     ]
   },

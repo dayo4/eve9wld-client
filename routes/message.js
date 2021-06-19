@@ -2,13 +2,13 @@
 const routes = [
     {
         path: '/message/:username',
-        component: '@/views/message/Index.vue',
+        component: () => import(/* webpackChunkName: "chat-index" */ '@/views/message/Index.vue'),
         // alias: '/:username',
         children: [
             {
                 path: '',
                 name: 'message',
-                component: '@/views/message/Message.vue'
+                component: () => import(/* webpackChunkName: "chat-view" */ '@/views/message/Message.vue')
             },
         ]
     },

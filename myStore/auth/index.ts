@@ -35,6 +35,7 @@ export class Authentication {
 
     setUser () {
         this.user = $LSAgent.getUser()
+        console.log(this.user)
     }
     setUserData () {
         this.userData = $LSAgent.getData('userDetails')
@@ -66,7 +67,7 @@ export class Authentication {
             // if (data)
             //     $LSAgent.setData(data, 'sysSet')
 
-            this.sysSettings = {allow_new_reg : true}//$LSAgent.getData('sysSet')
+            this.sysSettings = { allow_new_reg: true }//$LSAgent.getData('sysSet')
         } catch (e)
         {
             // $Notify.error(e)
