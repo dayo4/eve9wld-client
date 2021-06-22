@@ -92,7 +92,7 @@ export default Vue.extend({
     methods: {
         preview (slug: string) {
 
-            console.log(this.contentToEdit)
+            // console.log(this.contentToEdit)
             if (!slug)
             {
                 $Notify.info('You have to Save content first before you can preview.')
