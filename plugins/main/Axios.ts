@@ -39,8 +39,8 @@ const cache = setupCache({
   clearOnStale: false
 })
 const config = {
-  baseURL: 'http://127.0.0.1:3000/scv-v1/',
-  // baseURL: 'https://orb.heroestoggery.com/wp-json/',
+  // baseURL: 'http://127.0.0.1:3000/scv-v1/',
+  baseURL: 'https://orb.heroestoggery.com/wp-json/',
   // baseURL: (devMode ? 'http://localhost/wplocal/wp-json/' : process.env.BASE_URL),
   // baseURL: (devMode ? 'http://127.0.0.1:3000/' : process.env.BASE_URL) + 'scv-v1/',
   timeout: 60 * 1000, // Timeout
@@ -55,7 +55,8 @@ _axios.interceptors.request.use(
   function (config) {
     // Do something before request is sent
     const token = LSAgent.getToken()
-    if (!config.url.match(/auth\/v1\/token$/))
+    if (!config.url.match(/auth$/))
+    // if (!config.url.match(/auth\/v1\/token$/))
       config.headers.common[ 'Authorization' ] = 'Bearer ' + token
 
     return config

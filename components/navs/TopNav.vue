@@ -239,9 +239,9 @@ nav {
             position: absolute;
             top: 34%;
             right: -10px;
-            display: block;
-            width: 0;
-            height: 0;
+            // display: block;
+            // width: 0;
+            // height: 0;
             border-top: 8px solid transparent;
             border-bottom: 8px solid transparent;
             border-left: 10px solid $cyan--2;

@@ -18,16 +18,14 @@ export class Authentication {
     }
 
     get isAdmin (): boolean {
-        if (this.isUser)
-        {
+        if (this.isUser) {
             return this.user.pr >= 9
         }
         return false
     }
 
     get isSAdmin (): boolean {
-        if (this.isUser)
-        {
+        if (this.isUser) {
             return this.user.pr === 10
         }
         return false
@@ -61,15 +59,13 @@ export class Authentication {
 
     async getSysSettings () {
 
-        try
-        {
+        try {
             // const { data } = await $Axios.get("system/settings")
             // if (data)
             //     $LSAgent.setData(data, 'sysSet')
 
             this.sysSettings = { allow_new_reg: true }//$LSAgent.getData('sysSet')
-        } catch (e)
-        {
+        } catch (e) {
             // $Notify.error(e)
         }
     }
