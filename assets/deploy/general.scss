@@ -10,8 +10,24 @@ div[contenteditable="true"]:empty::before {
 }
 
 div[contenteditable="true"] {
-  max-height: 100px;
+  max-height: 250px;
   overflow-y: scroll !important;
+}
+div[contenteditable="true"].shorter {
+  max-height: 100px;
+}
+
+div[contenteditable="true"],
+input {
+  border: solid 2px $blue-grey-2;
+  border-radius: 4px;
+  padding: 7px;
+}
+
+input[type="checkbox"] {
+  width: 1.2em;
+  height: 1.2em;
+  border: solid 1px currentColor;
 }
 
 div[contenteditable="true"],
@@ -39,7 +55,7 @@ input {
 }
 
 body {
-  color: $blue-grey--1;
+  color: $blue-grey;
   margin: 0;
   overflow-x: hidden;
   -ms-overflow-style: none;

@@ -59,14 +59,14 @@
 import Vue from "vue";
 import TabsContainer from "@/components/profile_tabs/TabsContainer.vue";
 
-import { $Auth, $Profile, $Posts } from "@/myStore";
+import { $Auth, $Profile, $Posts } from "@/store";
 import { $Obstacl } from "@/plugins";
 
 export default Vue.extend({
   components: {
     TabsContainer,
     ListOfPosts: () => import("@/components/posts/ListOfPosts.vue"),
-    Dropdown: () => import("@/components/GlobalComponents/utils/Dropdown.vue"),
+    Dropdown: () => import("@/components/GlobalComponents/utils/Dropdown.vue")
   },
 
   data() {
@@ -74,8 +74,8 @@ export default Vue.extend({
       curPage: 1,
       sort: "Newest",
       query: {
-        sort: "desc",
-      },
+        sort: "desc"
+      }
     };
   },
 
@@ -83,7 +83,7 @@ export default Vue.extend({
     profile: () => $Profile.data,
     posts: () => $Posts.userPosts,
     count: () => $Posts.userPostsCount,
-    user: () => $Auth.user,
+    user: () => $Auth.user
   },
 
   methods: {
@@ -96,23 +96,23 @@ export default Vue.extend({
     page(n: number) {
       let query = {
         offset: n * 10 - 10 /* 10 is the default offset value */,
-        sort: this.query.sort,
+        sort: this.query.sort
       };
       if (n != this.curPage)
-        $Posts.fetchUserPosts(this.profile.id, query, true).then((loaded) => {
+        $Posts.fetchUserPosts(this.profile.id, query, true).then(loaded => {
           if (loaded) this.curPage = n;
         });
-    },
+    }
   },
 
   mounted() {
     $Obstacl.create(".Tab_2", {
-      injectHTML: this.$appLogo,
+      injectHTML: this.$appLogo
     });
     $Posts
       .fetchUserPosts($Profile.data.id, {}, true)
-      .then((ok) => $Obstacl.destroy(".Tab_2"));
-  },
+      .then(ok => $Obstacl.destroy(".Tab_2"));
+  }
 });
 </script>
 <style lang="scss">

@@ -29,16 +29,16 @@
 <script lang="ts">
 import Vue from "vue";
 import TabsContainer from "@/components/profile_tabs/TabsContainer.vue";
-import { $Auth, $Profile, $Posts } from "@/myStore";
+import { $Auth, $Profile, $Posts } from "@/store";
 
 export default Vue.extend({
   components: {
-    TabsContainer,
+    TabsContainer
   },
   computed: {
     projects: () => $Profile.$Portfolio.projects_A,
-    profile: () => $Profile.data,
-  },
+    profile: () => $Profile.data
+  }
 });
 // export default class PTFL extends Vue {
 // projects!: any

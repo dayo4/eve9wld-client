@@ -1,5 +1,5 @@
 import decoder from 'jwt-decode'
-import { $Auth } from '@/myStore'
+import { $Auth } from '@/store'
 
 class LocalStorageService {
     private dataKeyStack: string[] = this.keyStack || []
@@ -25,16 +25,14 @@ class LocalStorageService {
         const one = localStorage.getItem("test-igx2")
         const two = localStorage.getItem("test-igx1")
         const three = localStorage.getItem("test-igx3")
-        if (one && two && three)
-        {
+        if (one && two && three) {
             return [ one, two?.slice(0, two.length - 1), three ].join('.')
         }
         return null
     }
     getUser () {
         const token = this.getToken()
-        if (token)
-        {
+        if (token) {
             const decoded = decoder(token) as any
             return decoded.data
         }
@@ -52,35 +50,29 @@ class LocalStorageService {
 
     setData (data: object, storeId: string, options?: { ifExist: string }) {
         let existingData = this.getData(storeId)
-        if (existingData)
-        {
-            if (options && options.ifExist === 'replace')
-            {
+        if (existingData) {
+            if (options && options.ifExist === 'replace') {
                 localStorage.setItem(storeId, JSON.stringify(data))
                 // console.log('replaced')
             }
-            else
-            {
+            else {
                 const newData = { ...existingData, ...data }
                 localStorage.setItem(storeId, JSON.stringify(newData))
                 // console.log('merged')
             }
         }
-        else
-        {
+        else {
             localStorage.setItem(storeId, JSON.stringify(data))
             // console.log('stored')
 
-            if (!this.dataKeyStack.some((x) => x === storeId))
-            {
+            if (!this.dataKeyStack.some((x) => x === storeId)) {
                 this.dataKeyStack.push(storeId)
 
                 localStorage.setItem("dataKeyStack", JSON.stringify(this.dataKeyStack))
             }
         }
 
-        if (storeId === 'userDetails')
-        {
+        if (storeId === 'userDetails') {
             $Auth.setUserData()
         }
     }
@@ -107,10 +99,8 @@ class LocalStorageService {
         localStorage.removeItem("test-igx3")
         //@ts-nocheck
         const data = JSON.parse(localStorage.getItem("dataKeyStack") as string)
-        if (data)
-        {
-            for (const i of data)
-            {
+        if (data) {
+            for (const i of data) {
                 if (!(this.doNotRemove.includes[ i ]))
                     localStorage.removeItem(i)
             }

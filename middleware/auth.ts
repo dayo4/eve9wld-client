@@ -1,5 +1,5 @@
 import { NuxtOptions, NuxtAppOptions, Context } from "@nuxt/types"
-import { $Auth } from "@/myStore"
+import { $Auth } from "@/store"
 export let Router
 
 export default function ({ app }: Context) {
@@ -23,42 +23,32 @@ export default function ({ app }: Context) {
         // const special = to.matched.some(record => record.meta.special)
 
         /* Admin Routes Guard */
-        if (adminOnly)
-        {
-            if (isUser && isAdmin)
-            {
+        if (adminOnly) {
+            if (isUser && isAdmin) {
                 next()
-            } else if (isUser && !isAdmin)
-            {
+            } else if (isUser && !isAdmin) {
                 next({
                     path: '/401'
                 })
-            } else
-            {
+            } else {
                 $Auth.$form.show({ showQuery: true, redirect: to.fullPath })
                 // next({
                 //   path: "/auth",
                 //   query: { redirect: to.fullPath }
                 // })
             }
-        } else if (userOnly)
-        {
+        } else if (userOnly) {
             /*  Users Routes Guard */
-            if (isUser)
-            {
+            if (isUser) {
                 next()
-            } else
-            {
+            } else {
                 $Auth.$form.show({ showQuery: true, redirect: to.fullPath })
             }
-        } else if (guestOnly)
-        {
+        } else if (guestOnly) {
             /* Guests-Only Routes Guard */
-            if (isUser)
-            {
+            if (isUser) {
                 next({ path: '/' })
-            } else
-            {
+            } else {
                 next()
             }
         }
@@ -74,8 +64,7 @@ export default function ({ app }: Context) {
         //   }
         // }
         /*  All things being equal.. */
-        else
-        {
+        else {
             next()
         }
     })

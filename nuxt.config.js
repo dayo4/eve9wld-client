@@ -67,9 +67,10 @@ export default {
   ],
   middleware: ["auth"],
   ssr: false,
-  loading: false,
+  // loading: false,
   // loading: "@/components/GlobalComponents/notification/Process.vue",
-  // loadingIndicator: "@/components/GlobalComponents/notification/initial_page_loading_indicator.html",
+  loadingIndicator:
+    "@/components/GlobalComponents/notification/initial_page_loading_indicator.html",
 
   // router: {
   // extendRoutes (routes, resolve) {

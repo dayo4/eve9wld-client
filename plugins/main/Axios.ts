@@ -7,7 +7,7 @@ import { setupCache } from 'axios-cache-adapter'
 import { $Router } from './'
 
 // import { createRouter } from '@/router'
-import { $Auth } from '@/myStore'
+import { $Auth } from '@/store'
 import LSAgent from '@/plugins/storage/LSAgent'
 
 // axios.get('').then((a) => {
@@ -56,7 +56,7 @@ _axios.interceptors.request.use(
     // Do something before request is sent
     const token = LSAgent.getToken()
     if (!config.url.match(/auth$/))
-    // if (!config.url.match(/auth\/v1\/token$/))
+      // if (!config.url.match(/auth\/v1\/token$/))
       config.headers.common[ 'Authorization' ] = 'Bearer ' + token
 
     return config
@@ -84,22 +84,17 @@ _axios.interceptors.response.use(
     if (devMode)
       console.log(response)
 
-    if (response)
-    {
-      if (response.status === 401)
-      {
+    if (response) {
+      if (response.status === 401) {
         const redirectUrl = router.currentRoute.path
-        if (error === 'Re-login!')
-        {
+        if (error === 'Re-login!') {
           $Auth.$form.logout()
           $Auth.$form.show({ showQuery: true, message: 'Please, Re-login to continue!', redirect: redirectUrl })
-        } else
-        {
+        } else {
           router.replace({ path: '/401' })
         }
       }
-      if (response.status === 404)
-      {
+      if (response.status === 404) {
         router.push({ name: '404', /* query: { data: error } */ })
       }
     }
