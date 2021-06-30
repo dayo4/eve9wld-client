@@ -25,7 +25,7 @@ import LSAgent from '@/plugins/storage/LSAgent'
 
 const router = $Router
 const devMode = process.env.NODE_ENV === 'development'
-console.log('called')
+
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || 'http://127.0.0.1:3000/'
 // axios.defaults.headers.common['Authorization'] = store.getters["auth/authToken"]
@@ -40,9 +40,9 @@ const cache = setupCache({
 })
 const config = {
   // baseURL: 'http://127.0.0.1:3000/scv-v1/',
-  baseURL: 'https://orb.heroestoggery.com/wp-json/',
+  // baseURL: 'https://orb.heroestoggery.com/wp-json/',
   // baseURL: (devMode ? 'http://localhost/wplocal/wp-json/' : process.env.BASE_URL),
-  // baseURL: (devMode ? 'http://127.0.0.1:3000/' : process.env.BASE_URL) + 'scv-v1/',
+  baseURL: (devMode ? 'http://127.0.0.1:3000/' : process.env.BASE_URL) + 'scv-v1/',
   timeout: 60 * 1000, // Timeout
   // withCredentials: true, // Check cross-site Access-Control
   adapter: cache.adapter,

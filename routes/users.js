@@ -20,8 +20,8 @@ const routes = [
         component: () =>
           import(
             /*webpackPrefetch: true, webpackChunkName: "prf" */ "@/views/profile/Profile.vue"
-          ).then(m => m.default || m),
-        meta: { layout: "ProfileLayout" }
+          ).then(m => m.default || m)
+        // meta: { layout: "ProfileLayout" }
         // beforeEnter: (to, from, next) => {
         //     // const profile: any = $Profile.data as object
         //     // const fetched = profile && profile.username === to.params.username

@@ -3,15 +3,6 @@ import { $Notify } from "@/plugins";
 
 const routes = [
   {
-    path: "/compose",
-    name: "compose-post",
-    component: () =>
-      import(/* webpackChunkName: "cmps" */ "@/views/posts/Compose.vue").then(
-        m => m.default || m
-      ),
-    meta: { adminOnly: true }
-  },
-  {
     path: "/posts",
     name: "posts",
     component: () =>
@@ -60,36 +51,6 @@ const routes = [
         //     })
         //     //     }
         // }
-      }
-    ]
-  },
-  {
-    path: "/posts-preview/:slug",
-    component: () =>
-      import(/* webpackPrefetch: true */ "@/views/posts/Index.vue").then(
-        m => m.default || m
-      ),
-    children: [
-      {
-        path: "",
-        component: () =>
-          import(/* webpackChunkName: "pst" */ "@/views/posts/Single.vue").then(
-            m => m.default || m
-          ),
-        beforeEnter: (to, from, next) => {
-          $Posts.$single
-            .fetch(
-              {
-                slug: to.params.slug
-              },
-              true
-            )
-            .then(loaded => {
-              if (loaded) {
-                next();
-              }
-            });
-        }
       }
     ]
   }

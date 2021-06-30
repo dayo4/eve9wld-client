@@ -1,11 +1,13 @@
 <template>
   <div class="container mt-10 pt-10">
-    <section class="MainView xs12">
-      <!-- All tabs go here -->
-      <keep-alive>
-        <component :is="activeTab"></component>
-      </keep-alive>
-    </section>
+    <article class="flex j-c-center">
+      <section class="MainView xs12 md11 lg10 pl-4">
+        <!-- All tabs go here -->
+        <transition name="fade-in">
+          <router-view> </router-view>
+        </transition>
+      </section>
+    </article>
 
     <!-- Side Nav Component -->
     <section id="SetMorph"></section>
@@ -18,22 +20,7 @@ import { $Process } from "@/plugins";
 
 import MorphNav from "@/components/navs/reusables/morphors";
 
-/* Import Tabs */
-import Tab_1 from "@/components/settings/tabs/profile_info/Index.vue";
-import Tab_2 from "@/components/settings/tabs/profile_info/Index.vue";
-import Tab_3 from "@/components/settings/tabs/orders/Index.vue";
-import Tab_4 from "@/components/settings/tabs/portfolio/List.vue";
-
 export default Vue.extend({
-  components: {
-    // VerticalNavigator,
-    Tab_1,
-    Tab_2,
-    Tab_3,
-    Tab_4,
-    Tab_5
-  },
-
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.query.tab) {
@@ -46,23 +33,19 @@ export default Vue.extend({
 
   data() {
     return {
-      activeTab: "Tab_1",
-      sideBar: false,
-
-      tabsList: [
-        { id: 1, name: "Profile Information", icon: "icon-user" }
-        // { id: 2, name: 'Manage Bookmarks', icon: 'icon-bookmarks' },
-        // { id: 5, name: 'Message Settings', icon: 'icon-mail-alt' },
-        // { id: 6, name: 'Manage Preferences', icon: 'icon-resize-small' },
-        // { id: 7, name: 'Profile Information', icon: 'icon-user' },
-        // { id: 8, name: 'Privacy Settings', icon: 'icon-key' },
-        // { id: 9, name: 'Help', icon: 'icon-help' },
-      ],
+      // tabsList: [
+      // { id: 1, name: "Profile Information", icon: "icon-user" }
+      // { id: 2, name: 'Manage Bookmarks', icon: 'icon-bookmarks' },
+      // { id: 5, name: 'Message Settings', icon: 'icon-mail-alt' },
+      // { id: 6, name: 'Manage Preferences', icon: 'icon-resize-small' },
+      // { id: 7, name: 'Profile Information', icon: 'icon-user' },
+      // { id: 8, name: 'Privacy Settings', icon: 'icon-key' },
+      // { id: 9, name: 'Help', icon: 'icon-help' },
+      // ],
 
       NavConfig: {
         getActiveTab: activeTab => {
-          //@ts-ignore
-          this.activeTab = "Tab_" + activeTab.id;
+          this.$router.push({ name: activeTab.routeName });
         },
         type: "vertical",
         // type: 'horizontal',
@@ -95,22 +78,20 @@ export default Vue.extend({
         list_height: "",
         tabs: [
           {
-            id: 1,
-            icon: "icon-users",
-            name: "Profile Information",
-            link: ""
+            icon: "icon-user",
+            name: "Dashboard",
+            routeName: "account"
           },
           {
-            id: 2,
-            icon: "icon-cog-1",
-            name: "Dashboard",
-            link: ""
+            icon: "icon-user",
+            name: "Profile Information",
+            routeName: "profile-info"
           },
           {
             id: 3,
             icon: "icon-cog-1",
             name: "Orders/Downloads",
-            link: ""
+            routeName: "orders"
           },
           {
             id: 4,
@@ -185,10 +166,10 @@ export default Vue.extend({
     switchTab(tab_id) {
       this.activeTab = "Tab_" + tab_id;
       if (tab_id === 3) {
-        $Profile.$Portfolio.fetchAll({
-          user_id: $Auth.user.id,
-          filter: {}
-        });
+        // $Profile.$Portfolio.fetchAll({
+        //   user_id: $Auth.user.id,
+        //   filter: {}
+        // });
       } else if (tab_id === 4) {
         $Posts.$settings.fetchAll({ filter: {} }, true);
       }
@@ -217,12 +198,14 @@ export default Vue.extend({
   & .Tab {
     animation: fade 0.7s;
   }
+  min-height: 100vh;
 }
 
-@include xs-only {
+@include sm-and-down {
   .MainView {
-    padding: 3px;
-    // padding-right: 50px;
+    // width: 100%;
+    padding-left: 6px;
+    padding-right: 10px;
   }
 }
 </style>
