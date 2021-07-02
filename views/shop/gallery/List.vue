@@ -201,6 +201,7 @@ export default Vue.extend({
         sale_price,
         slug,
         short_description,
+        featured_image,
         images
         /* custom */
       } = product;
@@ -213,6 +214,7 @@ export default Vue.extend({
         sale_price,
         slug,
         short_description,
+        featured_image,
         images
         /* custom */
       });

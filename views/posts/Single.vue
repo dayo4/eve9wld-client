@@ -184,12 +184,9 @@ export default Vue.extend({
   beforeRouteEnter(to, from, next) {
     next(vm => {
       $Posts.$single
-        .fetch(
-          {
-            slug: to.params.slug
-          },
-          to.params.preview ? true : false
-        )
+        .fetch({
+          slug: to.params.slug
+        })
         .then(loaded => {
           // next()
           if (!loaded) {
@@ -202,7 +199,7 @@ export default Vue.extend({
     return $General.metaInfo({
       title: this.post.title,
       content: this.post.excerpt,
-      image: this.post.images[0],
+      image: this.post.featured_image || this.post.images[0],
       url: this.href,
       type: "Article"
     });

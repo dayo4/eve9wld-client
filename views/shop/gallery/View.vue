@@ -1,5 +1,5 @@
 <template>
-<div>
+  <div>
     <h1 class="Head text-center t-blue-grey font-8 px-2">
       {{ product.name }}
     </h1>
@@ -132,7 +132,7 @@
         </div>
       </section>
     </article>
-  </Container>
+  </div>
 </template>
 <script lang="ts">
 import Vue from "vue";
@@ -144,9 +144,9 @@ import { $General, $Axios, $Notify } from "@/plugins";
 import { $Products, $Shopping } from "@/store";
 
 export default Vue.extend({
-  components: {
-    Container
-  },
+  // components: {
+
+  // },
   beforeRouteEnter(to, from, next) {
     if ($Products.products.length > 0) {
       const foundProduct = $Products.products.find(product => {

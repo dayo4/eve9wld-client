@@ -2,14 +2,12 @@ import { $Axios, $Process, $Notify } from '@/plugins'
 
 export class SinglePost {
     data = null
-    comments = null
 
     async fetch (payload: { slug: string, id?: string }) {
-        $Process.add('Fetching content')
+        $Process.add('Getting content')
         try {
             const { data } = await $Axios.get("posts/" + payload.slug)
             this.data = data.post
-            this.comments = data.comments
             return data
         }
         catch (e) {

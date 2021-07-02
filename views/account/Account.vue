@@ -171,7 +171,7 @@ export default Vue.extend({
         //   filter: {}
         // });
       } else if (tab_id === 4) {
-        $Posts.$settings.fetchAll({ filter: {} }, true);
+        // $Posts.$settings.fetchAll({ filter: {} }, true);
       }
     }
   },

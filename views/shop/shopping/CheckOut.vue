@@ -44,18 +44,7 @@ import Vue from "vue";
 
 import { $General } from "@/plugins";
 
-export default Vue.extend({
-  metaInfo() {
-    //@ts-ignore
-    return $General.metaInfo(
-      "scavorb gallery",
-      null,
-      "",
-      this.$baseUrl,
-      "website"
-    );
-  }
-});
+export default Vue.extend({});
 </script>
 <style lang="scss" scoped>
 .Title {

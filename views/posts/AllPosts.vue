@@ -1,22 +1,6 @@
 <template>
   <div v-show="posts" class="Cover">
-    <div
-      class="Header flex j-c-between a-i-center shadow-8 bg-white br2 mb-2 px-2"
-    >
-      <Dropdown
-        ownID="pages"
-        :text="'Go to Page: ' + curPage"
-        :optPos="{ right: -30 }"
-        class="font-3 btn bg-trans-3 noselect"
-      >
-        <!-- slots -->
-        <template v-slot:default>
-          <a v-for="num in Math.floor(count / 10 + 1)" :key="num">
-            <span @click="page(num)">{{ num }}</span>
-          </a>
-        </template>
-      </Dropdown>
-
+    <div class="Header flex j-c-center a-i-center bg-white br2 mb-2 px-2">
       <Dropdown
         ownID="PostSort"
         :text="'Sort By: ' + sort"
@@ -24,11 +8,11 @@
       >
         <!-- slots -->
         <template v-slot:default>
-          <a @click="sortBy('Newest', 'desc')">
+          <a @click="sortBy('Newest', ['created_at', 'desc'])">
             <span class="icon-down-open"></span>
             <span>Newest</span>
           </a>
-          <a @click="sortBy('Oldest', 'asc')">
+          <a @click="sortBy('Oldest', ['created_at', 'asc'])">
             <span class="icon-up-open"></span>
             <span>Oldest</span>
           </a>
@@ -38,7 +22,7 @@
 
     <!-- ListOfPosts Component -->
     <div v-if="posts && posts.length > 0">
-      <ListOfPosts :posts="posts" />
+      <ListOfPosts :posts="posts" :pagin="pagin" @switchPage="switchPage" />
     </div>
 
     <div v-else class="px-10">
@@ -71,35 +55,40 @@ export default Vue.extend({
 
   data() {
     return {
-      curPage: 1,
+      pagin: {
+        pages: 1,
+        current: 1
+      },
       sort: "Newest",
       query: {
-        sort: "desc"
+        limit: 10,
+        offset: 0,
+        sort: ["created_at", "desc"]
       }
     };
   },
 
   computed: {
-    posts: () => $Posts.posts,
-    count: () => $Posts.postsCount
+    posts: () => $Posts.data,
+    count: () => $Posts.count
   },
 
   methods: {
-    sortBy(txt, v: string) {
+    sortBy(txt, v: string[]) {
       this.query.sort = v;
       this.sort = txt;
-      $Posts.fetchAll(this.query, true);
+      $Posts.fetchAll(this.query);
     },
 
-    page(n: number) {
-      let query = {
-        offset: n * 10 - 10 /* 10 is the default offset value */,
-        sort: this.query.sort
-      };
-      if (n != this.curPage)
-        $Posts.fetchAll(query, true).then(loaded => {
-          if (loaded) this.curPage = n;
+    switchPage(v: number) {
+      if (this.pagin.pages > 1 && v > 0 && v <= this.pagin.pages) {
+        this.query.offset = (v - 1) * this.query.limit;
+        $Posts.fetchAll(this.query).then(loaded => {
+          if (loaded) {
+            this.pagin.current = v;
+          }
         });
+      }
     }
   },
 
@@ -114,7 +103,10 @@ export default Vue.extend({
     $Obstacl.create("#MC-AllPosts", {
       injectHTML: this.$appLogo("logo-trans-2 logo-large logo-fast")
     });
-    $Posts.fetchAll({}, true).then(ok => $Obstacl.destroy("#MC-AllPosts"));
+    $Posts.fetchAll(this.query).then(ok => {
+      this.pagin.pages = Math.ceil(this.count / this.query.limit);
+      $Obstacl.destroy("#MC-AllPosts");
+    });
     // this.$gtag.event('login', { method: 'Google' })
   }
 });

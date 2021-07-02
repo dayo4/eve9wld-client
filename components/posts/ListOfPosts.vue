@@ -1,7 +1,7 @@
 <template>
   <div class="Wrapper flex j-c-center">
-    <div class="xs12 sm10 md9">
-      <div v-for="post in posts" :key="post.id">
+    <div class="xs11 md10 lg8">
+      <section v-for="(post, i) in posts" :key="i">
         <!-- <section v-if="!post.isArticle" class="ShortPost br2 mb-3 mr-2 mt-10 px-2">
                     <div
                         class="Name flex nowrap a-i-center j-c-between w-full text-right t-blue-grey bold-5 font-3"
@@ -68,21 +68,24 @@
                 </section>-->
 
         <!-- regular posts(ARTICLE) template-->
-        <section class="Article br2 mb-3">
-          <section class="PostImage noselect" @click="openPost(post.slug)">
+        <article class="Article br2 mb-3">
+          <section
+            class="PostImage xs12 sm6 md5 noselect"
+            @click="openPost(post.slug)"
+          >
             <img
-              :src="post.img ? $postBaseUrl + post.img : '/defaults/4.jpg'"
+              :src="post.featured_image || post.images[0]"
               draggable="false"
               class="br2"
             />
           </section>
-          <section class="Details">
+          <section class="Details  xs12 sm6 md7">
             <div
               @click="openPost(post.slug)"
               class="cursor-pointer flex h-full w-full"
             >
               <img
-                :src="$userBaseUrl + post.user.profile_image"
+                :src="post.user.profile_image"
                 width="30"
                 height="30"
                 draggable="false"
@@ -96,9 +99,9 @@
                   }}</span>
                   -
                   {{
-                    post.comments.length > 1
-                      ? `${post.comments} ${
-                          post.comments.length > 1 ? "replies" : "reply"
+                    post.comments_count > 1
+                      ? `${post.comments_count} ${
+                          post.comments_count > 1 ? "replies" : "reply"
                         }`
                       : ""
                   }}
@@ -127,7 +130,14 @@
                   <span>Bookmark</span>
                 </a>
                 <a
-                  @click="addToQueue(post.id, post.img, post.title, post.slug)"
+                  @click="
+                    addToQueue(
+                      post.id,
+                      post.featured_image,
+                      post.title,
+                      post.slug
+                    )
+                  "
                 >
                   <span class="icon-plus-1"></span>
                   <span>Add to queue</span>
@@ -135,8 +145,34 @@
               </template>
             </Dropdown>
           </section>
-        </section>
-      </div>
+        </article>
+      </section>
+
+      <!-- Pagination -->
+      <section class="Pagins xs12 sm11 md8">
+        <button
+          @click="$emit('switchPage', pagin.current - 1)"
+          class="btn bg-trans-4"
+        >
+          <span class="icon-angle-double-left font-6"></span>
+          <span class="font-1 mt-1">PREV</span>
+        </button>
+        <button class="Nums btn bg-white" v-for="i in pagin.pages" :key="i">
+          <span
+            @click="$emit('switchPage', i)"
+            :class="pagin.current === i ? 'active' : ''"
+            >{{ i }}</span
+          >
+        </button>
+        <button
+          @click="$emit('switchPage', pagin.current + 1)"
+          class="btn bg-trans-4"
+        >
+          <span class="font-1 mt-1">NEXT</span>
+          <span class="Icon icon-angle-double-right font-6"></span>
+        </button>
+      </section>
+      <!-- Pagination -->
     </div>
 
     <!--MAIN COMMENTS COMPONENT -->
@@ -161,7 +197,8 @@ export default Vue.extend({
   },
 
   props: {
-    posts: { required: true, type: Array }
+    posts: { required: true, type: Array },
+    pagin: { required: true, type: Object }
   },
 
   computed: {
@@ -178,7 +215,7 @@ export default Vue.extend({
       $ReadQueue.add({
         id: post_id,
         //@ts-ignore
-        image: post_image ? this.$postBaseUrl + post_image : "/defaults/4.jpg",
+        image: post_image.featured_image || post_image.images[0],
         title: post_title,
         slug: slug
       });
@@ -208,23 +245,61 @@ export default Vue.extend({
   margin: auto;
 }
 
+.Pagins {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0;
+  padding: 5px;
+  // height: 40px;
+  width: 100%;
+  border-bottom: rgb(45, 45, 45) solid 2px;
+  border-top: rgb(45, 45, 45) solid 2px;
+  border-radius: 10px;
+  & button {
+    box-shadow: none;
+  }
+  & .Nums {
+    padding: 0;
+    box-shadow: none;
+    text-align: center;
+    & span {
+      border-radius: 4px;
+      border-top: $grey solid 1px;
+      border-bottom: $grey solid 1px;
+      color: $blue-grey--2;
+      padding: 5px 8px;
+      margin: 0 5px;
+      &:hover {
+        background-color: $grey-3;
+      }
+      &.active {
+        background-color: $grey-2;
+      }
+    }
+  }
+}
+
 .Article {
   display: flex;
-  // height: 200px;
   background-color: rgb(45, 45, 45);
 
   & .PostImage {
+    // position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    min-height: 200px;
-    height: 100%;
-    min-width: 50%;
-    width: 50%;
+    // // min-height: 200px;
+    // // height: 100%;
+    // overflow: hidden;
+    // padding-top: 56.25%;
+    // min-width: 50%;
+    // width: 50%;
     & img {
-      // height: 100%;
-      width: 100%;
+      // position: absolute;
+      // top: 0;
+      // max-width: 100%;
+      // max-height: 100%;
     }
   }
   & .Details {
@@ -247,13 +322,13 @@ export default Vue.extend({
 
     & .PostImage {
       // height: 250px;
-      width: 100%;
+      // width: 100%;
       // margin: auto;
       // background-size: cover;
     }
     & .Details {
-      min-height: 80px;
-      margin: 0;
+      // min-height: 80px;
+      // margin: 0;
     }
   }
 }

@@ -6,22 +6,14 @@
   </div>
 
   <!-- Side Nav Component -->
-  <VerticalNavigator
-    :tabsList="tabsList"
-    @tabClicked="switchActiveTab"
-    :activeTab="activeTab"
-  />
 </template>
 <script lang="ts">
 import Vue from "vue";
 import { $ReadQueue, $Posts, $Comments, $Auth } from "@/store";
 import { WS, $Process } from "@/plugins";
-import VerticalNavigator from "@/components/navs/reusables/navigators/VerticalNavigator.vue";
 
 export default Vue.extend({
   components: {
-    VerticalNavigator,
-    Container,
     Plaform: () =>
       import(
         /* webpackChunkName: "minimizer" */ "@/components/notifications/tabs/Platform.vue"

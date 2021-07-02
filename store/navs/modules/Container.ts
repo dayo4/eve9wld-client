@@ -22,7 +22,7 @@ export class Container {
             }
 
             /* For hiding the TopNav when scrolling downward*/
-            if (subsequentScrollPos > 60) {
+            if (subsequentScrollPos > 200) {
                 scrollPos > subsequentScrollPos
                     ? topNav.classList.remove('rotated')
                     : topNav.classList.add('rotated')
