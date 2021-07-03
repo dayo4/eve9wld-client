@@ -13,6 +13,7 @@
     <Nuxt />
     <!-- </transition> -->
 
+    <Footer />
     <BottomNav />
   </div>
 </template>
@@ -23,6 +24,7 @@ import { $Auth, $Navs } from "@/store";
 
 import TopNav from "@/components/navs/TopNav.vue";
 import BottomNav from "@/components/navs/BottomNav.vue";
+import Footer from "@/components/navs/Footer.vue";
 import HoverPanel from "@/components/navs/HoverPanel.vue";
 import Process from "@/components/GlobalComponents/notification/Process.vue";
 import Notify from "@/components/GlobalComponents/notification/Notify.vue";
@@ -32,6 +34,7 @@ import Notify from "@/components/GlobalComponents/notification/Notify.vue";
 export default Vue.extend({
   components: {
     TopNav,
+    Footer,
     BottomNav,
     HoverPanel,
     Process,

@@ -19,8 +19,7 @@ export class Form {
     }
 
     show (query?: { showQuery?: boolean, message?: string, redirect?: string }, mode: number = 1) {
-        if (query)
-        {
+        if (query) {
             this.query = query as any
         }
 
@@ -29,8 +28,7 @@ export class Form {
     }
     dismiss () {
         this.status = false
-        if (this.query.showQuery)
-        {
+        if (this.query.showQuery) {
             this.query = { showQuery: false, message: '', redirect: '' }
         }
 
@@ -39,19 +37,16 @@ export class Form {
     async register (payload: object) {
         const sr = this.response
 
-        try
-        {
+        try {
             const { data } = await $Axios.post("register", {
                 ...payload
             })
 
-            if (data)
-            {
+            if (data) {
                 sr.error = false
                 sr.message = data/* "Successfully created account" */
             }
-        } catch (e)
-        {
+        } catch (e) {
             sr.error = true
             sr.message = e
         }
@@ -59,24 +54,10 @@ export class Form {
 
     async login (payload: any, stage: number = 1) {
         const sr = this.response
-        try
-        {
-            const { data } = await $Axios.post("login-wp", {
-                // const { data } = await $Axios.post("jwt-auth/v1/token", {
-                // email: payload.email,
-                username: 'dayo9m',
-                // username: 'dayorx68',
-                // username: 'myself',
+        try {
+            const { data } = await $Axios.post("login", {
+                email: payload.email,
                 password: payload.password,
-                // password: '638367%test',
-                // password: '638367me',
-                // stage
-            }, {
-                headers: {
-
-                    // 'Authorization': null,
-                    // 'myownoptions': ''
-                }
             })
             /* "data" can either be a query "{next: true}" to proceed to stage two where user will enter "names" if the user is signing in for the first time
                 or an object containing the user data.
@@ -98,30 +79,23 @@ export class Form {
             //     return {}
             // }
 
-            // if (data)
-            // {
             const { user_nicename, user_display_name } = data
             $LSAgent.setToken(data.token)
-            $LSAgent.setData({ user_nicename, user_display_name }, 'userDetails')
+            $LSAgent.setData(data.user, 'userDetails')
 
-            // if (this.query.redirect) //if you were redirected here to login from another page
-            //     $Router.replace({ path: this.query.redirect })
+            if (this.query.redirect) //if you were redirected here to login from another page
+                $Router.replace({ path: this.query.redirect })
 
             this.status = false
-            // console.log(data.data)
             return {}
-            // }
         }
-        catch (e)
-        {
+        catch (e) {
             console.log(e)
             sr.message = ""
-            if (e)
-            {
+            if (e) {
                 sr.error = true
                 sr.message = e
-            } else
-            {
+            } else {
                 sr.error = true
                 sr.message =
                     "Connection error. Try again later!"
@@ -133,12 +107,10 @@ export class Form {
     logout (notify?: boolean) {
         $LSAgent.selfDestruct()
 
-        if ($Router.currentRoute.name !== 'home')
-        {
+        if ($Router.currentRoute.name !== 'home') {
             $Router.push({ path: '/' })
         }
-        if (notify)
-        {
+        if (notify) {
             $Notify.error("You have been logged out.")
         }
     }

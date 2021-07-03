@@ -5,26 +5,15 @@ import { SubComments } from './modules/SubComments'
 import { $Auth } from '@/store'
 import { $Vue, $Axios, $Notify, $Process, WS } from '@/plugins'
 
-interface State {
-    comments: Array<object>
-    commentCount: number
-}
-interface Query {
-    limit?: number
-    offset?: number
-    sort?: string[]
-
-}
-
 export class Comments {
     $SubComments = new SubComments()
 
     comments = []
     commentCount = 0
 
-    async new (payload: { post_id: number, comment: string }) {
+    async new (payload: { post_id: any, parent_id: any, comment: string }) {
         try {
-            const { data } = await $Axios.post(`comments/new/${$Auth.user.id}/${payload.post_id}`, { comment: payload.comment })
+            const { data } = await $Axios.post(`comments/new/${$Auth.user.id}/${payload.post_id}/${payload.parent_id}`, { comment: payload.comment })
             return data
         }
         catch {
@@ -32,35 +21,27 @@ export class Comments {
         }
     }
 
-    async fetchAll (socket, post_id: number, payload: Query = {}, refresh: boolean = false) {
-
-        const query: Query = {
-            limit: payload.limit || 15,
-            offset: payload.offset || refresh ? 0 : this.comments.length,
-            sort: payload.sort || [ 'created_at', 'asc' ]
-        }
+    async fetchAll (socket, payload: { post_id: any, query: Query }, refresh: boolean = false) {
         let _this = this
 
         return new Promise(function (resolve, reject) {
             // socket.on('connect', () => {
             function fetch () {
-                socket.emit('fetch', JSON.stringify({ post_id, query }))
+                socket.emit('fetch', JSON.stringify({ post_id: payload.post_id, query: payload.query }))
             }
             fetch()
 
-            socket.once('serverUpdated', () => {
+            socket.on('serverUpdated', () => {
                 fetch()
             })
-            socket.once('message', (Data) => {
+            socket.on('message', (Data) => {
                 const data = JSON.parse(Data)
                 _this.commentCount = data.count
-                // data.comments.forEach((a) => {
-                //     console.log(a.id)
-                // })
-                if (refresh)
-                    _this.comments = data.comments
-                else
-                    _this.comments.push(...data.comments)
+
+                // if (refresh)
+                _this.comments = data.comments
+                // else
+                //     _this.comments.push(...data.comments)
                 resolve(data)
             })
 
@@ -77,13 +58,13 @@ export class Comments {
         try {
             const { data } = await $Axios.get("comments/" + comment_id)
             if (data) {
-                $Process.done()
+                $Process.hide()
                 return data
             }
         }
         catch {
             $Notify.error()
-            $Process.abort()
+            $Process.hide()
         }
     }
 
@@ -94,13 +75,13 @@ export class Comments {
             })
             if (data) {
                 $Notify.success('Comment Updated!.')
-                $Process.done()
+                $Process.hide()
                 return data
             }
         }
         catch {
             $Notify.error('Unable to update comment.')
-            $Process.abort()
+            $Process.hide()
         }
 
     }
@@ -112,13 +93,13 @@ export class Comments {
                 $Axios.delete(`comments/${$Auth.user.id}/${comment_id}`)
             if (data) {
                 $Notify.success('Comment deleted')/* leave as is! */
-                $Process.done()
+                $Process.hide()
             }
             return data
         }
         catch (error) {
             $Notify.error()
-            $Process.abort()
+            $Process.hide()
         }
     }
 }

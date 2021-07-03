@@ -2,9 +2,9 @@
 import webSokect from 'socket.io-client'
 // import LSAgent from '@/plugins/storage/LSAgent'
 const connStack: string[] = []
-const devMode = process.env.NODE_ENV === 'production'
+const devMode = process.env.NODE_ENV !== 'production'
 class WS {
-  baseUrl = devMode ? 'wss://scavorb.com' : 'ws://127.0.0.1:3000'
+  baseUrl = devMode ? 'ws://127.0.0.1:3000' : /* 'wss://scavorb.com' */ 'ws://127.0.0.1:3000'
 
   createConnection (nsp: string, opts?) {
     const defaultOptions = {
@@ -18,11 +18,14 @@ class WS {
     const socket = webSokect(this.baseUrl + nsp, connOptions)
 
     socket.on('connect', function () {
-      // console.log('connected to ws ')
-      // console.log(socket)
       connStack.push(nsp)
-      // console.log(connStack)
-      // socket.send('New connection established!')
+      if (devMode) {
+
+        console.log('connected to ws ', nsp)
+        console.log(socket)
+        console.log(connStack)
+        // socket.send('New connection established!')
+      }
     })
 
     socket.on('disconnect', function (reason) {

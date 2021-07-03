@@ -1,6 +1,6 @@
 <template>
   <footer
-    v-show="!['profile', 'posts'].includes($route.name)"
+    v-show="!['user-profile', 'posts'].includes($route.name)"
     class="Footer t-blue-grey text-center"
   >
     <div>

@@ -31,7 +31,7 @@
         </h3>
         <!-- HEADER-->
 
-        <hr class="my-2" />
+        <hr class="my-0" />
         <!-- BODY-->
         <div
           v-show="!subCommentMode"
@@ -106,7 +106,7 @@
                       </a>
                       <a
                         v-if="user && user.username === comment.user.username"
-                        @click="delete comment.id"
+                        @click="del(comment.id)"
                       >
                         <span class="icon-trash-empty t-red"></span>
                         <span>Delete</span>
@@ -128,7 +128,7 @@
               </div>
               <div class="shadow-2 bg-grey-5 br3">
                 <!--Content Minimizer Component -->
-                <Minimizer :initialHeight="120">
+                <Minimizer :initialHeight="120" :closeable="false">
                   <div
                     class="CommentContent p-2"
                     v-html="comment.content"
@@ -138,7 +138,7 @@
                 <span class="UserImage br5">
                   <img
                     class="br5 noselect"
-                    :src="$userBaseUrl + comment.user.profile_image"
+                    :src="comment.user.profile_image"
                     draggable="false"
                   />
                 </span>
@@ -148,10 +148,10 @@
                     >Reply</span
                   >
                   <span @click="replies(comment)"
-                    >{{ comment.comments }} Replies</span
+                    >{{ comment.sub_comments }} Replies</span
                   >
                   <span class="icon-thumbs-up-alt"></span>
-                  <span style="margin: 4px 0px">544</span>
+                  <span style="margin: 4px 0px">{{ comment.thumbs_up }}</span>
                   <span class="icon-thumbs-down-alt"></span> |
                   <span class="icon-clock">{{
                     $moment(comment.created_at).fromNow()
@@ -175,10 +175,13 @@
           ref="SubCommentsComponent"
           :activeComment="activeSubComment"
           :subCommentMode="subCommentMode"
+          @delete="del"
+          @edit="edit"
+          @report="report"
         />
         <!--Sub Comments-->
         <!-- BODY-->
-        <hr class="my-2" />
+        <hr class="my-1" />
 
         <!-- FOOTER-->
         <div class="Foot flex a-i-center bg-white mb-1 br2">
@@ -231,7 +234,14 @@ export default Vue.extend({
       /* Sub comments properties */
       subCommentMode: false,
       activeSubComment: null /* object */,
-      subComment_Socket: null //as SocketIOClient.Socket
+      subComment_Socket: null, //as SocketIOClient.Socket
+
+      /* others */
+      query: {
+        limit: 50,
+        offset: 0,
+        sort: ["created_at", "asc"]
+      }
     };
   },
 
@@ -252,7 +262,14 @@ export default Vue.extend({
 
       if (this.user && focusInput) (this.$refs.Input as HTMLDivElement).focus();
       $Comments.$SubComments
-        .fetchAll(this.subComment_Socket, comment.id, {}, true)
+        .fetchAll(
+          this.subComment_Socket,
+          {
+            parent_id: comment.id,
+            query: this.query
+          },
+          true
+        )
         .then(data => {
           if (data) {
             this.activeSubComment = comment;
@@ -280,31 +297,23 @@ export default Vue.extend({
         ];
 
         if ($Validator.validate(schema))
-          if (!this.subCommentMode)
-            $Comments
-              .new({ post_id: this.post.id, comment: this.commentContent })
-              .then(sent => {
-                if (sent) {
-                  this.socket.emit("newComment");
-                  this.commentContent = "";
-                  (this.$refs.Input as HTMLDivElement).textContent = "";
-                }
-              });
-          else
-            $Comments.$SubComments
-              .new({
-                comment_id: this.activeSubComment.id,
-                comment: this.commentContent
-              })
-              .then(sent => {
-                if (sent) {
+          // if (!this.subCommentMode)
+          $Comments
+            .new({
+              post_id: this.post.id,
+              parent_id: this.subCommentMode ? this.activeSubComment.id : 0,
+              comment: this.commentContent
+            })
+            .then(sent => {
+              if (sent) {
+                if (this.subCommentMode)
                   this.subComment_Socket.emit("newComment");
-                  this.commentContent = "";
-                  (this.$refs.Input as HTMLDivElement).textContent = "";
-                }
-              });
-        // else
-        // console.log($Validator.getErrors())
+                else this.socket.emit("newComment");
+
+                this.commentContent = "";
+                (this.$refs.Input as HTMLDivElement).textContent = "";
+              }
+            });
       }
     },
 

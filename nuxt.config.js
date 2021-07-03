@@ -42,10 +42,16 @@ export default {
       /^\/message/,
       /^\/cart\$/,
       "/checkout",
-      /^\/gallery\$/,
-      /^\/post\$/
+      /^\/gallery\$/
+      // /^\/posts\$/
     ],
-    routes: ["/", "/profile/dayo"]
+    routes: [
+      "/",
+      "/profile/dayo",
+      "/posts",
+      "/posts/a-0-replica-post-seeded-for-the-purpose-of-testing-lorem-ipsum-dolor",
+      "/posts/a-1-replica-post-seeded-for-the-purpose-of-testing-lorem-ipsum-dolor"
+    ]
   },
   // dir: {
   //   // Rename `pages` directory to `routes`
@@ -67,7 +73,7 @@ export default {
   ],
   middleware: ["auth"],
   ssr: false,
-  // loading: false,
+  loading: false,
   // loading: "@/components/GlobalComponents/notification/Process.vue",
   loadingIndicator:
     "@/components/GlobalComponents/notification/initial_page_loading_indicator.html",

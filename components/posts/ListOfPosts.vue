@@ -1,8 +1,7 @@
 <template>
-  <div class="Wrapper flex j-c-center">
-    <div class="xs11 md10 lg8">
-      <section v-for="(post, i) in posts" :key="i">
-        <!-- <section v-if="!post.isArticle" class="ShortPost br2 mb-3 mr-2 mt-10 px-2">
+  <div>
+    <section v-for="(post, i) in posts" :key="i">
+      <!-- <section v-if="!post.isArticle" class="ShortPost br2 mb-3 mr-2 mt-10 px-2">
                     <div
                         class="Name flex nowrap a-i-center j-c-between w-full text-right t-blue-grey bold-5 font-3"
                     >
@@ -67,89 +66,90 @@
                     </div>
                 </section>-->
 
-        <!-- regular posts(ARTICLE) template-->
-        <article class="Article br2 mb-3">
-          <section
-            class="PostImage xs12 sm6 md5 noselect"
+      <!-- regular posts(ARTICLE) template-->
+      <article class="Article br2 mb-3">
+        <section
+          class="PostImage xs12 sm6 md5 noselect"
+          @click="openPost(post.slug)"
+        >
+          <img
+            :src="post.featured_image || post.images[0]"
+            draggable="false"
+            class="br2"
+          />
+        </section>
+        <section class="Details  xs12 sm6 md7">
+          <div
             @click="openPost(post.slug)"
+            class="cursor-pointer flex h-full w-full"
           >
             <img
-              :src="post.featured_image || post.images[0]"
+              :src="post.user.profile_image"
+              width="30"
+              height="30"
               draggable="false"
-              class="br2"
+              class="noselect"
             />
-          </section>
-          <section class="Details  xs12 sm6 md7">
-            <div
-              @click="openPost(post.slug)"
-              class="cursor-pointer flex h-full w-full"
-            >
-              <img
-                :src="post.user.profile_image"
-                width="30"
-                height="30"
-                draggable="false"
-                class="noselect"
-              />
-              <div>
-                <h5 class="font-3 my-1 mx-5 t-white">{{ post.title }}</h5>
-                <p class="font-2 my-2 mx-5 t-grey-1 bold-3">
-                  <span class="mr-2 bold-5 t-grey-2">{{
-                    post.user.first_name + " " + post.user.last_name
-                  }}</span>
-                  -
-                  {{
-                    post.comments_count > 1
-                      ? `${post.comments_count} ${
-                          post.comments_count > 1 ? "replies" : "reply"
-                        }`
-                      : ""
-                  }}
-                  <span class="icon-clock">{{
-                    $moment(post.updated_at).fromNow()
-                  }}</span>
-                </p>
-              </div>
+            <div>
+              <h5 class="font-3 my-1 mx-5 t-white">{{ post.title }}</h5>
+              <p class="font-2 my-2 mx-5 t-grey-1 bold-3">
+                <span class="mr-2 bold-5 t-grey-2">{{
+                  post.user.first_name + " " + post.user.last_name
+                }}</span>
+                -
+                {{
+                  post.comments_count > 1
+                    ? `${post.comments_count} ${
+                        post.comments_count > 1 ? "replies" : "reply"
+                      }`
+                    : ""
+                }}
+                <span class="icon-clock">{{
+                  $moment(post.updated_at).fromNow()
+                }}</span>
+              </p>
             </div>
+          </div>
 
-            <!-- Dropdown component -->
-            <Dropdown
-              :ownID="post.id"
-              :pos="{ type: 'absolute', top: 4, right: 4 }"
-              class="btn icon-ellipsis-vert font-8 bg-trans-2"
-              style="width:30px;"
-            >
-              <!-- slots -->
-              <template v-slot:default>
-                <router-link :to="{ path: '/posts/' + post.slug }">
-                  <span class="icon-eye"></span>
-                  <span>Open</span>
-                </router-link>
-                <a v-if="user">
-                  <span class="icon-bookmarks"></span>
-                  <span>Bookmark</span>
-                </a>
-                <a
-                  @click="
-                    addToQueue(
-                      post.id,
-                      post.featured_image,
-                      post.title,
-                      post.slug
-                    )
-                  "
-                >
-                  <span class="icon-plus-1"></span>
-                  <span>Add to queue</span>
-                </a>
-              </template>
-            </Dropdown>
-          </section>
-        </article>
-      </section>
+          <!-- Dropdown component -->
+          <Dropdown
+            :ownID="post.id"
+            :pos="{ type: 'absolute', top: 4, right: 4 }"
+            class="icon-ellipsis-vert font-8 bg-trans-2"
+            style="width:30px;"
+          >
+            <!-- slots -->
+            <template v-slot:default>
+              <router-link :to="{ path: '/posts/' + post.slug }">
+                <span class="icon-eye"></span>
+                <span>Open</span>
+              </router-link>
+              <a v-if="user">
+                <span class="icon-bookmarks"></span>
+                <span>Bookmark</span>
+              </a>
+              <a
+                @click="
+                  addToQueue(
+                    post.id,
+                    post.featured_image,
+                    post.title,
+                    post.slug
+                  )
+                "
+              >
+                <span class="icon-plus-1"></span>
+                <span>Add to queue</span>
+              </a>
+            </template>
+          </Dropdown>
+        </section>
+      </article>
+    </section>
 
-      <!-- Pagination -->
-      <section class="Pagins xs12 sm11 md8">
+    <!-- Pagination -->
+    <section class="flex j-c-center">
+      <div class="Pagins xs12 sm11 md8">
         <button
           @click="$emit('switchPage', pagin.current - 1)"
           class="btn bg-trans-4"
@@ -171,9 +171,9 @@
           <span class="font-1 mt-1">NEXT</span>
           <span class="Icon icon-angle-double-right font-6"></span>
         </button>
-      </section>
-      <!-- Pagination -->
-    </div>
+      </div>
+    </section>
+    <!-- Pagination -->
 
     <!--MAIN COMMENTS COMPONENT -->
     <!-- <Comments
@@ -241,10 +241,6 @@ export default Vue.extend({
 // }
 </script>
 <style lang="scss" scoped>
-.Wrapper {
-  margin: auto;
-}
-
 .Pagins {
   display: flex;
   justify-content: space-between;
@@ -262,6 +258,7 @@ export default Vue.extend({
     padding: 0;
     box-shadow: none;
     text-align: center;
+    // justify-content: center !important;
     & span {
       border-radius: 4px;
       border-top: $grey solid 1px;

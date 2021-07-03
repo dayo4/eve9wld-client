@@ -26,7 +26,7 @@
         <span class="UserImage br5">
           <img
             class="br5 noselect"
-            :src="$userBaseUrl + activeComment.user.profile_image"
+            :src="activeComment.user.profile_image"
             draggable="false"
           />
         </span>
@@ -57,7 +57,7 @@
                 <router-link
                   v-if="!user || user.username !== comment.user.username"
                   :to="{
-                    name: 'profile',
+                    name: 'user-profile',
                     params: {
                       username: comment.user.username
                     }
@@ -68,21 +68,21 @@
                 </router-link>
                 <a
                   v-if="user && user.username === comment.user.username"
-                  @click="edit(comment.id)"
+                  @click="$emit('edit', comment.id)"
                 >
                   <span class="icon-edit"></span>
                   <span>Edit</span>
                 </a>
                 <a
                   v-if="user && user.username === comment.user.username"
-                  @click="del(comment.id)"
+                  @click="$emit('delete', comment.id)"
                 >
                   <span class="icon-trash-empty t-red"></span>
                   <span>Delete</span>
                 </a>
                 <a
                   v-if="user && user.username !== comment.user.username"
-                  @click="reportComment(comment.id, comment.user.username)"
+                  @click="$emit('report', comment.id, comment.user.username)"
                 >
                   <span class="icon-info t-red"></span>
                   <span>Report</span>
@@ -104,7 +104,7 @@
           <span class="UserImage br5">
             <img
               class="br5 noselect"
-              :src="$userBaseUrl + comment.user.profile_image"
+              :src="comment.user.profile_image"
               draggable="false"
             />
           </span>
@@ -112,7 +112,7 @@
           <div class="Actions font-3 t-grey bold-4 p-2 noselect">
             <span class="icon-reply">Reply</span>
             <span class="icon-thumbs-up-alt"></span>
-            <span style="margin: 4px 0px">44</span>
+            <span style="margin: 4px 0px">{{ comment.thumbs_up }}</span>
             <span class="icon-thumbs-down-alt"></span> |
             <span class="icon-clock">{{
               $moment(comment.created_at).fromNow()

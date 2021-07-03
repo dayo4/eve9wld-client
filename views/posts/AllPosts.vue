@@ -1,41 +1,43 @@
 <template>
-  <div v-show="posts" class="Cover">
-    <div class="Header flex j-c-center a-i-center bg-white br2 mb-2 px-2">
-      <Dropdown
-        ownID="PostSort"
-        :text="'Sort By: ' + sort"
-        class="icon-sort-alt-up font-3 btn bg-trans-3 noselect"
-      >
-        <!-- slots -->
-        <template v-slot:default>
-          <a @click="sortBy('Newest', ['created_at', 'desc'])">
-            <span class="icon-down-open"></span>
-            <span>Newest</span>
-          </a>
-          <a @click="sortBy('Oldest', ['created_at', 'asc'])">
-            <span class="icon-up-open"></span>
-            <span>Oldest</span>
-          </a>
-        </template>
-      </Dropdown>
-    </div>
+  <div v-show="posts" class="Wrapper">
+    <article class="xs11 md10 lg8">
+      <section class="Header flex j-c-end a-i-center bg-white br2 mb-2 px-2">
+        <Dropdown ownID="PostSort" class="font-3 btn bg-trans-3">
+          <!-- slots -->
+          <template v-slot:labels>
+            <span class="icon-sort-alt-down mr-1"></span>
+            <span class="mr-2">{{ sort }}</span>
+          </template>
+          <template v-slot:default>
+            <a @click="sortBy('Newest', ['created_at', 'desc'])">
+              <span class="icon-down-open"></span>
+              <span>Newest</span>
+            </a>
+            <a @click="sortBy('Oldest', ['created_at', 'asc'])">
+              <span class="icon-up-open"></span>
+              <span>Oldest</span>
+            </a>
+          </template>
+        </Dropdown>
+      </section>
 
-    <!-- ListOfPosts Component -->
-    <div v-if="posts && posts.length > 0">
-      <ListOfPosts :posts="posts" :pagin="pagin" @switchPage="switchPage" />
-    </div>
+      <!-- ListOfPosts Component -->
+      <section v-if="posts && posts.length > 0">
+        <ListOfPosts :posts="posts" :pagin="pagin" @switchPage="switchPage" />
+      </section>
 
-    <div v-else class="px-10">
-      <h2 class="t-blue-grey text-center text-cap font- mt-8 letter-space-1">
-        No Posts Published At The Moment.
-      </h2>
-    </div>
-
-    <div v-if="posts.length < 3" class="px-10 mt-10">
-      <h4 class="t-blue-grey text-center text-cap font- mt-8 letter-space-1">
-        More Contents Will Be Available Shortly.
-      </h4>
-    </div>
+      <!-- <section v-else class="px-10">
+        <h2 class="t-blue-grey text-center text-cap font- mt-8 letter-space-1">
+          No Posts Published At The Moment.
+        </h2>
+      </section> -->
+      <!-- 
+      <section v-if="posts.length < 3" class="px-10 mt-10">
+        <h4 class="t-blue-grey text-center text-cap font- mt-8 letter-space-1">
+          More Contents Will Be Available Shortly.
+        </h4>
+      </section> -->
+    </article>
   </div>
 </template>
 <script lang="ts">
@@ -93,7 +95,7 @@ export default Vue.extend({
   },
 
   mounted() {
-    let _this = this;
+    // let _this = this;
     // $ScrollLoader('#MC-AllPosts').init(async function () {
     //     return await $Posts.fetchAll(_this.query).then(data => {
     //         if (data)
@@ -113,12 +115,12 @@ export default Vue.extend({
 </script>
 <style lang="scss" scoped>
 .Header {
-  position: relative;
-  height: 50px;
-  transition: 0.3s;
-  z-index: 2;
+  background-color: rgb(45, 45, 45);
+  border-radius: 20px 20px 4px 4px;
 }
-.Cover {
+.Wrapper {
+  display: flex;
+  justify-content: center;
   margin-bottom: 50px;
 }
 // .sss {

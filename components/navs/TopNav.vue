@@ -4,7 +4,7 @@
       <NuxtLink to="/" class="Logo flex a-i-center px-2">
         <div v-html="$appLogo('logo-x-small logo-static mr-2')"></div>
         <!-- <img src="/defaults/logo/scavorb.png" width="45" height="45" class="mr-4" /> -->
-        <b class="hide-sm-down">scavorb</b>
+        <b class="hide-sm-down">orbrift</b>
       </NuxtLink>
 
       <div class="SearchBox flex ml-2 pl-2 a-i-center shadow-6">
@@ -71,11 +71,7 @@
         <!-- DropBtn -->
         <a @click="avatarDropdown = !avatarDropdown" class="DropBtn">
           <img
-            :src="
-              user
-                ? $userBaseUrl + userData.profile_image
-                : '/defaults/usr/0.jpg'
-            "
+            :src="user ? userData.profile_image : '/defaults/usr/0.jpg'"
             width="46"
             height="46"
             draggable="false"
@@ -88,11 +84,7 @@
             >
               <div class="flex j-c-center">
                 <img
-                  :src="
-                    user
-                      ? $userBaseUrl + userData.profile_image
-                      : '/defaults/usr/0.jpg'
-                  "
+                  :src="user ? userData.profile_image : '/defaults/usr/0.jpg'"
                   width="60"
                   height="60"
                   alt="image"

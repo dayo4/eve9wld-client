@@ -100,7 +100,7 @@ export default Vue.extend({
       };
       if (n != this.curPage)
         $Posts.fetchUserPosts(this.profile.id, query, true).then(loaded => {
-          if (loaded) this.curPage = n;
+          // if (loaded) this.curPage = n;
         });
     }
   },

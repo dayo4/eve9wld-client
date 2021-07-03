@@ -13,6 +13,14 @@ const routes = [
           import(
             /* webpackChunkName: "glr-ls" */ "@/views/shop/gallery/List.vue"
           ).then(m => m.default || m)
+        // beforeEnter: (to, from, next) => {
+        //   $Products.fetchAll({}, true).then(loaded => {
+        //     next()
+        //     if (!loaded) {
+        //       $Notify.error("unable to connect")
+        //     }
+        //   })
+        // }
       },
       {
         path: "/gallery/:slug",

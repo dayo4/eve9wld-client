@@ -140,7 +140,7 @@
 
             <!-- user Image and About -->
             <div class="flex wrap sm-nowrap j-c-center a-i-center">
-              <div class="Image noselect">
+              <div class="Image noselect mr-1">
                 <img
                   :src="post.user.profile_image"
                   alt="user"
@@ -181,27 +181,27 @@ export default Vue.extend({
     Comments: () => import("@/components/posts/comment/Comments.vue"),
     Minimizer: () => import("@/components/GlobalComponents/utils/Minimizer.vue")
   },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      $Posts.$single
-        .fetch({
-          slug: to.params.slug
-        })
-        .then(loaded => {
-          // next()
-          if (!loaded) {
-            $Notify.error("unable to connect");
-          }
-        });
-    });
-  },
-  metaInfo() {
+  // beforeRouteEnter(to, from, next) {
+  //   // next(vm => {
+  //   $Posts.$single
+  //     .fetch({
+  //       slug: to.params.slug
+  //     })
+  //     .then(loaded => {
+  //       next();
+  //       if (!loaded) {
+  //         $Notify.error("unable to connect");
+  //       }
+  //     });
+  //   // });
+  // },
+  head() {
     return $General.metaInfo({
       title: this.post.title,
       content: this.post.excerpt,
       image: this.post.featured_image || this.post.images[0],
       url: this.href,
-      type: "Article"
+      type: "article"
     });
   },
 
@@ -214,7 +214,14 @@ export default Vue.extend({
       /* comments properties */
       activePost: null as object,
       showComments: false,
-      socket: null
+      socket: null,
+
+      /* others */
+      query: {
+        limit: 50,
+        offset: 0,
+        sort: ["created_at", "asc"]
+      }
     };
   },
 
@@ -223,6 +230,7 @@ export default Vue.extend({
       $Posts.$single.fetch({
         slug: this.$route.params.slug as string
       });
+      console.log(this.$route.params.slug);
     }
   },
 
@@ -238,7 +246,14 @@ export default Vue.extend({
       this.socket = WS("/comments/fetch-" + post.id);
       this.activePost = post;
       $Comments
-        .fetchAll(this.socket, post.id, {}, true)
+        .fetchAll(
+          this.socket,
+          {
+            post_id: post.id,
+            query: this.query
+          },
+          true
+        )
         .then(data => {
           if (data) {
             this.showComments = true;

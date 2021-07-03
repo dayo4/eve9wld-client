@@ -27,30 +27,20 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "pst" */ "@/views/posts/Single.vue").then(
             m => m.default || m
-          )
-        // beforeEnter: (to, from, next) => {
-        //     // const post: any = $Posts.$single.post as object
-        //     // const fetched = post && post.slug === to.params.slug
-        //     // if (fetched)
-        //     // {
-        //     //     next()
-        //     // }
-        //     // else
-        //     // {
-        //     $Posts.$single.fetch({
-        //         slug: to.params.slug
-        //     }, to.params.preview ? true : false).then((loaded) => {
-        //         // if (fetched)
-        //         // {
-        //         next()
-
-        //         if (!loaded) {
-        //             $Notify.error('unable to connect')
-        //         }
-        //         // }
-        //     })
-        //     //     }
-        // }
+          ),
+        beforeEnter: (to, from, next) => {
+          $Posts.$single
+            .fetch({
+              slug: to.params.slug
+            })
+            .then(loaded => {
+              next();
+              console.log(to.params.slug);
+              // if (!loaded) {
+              //     $Notify.error('Unable to ')
+              // }
+            });
+        }
       }
     ]
   }

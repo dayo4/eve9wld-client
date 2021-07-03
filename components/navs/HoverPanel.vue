@@ -5,16 +5,12 @@
       <div
         class="Head flex a-i-center j-c-center shadow-7 t-white font-6 bold-3"
       >
-        scavorb
+        orbrift
       </div>
 
       <div class="Body flex wrap j-c-between mt-2 p-2">
         <div
-          v-show="
-            !icon.auth ||
-              icon.auth === 'user' ||
-              (icon.auth === 'admin' && isAdmin)
-          "
+          v-show="!icon.auth || icon.auth === 'user'"
           v-for="(icon, i) in icons"
           :key="i"
           class="IconWrapper m-1 text-center"
@@ -97,18 +93,6 @@ export default Vue.extend({
           link: "",
           store: "",
           auth: "user"
-        },
-        {
-          font: "icon-cog-alt",
-          text: "Admin",
-          link: "admin-dashboard",
-          auth: "admin"
-        },
-        {
-          font: "icon-plus-1",
-          text: "New Post",
-          link: "compose-post",
-          auth: "admin"
         }
         // { font: 'icon-cog-1', text: 'Settings', link: 'manage-settings', auth: 'user' },
       ],

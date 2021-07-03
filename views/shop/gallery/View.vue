@@ -9,7 +9,7 @@
       <section class="AuthorDetail flex a-i-center bold-4 px-4">
         <span class="mr-3">By</span>
         <span
-          @click="router.push({ path: '/profile/dayo' })"
+          @click="router.push({ path: '/profile/adedayo-adeniyi' })"
           class="Image  mr-1"
         >
           <img
@@ -147,38 +147,41 @@ export default Vue.extend({
   // components: {
 
   // },
-  beforeRouteEnter(to, from, next) {
-    if ($Products.products.length > 0) {
-      const foundProduct = $Products.products.find(product => {
-        //@ts-ignore
-        return product.slug === to.params.slug;
-      });
+  // beforeRouteEnter(to, from, next) {
+  //   if ($Products.products.length > 0) {
+  //     const foundProduct = $Products.products.find(product => {
+  //       //@ts-ignore
+  //       return product.slug === to.params.slug;
+  //     });
 
-      if (foundProduct) {
-        $Products.$single.product = foundProduct;
-        next();
-      } else fetchFromServer();
-    } else {
-      fetchFromServer();
-    }
+  //     if (foundProduct) {
+  //       $Products.$single.product = foundProduct;
+  //       next();
+  //     } else fetchFromServer();
+  //   } else {
+  //     fetchFromServer();
+  //   }
 
-    function fetchFromServer() {
-      $Products.$single
-        .fetch({
-          slug: to.params.slug
-        })
-        .then(loaded => {
-          next();
+  //   function fetchFromServer() {
+  //     $Products.$single
+  //       .fetch({
+  //         slug: to.params.slug
+  //       })
+  //       .then(loaded => {
+  //         next();
 
-          if (!loaded) {
-            $Notify.error("unable to connect");
-          }
-        });
-    }
-  },
+  //         if (!loaded) {
+  //           $Notify.error("unable to connect");
+  //         }
+  //       });
+  //   }
+  // },
   head() {
     return $General.metaInfo({
-      title: $Products.$single.product.name,
+      title: this.product.name,
+      image: this.product.featured_image || this.product.images[0],
+      url: window.location.href,
+      content: this.product.short_description,
       type: "article"
     });
   },
@@ -189,7 +192,7 @@ export default Vue.extend({
     };
   },
   computed: {
-    product: () => $Products.$single.product,
+    product: () => $Products.$single.data,
     cart_total: () => $Shopping.$cart.cart_total
   },
   methods: {

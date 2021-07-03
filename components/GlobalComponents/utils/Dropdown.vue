@@ -1,6 +1,7 @@
 <template>
   <div
-    @click="dropdown = !dropdown"
+    ref="dropBtn"
+    @click="autoPositioning"
     :style="
       pos
         ? {
@@ -13,13 +14,15 @@
         : ''
     "
     :class="'DropBtnId-' + ownID"
-    class="GlobalDropBtn"
+    class="GlobalDropBtn t-white br1 p-1"
   >
-    <span>{{ text ? " " + text : "" }}</span>
+    <!-- <span>{{ text ? " " + text : "" }}</span> -->
+    <slot name="labels"></slot>
     <transition name="slide-down-fade">
       <button
-        v-if="dropdown === true"
-        class="GlobalDropdown shadow-5 bg-grey--3 font-3 br1 t-white px-3 noselect"
+        :ref="'dropDown' + ownID"
+        v-show="dropdown === true"
+        class="GlobalDropdown shadow-5 bg-grey--3 font-3 br1 t-white px-3"
         :style="
           optPos
             ? {
@@ -66,6 +69,32 @@ export default Vue.extend({
         }
       };
       window.addEventListener("click", dropdown, false);
+    },
+    autoPositioning(e: Event) {
+      this.dropdown = !this.dropdown;
+      // const dropBtn = this.$refs.dropBtn;
+      const dropBtn = e.target as HTMLElement;
+      const dropDown = this.$refs["dropDown" + this.ownID];
+      // const dropDown = dropBtn.querySelector(".GlobalDropdown") as HTMLElement;
+      const dropBtnRect = dropBtn.getBoundingClientRect();
+      const dropDownRect = dropDown.getBoundingClientRect();
+
+      const Xcoord = window.innerWidth;
+      const Ycoord = window.innerHeight;
+      // console.log(dropBtn, dropDown);
+      // console.log(dropBtnRect, dropDownRect);
+      function position() {
+        if (dropBtnRect.top > Ycoord / 2) {
+          dropDown.style.top = "-" + dropDownRect.height + "px";
+        } else {
+          dropDown.style.top = dropBtnRect.height + "px";
+        }
+
+        if (dropBtnRect.left > Xcoord / 2) {
+          dropDown.style.right = `${0}px`;
+        } else dropDown.style.left = `${0}px`;
+      }
+      position();
     }
   },
   mounted() {
@@ -78,11 +107,26 @@ export default Vue.extend({
   position: relative;
   height: 33px;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: rgb(54, 54, 54) 0px 3px 4px;
+  transition: 0.1s;
+  &:active {
+    box-shadow: none;
+  }
 }
 .GlobalDropdown {
   position: absolute;
-  right: 25px;
-  top: 32px;
+  // right: 25px;
+  // top: 32px;
   & a {
     text-decoration: none;
     color: white;

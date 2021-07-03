@@ -1,18 +1,16 @@
-import { $Axios, $Process, $WooApi, $Notify } from '@/plugins'
+import { $Axios, $Process, $Notify } from '@/plugins'
 
 export class SingleProduct {
-    product = null
+    data = null
 
-    async fetch (payload: { slug: string }, preview = false) {
+    async fetch (payload: { slug: string }) {
         $Process.add()
-        try
-        {
-            const { data } = await $Axios.get($WooApi('products', 'slug=' + payload.slug))
-            this.product = data[ 0 ]
+        try {
+            const { data } = await $Axios.get('products/' + payload.slug)
+            this.data = data
             return true
         }
-        catch (e)
-        {
+        catch (e) {
             $Notify.error('Unable to get the requested page')
         }
         finally { $Process.hide() }
