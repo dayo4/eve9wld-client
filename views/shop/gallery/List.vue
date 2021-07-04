@@ -141,16 +141,6 @@
       </h1>
 
       <!-- Filter -->
-      <!-- <div class="flex wrap a-i-center noselect">
-        <span class="bold-4 my-8 mx-10">Filter:</span>
-        <select class="btn mr-2 shadow-0" @change="filter">
-          <option value>All</option>
-          <option value>Navigation Bars</option>
-          <option value>Side Drawers</option>
-          <option value>Sets</option>
-        </select>
-        <button class="btn bg-cyan--4 shadow-0">Apply</button>
-      </div> -->
       <section
         class="Header flex wrap j-c-around sm-j-c-between a-i-center bg-white br2 mb-2 mx-4 px-2 pt-2 pb-1"
       >

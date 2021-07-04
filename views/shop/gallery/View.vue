@@ -1,137 +1,139 @@
 <template>
-  <div>
-    <h1 class="Head text-center t-blue-grey font-8 px-2">
-      {{ product.name }}
-    </h1>
+  <div class="flex j-c-center pt-10">
+    <div class="xs11 md10">
+      <h1 class="Head text-center t-blue-grey font-8 px-2">
+        {{ product.name }}
+      </h1>
 
-    <!-- Author Details -->
-    <div class="flex a-i-center j-c-between">
-      <section class="AuthorDetail flex a-i-center bold-4 px-4">
-        <span class="mr-3">By</span>
-        <span
-          @click="router.push({ path: '/profile/adedayo-adeniyi' })"
-          class="Image  mr-1"
-        >
-          <img
-            src="/defaults/usr/me.jpg"
-            alt="adedayo adeniyi"
-            draggable="false"
-          />
-        </span>
-        <router-link
-          :to="{ path: '/profile/dayo' }"
-          class="t-light-blue--2 font-3"
-          >Adedayo Adeniyi</router-link
-        >
-      </section>
-      <section class="flex a-i-center">
-        <button
-          class="btn bg-white t-cyan--3 mr-1 p-0 b2"
-          title="Add to favorite"
-        >
-          <i class="icon-heart font-6"></i>
-        </button>
-        <button
-          @click="addToCart(product)"
-          class="btn bg-white t-green--3 p-0 pr-1 b2"
-        >
-          <i class="icon-cart-plus mr-1 font-6"></i
-          >{{ "$" + product.sale_price }}
-        </button>
-      </section>
-    </div>
-    <!-- Product Details... -->
-    <article class="flex j-c-center wrap md-nowrap mt-10">
-      <section class="xs11 md8 mb-5 px">
-        <!-- Main Product Image -->
-        <div class="MainImg px-2 mb-8">
-          <img
-            :title="product.name"
-            :alt="product.name"
-            :src="product.images[0].src"
-            draggable="false"
-          />
-        </div>
-        <!-- FUll Description -->
-        <div v-html="product.description"></div>
-      </section>
-
-      <!-- Add To Cart & Price Details -->
-      <section class="AddToCartDetails xs11 sm8 md3 ml-3 ">
-        <div class="p-2 mb-3 br2 bg-grey-4">
-          <section>
-            <div
-              @click="showLicenseDropdown = !showLicenseDropdown"
-              class="LicenseOptions"
-            >
-              <span class="bold-4 mr-3"
-                >License:{{ " " + selectedLicense }}
-              </span>
-              <i></i>
-              <transition name="slide-down-fade">
-                <div
-                  v-if="showLicenseDropdown === true"
-                  class="LicenseDropdown bg-white shadow-3"
-                >
-                  <ul @click="selectedLicense = 'Regular'">
-                    <h5>Regular Licence</h5>
-                    <li>
-                      For item to be used by you or one client in a single end
-                      product which end users
-                      <b>are not</b> charged for.
-                    </li>
-                  </ul>
-                  <ul @click="selectedLicense = 'Extended'">
-                    <h5>Extended Licence</h5>
-                    <li>
-                      For item to be used by you or one client in a single end
-                      product which end users
-                      <b>can be</b> charged for.
-                    </li>
-                  </ul>
-                  <ul class="t-light-blue">
-                    <h5>View Licence Details</h5>
-                  </ul>
-                </div>
-              </transition>
-            </div>
-            <p class="t-blue-grey--1 font-6 bold-3 text-center">
-              USD - ${{ product.sale_price }}
-            </p>
-            <div>
-              <ul class="t-grey-1 font-3 ">
-                <li><i class="icon-check-1 mr-2"></i>Quality Confirmed</li>
-                <li><i class="icon-check-1 mr-2"></i>6 months support</li>
-                <li>
-                  <i class="icon-check-1 mr-2"></i>Access to future Updates
-                </li>
-              </ul>
-            </div>
-          </section>
-
-          <div>
-            <button
-              @click="addToCart(product)"
-              class="btn block bg-green-1 mb-2 p-3"
-            >
-              <i class="icon-cart-plus mr-2"></i>Add to Cart
-            </button>
-            <button
-              @click="$router.push({ path: '/checkout' })"
-              class="btn block bg-grey-1 mb-2 p-3"
-            >
-              <i class="icon-check-1 mr-2"></i>Secure Checkout Now
-            </button>
-          </div>
-          <i class="t-grey--1 font-2 text-center"
-            >Price displayed excludes sales tax</i
+      <!-- Author Details -->
+      <div class="flex a-i-center j-c-between">
+        <section class="AuthorDetail flex a-i-center bold-4 px-4">
+          <span class="mr-3">By</span>
+          <span
+            @click="router.push({ path: '/profile/adedayo-adeniyi' })"
+            class="Image  mr-1"
           >
-        </div>
-        <div class="t-grey bold-1 text-center">
-          <i class="icon-lock mr-2"></i>Secure Checkout
-        </div>
-      </section>
-    </article>
+            <img
+              src="/defaults/usr/me.jpg"
+              alt="adedayo adeniyi"
+              draggable="false"
+            />
+          </span>
+          <router-link
+            :to="{ path: '/profile/dayo' }"
+            class="t-light-blue--2 font-3"
+            >Adedayo Adeniyi</router-link
+          >
+        </section>
+        <section class="flex a-i-center">
+          <button
+            class="btn bg-white t-cyan--3 mr-1 p-0 b2"
+            title="Add to favorite"
+          >
+            <i class="icon-heart font-6"></i>
+          </button>
+          <button
+            @click="addToCart(product)"
+            class="btn bg-white t-green--3 p-0 pr-1 b2"
+          >
+            <i class="icon-cart-plus mr-1 font-6"></i
+            >{{ "$" + product.sale_price }}
+          </button>
+        </section>
+      </div>
+      <!-- Product Details... -->
+      <article class="flex j-c-center wrap md-nowrap mt-10">
+        <section class="xs12 md8 mb-5 px">
+          <!-- Main Product Image -->
+          <div class="MainImg px-2 mb-8">
+            <img
+              :title="product.name"
+              :alt="product.name"
+              :src="product.featured_image || product.images[0]"
+              draggable="false"
+            />
+          </div>
+          <!-- FUll Description -->
+          <div v-html="product.description"></div>
+        </section>
+
+        <!-- Add To Cart & Price Details -->
+        <section class="AddToCartDetails xs11 sm8 md3 ml-3 ">
+          <div class="p-2 mb-3 br2 bg-grey-4">
+            <section>
+              <div
+                @click="showLicenseDropdown = !showLicenseDropdown"
+                class="LicenseOptions"
+              >
+                <span class="bold-4 mr-3"
+                  >License:{{ " " + selectedLicense }}
+                </span>
+                <i></i>
+                <transition name="slide-down-fade">
+                  <div
+                    v-if="showLicenseDropdown === true"
+                    class="LicenseDropdown bg-white shadow-3"
+                  >
+                    <ul @click="selectedLicense = 'Regular'">
+                      <h5>Regular Licence</h5>
+                      <li>
+                        For item to be used by you or one client in a single end
+                        product which end users
+                        <b>are not</b> charged for.
+                      </li>
+                    </ul>
+                    <ul @click="selectedLicense = 'Extended'">
+                      <h5>Extended Licence</h5>
+                      <li>
+                        For item to be used by you or one client in a single end
+                        product which end users
+                        <b>can be</b> charged for.
+                      </li>
+                    </ul>
+                    <ul class="t-light-blue">
+                      <h5>View Licence Details</h5>
+                    </ul>
+                  </div>
+                </transition>
+              </div>
+              <p class="t-blue-grey--1 font-6 bold-3 text-center">
+                USD - ${{ product.sale_price }}
+              </p>
+              <div>
+                <ul class="t-grey-1 font-3 ">
+                  <li><i class="icon-check-1 mr-2"></i>Quality Confirmed</li>
+                  <li><i class="icon-check-1 mr-2"></i>6 months support</li>
+                  <li>
+                    <i class="icon-check-1 mr-2"></i>Access to future Updates
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <div>
+              <button
+                @click="addToCart(product)"
+                class="btn block bg-green-1 mb-2 p-3"
+              >
+                <i class="icon-cart-plus mr-2"></i>Add to Cart
+              </button>
+              <button
+                @click="$router.push({ path: '/checkout' })"
+                class="btn block bg-grey-1 mb-2 p-3"
+              >
+                <i class="icon-check-1 mr-2"></i>Checkout Now
+              </button>
+            </div>
+            <i class="t-grey--1 font-2 text-center"
+              >Price displayed excludes sales tax</i
+            >
+          </div>
+          <div class="t-grey bold-1 text-center">
+            <i class="icon-lock mr-2"></i>Secure Checkout
+          </div>
+        </section>
+      </article>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -147,35 +149,7 @@ export default Vue.extend({
   // components: {
 
   // },
-  // beforeRouteEnter(to, from, next) {
-  //   if ($Products.products.length > 0) {
-  //     const foundProduct = $Products.products.find(product => {
-  //       //@ts-ignore
-  //       return product.slug === to.params.slug;
-  //     });
 
-  //     if (foundProduct) {
-  //       $Products.$single.product = foundProduct;
-  //       next();
-  //     } else fetchFromServer();
-  //   } else {
-  //     fetchFromServer();
-  //   }
-
-  //   function fetchFromServer() {
-  //     $Products.$single
-  //       .fetch({
-  //         slug: to.params.slug
-  //       })
-  //       .then(loaded => {
-  //         next();
-
-  //         if (!loaded) {
-  //           $Notify.error("unable to connect");
-  //         }
-  //       });
-  //   }
-  // },
   head() {
     return $General.metaInfo({
       title: this.product.name,

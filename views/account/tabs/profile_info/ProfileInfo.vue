@@ -207,9 +207,9 @@ export default Vue.extend({
             string: true,
             min: 2,
             max: 20,
-            pattern: /^[a-zA-Z]$/
+            pattern: /^[a-zA-Z]+$/
           },
-          message: { pattern: "Name may only contain letters" }
+          messages: { pattern: "Name may only contain letters" }
         },
         {
           fieldName: "First Name",
@@ -221,7 +221,7 @@ export default Vue.extend({
             max: 20,
             pattern: /^[a-zA-Z]$/
           },
-          message: { pattern: "Name may only contain letters" }
+          messages: { pattern: "Name may only contain letters" }
         }
       ];
 

@@ -10,10 +10,7 @@ class Profile {
     $settings = new Settings()
     $status = new Status()
 
-    data: any = {
-        name: 'Adeniyi Adedayo'
-    }
-
+    data: object 
 
     async fetch (payload: { username: string }, refresh: boolean = false) {
         $Process.add()

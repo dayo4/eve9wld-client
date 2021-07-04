@@ -21,15 +21,15 @@ import { $Process } from "@/plugins";
 import MorphNav from "@/components/navs/reusables/morphors";
 
 export default Vue.extend({
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      if (to.query.tab) {
-        // @ts-ignore
-        vm.switchTab(to.query.tab);
-      } // @ts-ignore
-      vm.activeTab = "Tab_1";
-    });
-  },
+  // beforeRouteEnter(to, from, next) {
+  //   next(vm => {
+  //     if (to.query.tab) {
+  //       // @ts-ignore
+  //       vm.switchTab(to.query.tab);
+  //     } // @ts-ignore
+  //     vm.activeTab = "Tab_1";
+  //   });
+  // },
 
   data() {
     return {
@@ -110,48 +110,6 @@ export default Vue.extend({
             icon: "icon-cog-1",
             name: "something",
             link: ""
-          },
-          {
-            id: 5,
-            icon: "icon-cog-1",
-            name: "something",
-            link: ""
-          },
-          {
-            id: 5,
-            icon: "icon-cog-1",
-            name: "something",
-            link: ""
-          },
-          {
-            id: 5,
-            icon: "icon-cog-1",
-            name: "something",
-            link: ""
-          },
-          {
-            id: 5,
-            icon: "icon-cog-1",
-            name: "something",
-            link: ""
-          },
-          {
-            id: 5,
-            icon: "icon-cog-1",
-            name: "something",
-            link: ""
-          },
-          {
-            id: 5,
-            icon: "icon-cog-1",
-            name: "something",
-            link: ""
-          },
-          {
-            id: 5,
-            icon: "icon-cog-1",
-            name: "something",
-            link: ""
           }
         ]
       }
@@ -162,30 +120,10 @@ export default Vue.extend({
     user: () => $Auth.user
   },
 
-  methods: {
-    switchTab(tab_id) {
-      this.activeTab = "Tab_" + tab_id;
-      if (tab_id === 3) {
-        // $Profile.$Portfolio.fetchAll({
-        //   user_id: $Auth.user.id,
-        //   filter: {}
-        // });
-      } else if (tab_id === 4) {
-        // $Posts.$settings.fetchAll({ filter: {} }, true);
-      }
-    }
-  },
+  // methods: {
+  // },
 
   mounted() {
-    const adminTabs = [
-      { id: 3, name: "Portfolio Setup", icon: "icon-briefcase-1" },
-      { id: 4, name: "Manage Post", icon: "icon-doc-text" }
-    ];
-
-    if ([9, 10].includes(this.user.pr)) {
-      this.tabsList.push(...adminTabs);
-    }
-
     MorphNav("#SetMorph", this.NavConfig);
   }
 });

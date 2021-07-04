@@ -26,7 +26,7 @@
       <span class="flex a-i-center j-c-around shadow-4 bg-trans-2">
         <span class="icon-camera font-9" title="Upload Image"></span>
       </span>
-      <router-link :to="{ name: 'manage-settings', query: { tab: 1 } }">
+      <router-link :to="{ name: 'account' }">
         <span class="icon-edit"></span>
         <span>Edit Profile</span>
       </router-link>

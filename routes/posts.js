@@ -35,7 +35,6 @@ const routes = [
             })
             .then(loaded => {
               next();
-              console.log(to.params.slug);
               // if (!loaded) {
               //     $Notify.error('Unable to ')
               // }

@@ -11,14 +11,16 @@
       <!-- Items Details -->
       <div class="xs11 md8 mb-5">
         <!-- HEAD -->
-        <section class="flex j-c-around mb-4 p-2 bg-blue-grey--2 br1">
+        <section
+          class="Header flex wrap j-c-around sm-j-c-between a-i-center bg-white br2 mb-2 px-2 pt-2 pb-1"
+        >
           <button
             @click="$router.push({ path: '/gallery' })"
-            class="btn bg-cyan mr-2"
+            class="btn bg-cyan mr-2 mb-1"
           >
             <i class="icon-search-2 mr-2"></i>Continue Shopping
           </button>
-          <button @click="clearCart()" class="btn bg-red-1">
+          <button @click="clearCart()" class="btn bg-trans-3">
             Empty Cart
           </button>
         </section>
@@ -30,7 +32,7 @@
           :key="i"
         >
           <div class="Img noselect">
-            <img :src="item.images[0].src" draggable="false" />
+            <img :src="item.featured_image" draggable="false" />
           </div>
           <div
             @click="viewProduct(item.slug)"
@@ -38,7 +40,12 @@
           >
             {{ item.name }}
           </div>
-          <div class="Price flex j-c-center a-i-center t-blue-grey--1 bold-3">
+          <div
+            class="Price flex wrap j-c-center a-i-center t-blue-grey--1 bold-3"
+          >
+            <p>
+              {{ item.price > item.sale_price ? "$" + item.price + "  " : "" }}
+            </p>
             <p>${{ item.sale_price }}</p>
           </div>
           <span
@@ -48,7 +55,7 @@
         </section>
 
         <!-- Empty Cart Notif -->
-        <section class="text-center t-blue-grey mt-3">
+        <section v-if="cart.length === 0" class="text-center t-blue-grey mt-3">
           <h2>Your Cart Is Empty</h2>
           <h4>
             There are some new amazing designs available now to spice up your
@@ -104,8 +111,6 @@ export default Vue.extend({
     cart_total: () => $Shopping.$cart.cart_total
   },
   methods: {
-    filter() {},
-
     viewProduct(slug: string) {
       this.$router.push({ path: "/gallery/" + slug });
     },
@@ -131,7 +136,11 @@ export default Vue.extend({
   letter-spacing: 1px;
   margin-bottom: 30px;
 }
-
+.Header {
+  background-color: rgb(45, 45, 45);
+  border-radius: 20px 20px 4px 4px;
+  font-size: 13px;
+}
 .ItemDetail {
   position: relative;
   border-bottom: $grey-3 solid 2px;
@@ -142,7 +151,7 @@ export default Vue.extend({
     width: 100px;
     height: 100px;
     margin: 5px;
-    background-color: $cyan-3;
+    background-color: rgb(47, 47, 47);
     & img {
       max-width: 100%;
       max-height: 100%;
@@ -154,6 +163,25 @@ export default Vue.extend({
   }
   & .Price {
     width: 80px;
+    padding: 30px 0;
+    & p {
+      margin: 4px 4px 0 4px;
+    }
+    & p:first-child {
+      position: relative;
+      font-weight: 100;
+      // font-size: 16px;
+      color: $red-2;
+      &::after {
+        content: "";
+        position: absolute;
+        left: 5px;
+        right: 5px;
+        top: calc(50% - 1px);
+        border-bottom: solid 1.5px currentColor;
+        transform: rotate(-12deg);
+      }
+    }
   }
   & .Delete {
     position: absolute;

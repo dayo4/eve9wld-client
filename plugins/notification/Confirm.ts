@@ -15,24 +15,24 @@ function createTemplate (header: string, message: string, type: string) {
         <div class="Content m-auto xs11 sm8 md6 lg5">
 
             <h3
-                class="Head flex a-i-center j-c-between font-7 p-3 my-0 noselect ${type === 'danger' ? 'bg-pink-5 t-red-1' : type === 'success' ? 'bg-lime-4 t-green-1' : type === 'warning' ? 'bg-yellow-4 t-orange-1' : 'bg-light-blue-5 t-light-blue'}"
+                class="Head flex a-i-center j-c-between font-5 p-3 my-0 noselect ${type === 'danger' ? 'bg-pink-5 t-red-1' : type === 'success' ? 'bg-lime-4 t-green-1' : type === 'warning' ? 'bg-yellow-4 t-orange-1' : 'bg-light-blue-5 t-light-blue'}"
             >
                 <span class="Header text-up">
                     ${header}
                 </span>
-			    <div class="Close labeled-action">
+			    <div class="CloseActionVerification labeled-action">
 			    	<span class="icon-off t-pink-2"></span>
 			    	<span>Close</span>
 			    </div>
             </h3>
 
             <hr />
-            <div class="Body bg-white p-2 mb-0 font-5 br1 text-center">
+            <div class="Body bg-white p-2 mb-0 font-4 br1 text-center">
                 ${message}
             </div>
             <hr />
 
-            <div class="Foot bg-white noselect flex a-i-center j-c-center p-2">
+            <div class="Foot font-3 bg-white noselect flex a-i-center j-c-center p-2">
                 <button
                     class="CloseActionVerification btn cyan-gradient-btn icon-cancel"
                 > Cancel </button>
@@ -62,19 +62,16 @@ export class Confirm {
         function listener (e: any) {
             if (e.target.closest('.CloseActionVerification'))
                 close()
-            else if (e.target.closest('.ApproveActionVerification'))
-            {
+            else if (e.target.closest('.ApproveActionVerification')) {
                 const itIsPromise = params.onConfirm()
 
                 /* if the confirmation funtion is a promise, wait until it is fulfilled before auto-closing. */
-                if (itIsPromise instanceof Promise)
-                {
+                if (itIsPromise instanceof Promise) {
                     $Obstacl.create('#ApproveActionVerification', {
                         icon: 'icon-spin6',
                     })
                     itIsPromise.then(done => {
-                        if (done)
-                        {
+                        if (done) {
                             $Obstacl.destroy('#ApproveActionVerification')
                             close()
                         }

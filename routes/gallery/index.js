@@ -1,4 +1,4 @@
-// import { $Posts } from "@/store"
+import { $Products } from "@/store";
 
 const routes = [
   {
@@ -27,7 +27,21 @@ const routes = [
         component: () =>
           import(
             /* webpackChunkName: "glr-v" */ "@/views/shop/gallery/View.vue"
-          ).then(m => m.default || m)
+          ).then(m => m.default || m),
+        beforeEnter: (to, from, next) => {
+          $Products.$single
+            .fetch({
+              slug: to.params.slug
+            })
+            .then(loaded => {
+              if (loaded) {
+                next();
+              }
+              // if (!loaded) {
+              //     $Notify.error('Unable to ')
+              // }
+            });
+        }
       }
     ]
   }
