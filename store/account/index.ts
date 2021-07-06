@@ -2,10 +2,10 @@ import { $Auth } from '@/store'
 import { $Vue, $Axios, $Notify, $Process } from '@/plugins'
 
 class Account {
-data: object
+    data: any /* object */
 
     async update (payload: object) {
-        $Process.add('Updating Info')
+        $Process.add('Updating Details')
         try {
             const { data } = await $Axios.patch("account/info/" + $Auth.user.id, {
                 ...payload
@@ -37,4 +37,4 @@ data: object
 
 }
 
-export const $Profile = $Vue.observable(new Account())
+export const $Account = $Vue.observable(new Account())

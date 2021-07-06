@@ -1,10 +1,25 @@
+import { $Account } from "@/store"
+import { $Notify } from "@/plugins"
+
 const routes = [
   {
     path: "/account",
     component: () =>
       import(/* webpackChunkName: "stns" */ "@/views/account/Account.vue").then(
         m => m.default || m
-      ),
+      ), beforeEnter: (to, from, next) => {
+        if ($Account.data) {
+          next()
+        }
+        else {
+          $Account
+            .fetch()
+            .then(loaded => {
+              // if (!loaded)
+              next()
+            })
+        }
+      },
     children: [
       /* DASHBOARD */
       {
@@ -13,7 +28,8 @@ const routes = [
         component: () =>
           import("@/views/account/tabs/profile_info/ProfileInfo.vue").then(
             m => m.default || m
-          )
+          ),
+
       },
       /* ACCOUNT-INFO ROUTES*/
       {
@@ -69,8 +85,8 @@ const routes = [
       }
     ]
   }
-];
+]
 
 export default routes.map(route => {
-  return { ...route, meta: { userOnly: true } };
-});
+  return { ...route, meta: { userOnly: true } }
+})

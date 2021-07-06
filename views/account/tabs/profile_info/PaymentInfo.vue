@@ -7,17 +7,21 @@
       <!-- We do not sell your details or share them without your permission. Read more in our privacy policy. -->
       <section class="form">
         <div>
-          <label for="fname">First Name</label>
-          <input v-model="first_name" type="text" />
+          <label>First Name <i>*</i></label>
+          <input v-model="first_name" type="text" placeholder="John" />
         </div>
         <div>
-          <label for="lname">Last Name</label>
-          <input v-model="last_name" type="text" />
+          <label>Last Name <i>*</i></label>
+          <input v-model="last_name" type="text"  placeholder="Doe" />
+        </div>
+        <div>
+          <label>Url/Website</label>
+          <input v-model="url" type="text" placeholder="e.g - https://mysite.com/etc" />
         </div>
         <div>
           <label>Company Name</label>
           <div>
-            <input v-model="company_name" type="text" />
+            <input v-model="company_name" type="text" placeholder="e.g - Orbrift" />
             <small
               >If you want your invoices addressed to a company. Leave blank to
               use your full name instead.</small
@@ -25,7 +29,7 @@
           </div>
         </div>
         <div>
-          <label>Country</label>
+          <label>Country <i>*</i></label>
           <select v-model="country">
             <option selected>
               Select Country
@@ -36,24 +40,24 @@
           </select>
         </div>
         <div>
-          <label>Address Line 1</label>
+          <label>Address Line 1 <i>*</i></label>
           <input v-model="address_1" type="text" />
         </div>
         <div>
           <label>Address Line 2</label>
-          <input v-model="address_2" type="text" />
+          <input v-model="address_2" type="text" placeholder="e.g - No.60, some street, at some place" />
         </div>
         <div>
-          <label>City</label>
+          <label>City <i>*</i> </label>
           <input v-model="city" type="text" />
         </div>
         <div>
-          <label>State/Province/Region</label>
+          <label>State/Province/Region <i>*</i></label>
           <input v-model="state" type="text" />
         </div>
         <div>
-          <label>Zip / Postal Code</label>
-          <input v-model="postcode" type="text" />
+          <label>Zip / Postal Code <i>*</i></label>
+          <input v-model="postcode" type="text" placeholder="e.g - 675322"/>
         </div>
         <div>
           <label>Company No.</label>
@@ -91,6 +95,7 @@ export default Vue.extend({
     return {
       first_name: "",
       last_name: "",
+      url: "",
       company_name: "",
       country: "",
       address_1: "",
@@ -136,6 +141,15 @@ export default Vue.extend({
             pattern: /^[a-zA-Z]+$/
           },
           messages: { pattern: "Name may only contain letters" }
+        },
+        {
+          fieldName: "URL",
+          data: this.url,
+          rules: {
+            string: true,
+            pattern: /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/g
+          },
+          messages: { pattern: "Url should be similar to - https://mysite.com/etc" }
         },
         {
           fieldName: "Company Name",
@@ -222,6 +236,7 @@ export default Vue.extend({
         const data = {
           first_name: this.first_name,
           last_name: this.last_name,
+          url: this.url,
           company_name: this.company_name,
           country: this.country,
           address_1: this.address_1,
@@ -271,6 +286,9 @@ export default Vue.extend({
     margin-bottom: 2px;
     font-weight: bold;
     color: $blue-grey-1;
+    & i{
+      color: red;
+    }
   }
   & small {
     display: block !important;

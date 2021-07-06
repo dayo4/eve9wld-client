@@ -91,7 +91,8 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     // { src: '~plugins/nuxt_vue_plugins/vue-tooltip.ts' },
-    { src: "~plugins/nuxt_vue_plugins/global-variables.ts" }
+    { src: "~plugins/nuxt_vue_plugins/global-variables.ts" },
+    { src: "~plugins/nuxt_vue_plugins/global-components.ts" }
     // { src: '~/nuxt_plugins/global-variables.ts', mode: 'client' }, // only on client side
   ],
 
