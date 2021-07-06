@@ -391,7 +391,6 @@ export default Vue.extend({
 	}
 }
 .Alert {
-	// font-family: cursive;
 	font-family: "Courier New", Courier, monospace;
 	font-weight: 600;
 	letter-spacing: 1px;
