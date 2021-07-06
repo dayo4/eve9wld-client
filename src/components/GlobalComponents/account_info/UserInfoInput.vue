@@ -332,7 +332,7 @@ export default Vue.extend({
 			for (let data in this.$data) {
 				if (!this.exclude.includes(data) && data != 'error' && data != 'neededData') {
 					this.neededData.push(data)
-					if (this.target === 'BillingInfo' && typeof $Account.data.billing_info[ data ] != 'undefined') {
+					if (this.target === 'BillingInfo' && $Account.data && typeof $Account.data.billing_info[ data ] != 'undefined') {
 						this.$data[ data ] = $Account.data.billing_info[ data ]
 					}
 					else if (this.target === 'AccountInfo') {

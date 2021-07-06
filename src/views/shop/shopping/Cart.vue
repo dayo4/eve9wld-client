@@ -150,8 +150,8 @@ export default Vue.extend({
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 100px;
-		height: 100px;
+		width: 130px;
+		height: 80px;
 		margin: 5px;
 		background-color: rgb(47, 47, 47);
 		& img {

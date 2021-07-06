@@ -10,11 +10,11 @@ declare module 'vue/types/vue' {
         $baseUrl: string
     }
 
-    interface Query {//Api data fetch Query
-        limit?: number
-        offset?: number
-        sort?: string[]
-        filter?: object
-    }
 
+}
+export default interface Query {//Api data fetch Query
+    limit?: number
+    offset?: number
+    sort?: string[]
+    filter?: object
 }

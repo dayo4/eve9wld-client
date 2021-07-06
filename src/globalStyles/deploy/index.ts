@@ -1,6 +1,6 @@
 import "../../../../../../GreyCore/GC/dist/greycore.css"
 import "../../../../../../GreyCore/icons/css/fontello.css"
-import './general.css'
+import './general.scss'
 import './gradients.scss'
 import './logo.scss'
 import './plugins.scss'

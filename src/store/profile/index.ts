@@ -1,5 +1,4 @@
 /* Import other modules */
-import { Settings } from './modules/Settings'
 import { Status } from './modules/Status'
 
 import { $Auth } from '@/store'
@@ -7,7 +6,6 @@ import { $Vue, $Axios, $Notify, $Process } from '@/plugins'
 
 
 class Profile {
-    $settings = new Settings()
     $status = new Status()
 
     data: any
