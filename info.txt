@@ -1,0 +1,7 @@
+z-index info {
+    GlobalDropdown - 1
+    all navBars - 7
+    HoverPanel - 8
+    all modals - 9
+    notify and loading popup - 11
+}
