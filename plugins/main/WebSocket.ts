@@ -2,12 +2,12 @@
 import webSokect from 'socket.io-client'
 // import LSAgent from '@/plugins/storage/LSAgent'
 const connStack: string[] = []
-const devMode = process.env.NODE_ENV === 'production'
+const devMode = process.env.NODE_ENV !== 'production'
 class WS {
-  baseUrl = devMode ? 'wss://scavorb.com' : 'ws://127.0.0.1:3000'
+  baseUrl = devMode ? 'ws://127.0.0.1:3000' : /* 'wss://scavorb.com' */ 'ws://127.0.0.1:3000'
 
-  createConnection (nsp: string, opts?: SocketIOClient.ConnectOpts) {
-    const defaultOptions: SocketIOClient.ConnectOpts = {
+  createConnection (nsp: string, opts?) {
+    const defaultOptions = {
       path: '/orbServer',
       secure: true,
       rejectUnauthorized: true,
@@ -17,17 +17,20 @@ class WS {
 
     const socket = webSokect(this.baseUrl + nsp, connOptions)
 
-    socket.on('connect', function (e) {
-      // console.log('connected to ws ')
-      // console.log(socket)
+    socket.on('connect', function () {
       connStack.push(nsp)
-      // console.log(connStack)
-      // socket.send('New connection established!')
+      if (devMode) {
+
+        console.log('connected to ws ', nsp)
+        console.log(socket)
+        console.log(connStack)
+        // socket.send('New connection established!')
+      }
     })
 
     socket.on('disconnect', function (reason) {
       connStack.splice(connStack.indexOf(nsp), 1)
-      devMode ? console.log(socket.nsp + ' Disconnected from ws - Reason: ' + reason) : ''
+      devMode ? console.log(socket + ' Disconnected from ws - Reason: ' + reason) : ''
     })
     socket.on('error', function (reason) {
       devMode ? console.error('Error - Reason: ' + reason) : ''
@@ -41,6 +44,6 @@ class WS {
 }
 
 
-export function io (nsp: string, opts?: SocketIOClient.ConnectOpts) {
+export function io (nsp: string, opts?) {
   return new WS().createConnection(nsp, opts)
 }

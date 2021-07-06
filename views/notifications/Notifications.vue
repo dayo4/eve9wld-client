@@ -1,81 +1,79 @@
 <template>
-    <Container ownID="MC-Notif">
-        <div class="MainView xs12 sm11 flex wrap j-c-center pl-4">
-            <!-- All tabs go here -->
-            <Plaform :activeTab="activeTab" />
-            <System :activeTab="activeTab" />
-        </div>
+  <div class="MainView xs12 sm11 flex wrap j-c-center pl-4">
+    <!-- All tabs go here -->
+    <Plaform :activeTab="activeTab" />
+    <System :activeTab="activeTab" />
+  </div>
 
-        <!-- Side Nav Component -->
-        <VerticalNavigator
-            :tabsList="tabsList"
-            @tabClicked="switchActiveTab"
-            :activeTab="activeTab"
-        />
-    </Container>
+  <!-- Side Nav Component -->
 </template>
 <script lang="ts">
-import Vue from "vue"
-import { $ReadQueue, $Posts, $Comments, $Auth } from "@/myStore"
-import { WS, $Process } from "@/plugins"
-import VerticalNavigator from '@/components/navs/reusables/navigators/VerticalNavigator.vue'
-import Container from '@/components/navs/reusables/Container.vue'
+import Vue from "vue";
+import { $ReadQueue, $Posts, $Comments, $Auth } from "@/store";
+import { WS, $Process } from "@/plugins";
 
 export default Vue.extend({
-    components: {
-        VerticalNavigator,
-        Container,
-        Plaform: () => import(/* webpackChunkName: "minimizer" */ '@/components/notifications/tabs/Platform.vue'),
-        System: () => import(/* webpackChunkName: "minimizer" */ '@/components/notifications/tabs/System.vue'),
-        Dropdown: () => import(/* webpackChunkName: "dropdown" */ '@/components/GlobalComponents/utils/Dropdown.vue'),
-        Comments: () => import(/* webpackChunkName: "comments" */"@/components/posts/comment/Comments.vue")
-    },
-    beforeRouteEnter (to, from, next) {
-        next(vm => {
-            if (to.query.tab)
-            {
-                vm.$data.activeTab = to.query.tab
-            }
-            vm.$data.activeTab = 'Tab-1'
-        })
-    },
+  components: {
+    Plaform: () =>
+      import(
+        /* webpackChunkName: "minimizer" */ "@/components/notifications/tabs/Platform.vue"
+      ),
+    System: () =>
+      import(
+        /* webpackChunkName: "minimizer" */ "@/components/notifications/tabs/System.vue"
+      ),
+    Dropdown: () =>
+      import(
+        /* webpackChunkName: "dropdown" */ "@/components/GlobalComponents/utils/Dropdown.vue"
+      ),
+    Comments: () =>
+      import(
+        /* webpackChunkName: "comments" */ "@/components/posts/comment/Comments.vue"
+      )
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      if (to.query.tab) {
+        vm.$data.activeTab = to.query.tab;
+      }
+      vm.$data.activeTab = "Tab-1";
+    });
+  },
 
-    data () {
-        return {
-            activeTab: 'Tab-1',
+  data() {
+    return {
+      activeTab: "Tab-1",
 
-            tabsList: [
-                { id: 1, name: 'Platform', icon: 'icon-user' },
-                { id: 2, name: 'System Notifications', icon: 'icon-doc-text' },
-                { id: 3, name: 'Settings', icon: 'icon-mail-alt' },
-            ]
+      tabsList: [
+        { id: 1, name: "Platform", icon: "icon-user" },
+        { id: 2, name: "System Notifications", icon: "icon-doc-text" },
+        { id: 3, name: "Settings", icon: "icon-mail-alt" }
+      ]
+    };
+  },
 
-        }
-    },
+  computed: {
+    user: () => $Auth.user
+  },
 
-    computed: {
-        user: () => $Auth.user,
-    },
-
-    methods: {
-        switchActiveTab (tab_id) {
-            this.activeTab = 'Tab-' + tab_id
-        }
+  methods: {
+    switchActiveTab(tab_id) {
+      this.activeTab = "Tab-" + tab_id;
     }
-})
-
+  }
+});
 </script>
 <style lang="scss" scoped>
 .MainView {
-    & .Tab {
-        animation: fade 0.7s;
-    }
+  & .Tab {
+    animation: fade 0.7s;
+  }
 }
 
 @include xs-only {
-    .MainView {
-        padding-left: 6px;
-        padding-right: 50px;
-    }
+  .MainView {
+    padding-left: 6px;
+    padding-right: 50px;
+  }
 }
 </style>

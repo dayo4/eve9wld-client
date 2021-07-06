@@ -3,10 +3,13 @@ export class LoadingProcessNotification {
     info = ''
     // fullscreen = false
     icon = "icon-info"
+    progressTotal = 0
+    progressElapsed = 0
 
     hide () {
         this.status = false
-        // this.reset()
+        this.progressTotal = 0
+        this.progressElapsed = 0
     }
 
     reset () {
@@ -18,7 +21,16 @@ export class LoadingProcessNotification {
     }
 
     add (text?: string/* , opt: { full?: boolean } = {} */) {
-        this.info = text ? text : 'Requesting...'
+        this.info = text ? text : 'Processing...'
+        this.icon = 'icon-info'
+        if (this.status === false)
+            this.status = true
+        // if (opt.full)
+        //     this.fullscreen = true
+    }
+
+    progress (text?: string/* , opt: { full?: boolean } = {} */) {
+        this.info = text ? text : 'Processing...'
         this.icon = 'icon-info'
         if (this.status === false)
             this.status = true
@@ -27,7 +39,7 @@ export class LoadingProcessNotification {
     }
 
     abort () {
-        this.info = 'Aborting operation...'
+        this.info = 'Aborting...'
         this.icon = 'icon-cancel'
         let $this = this
         setTimeout(function () {

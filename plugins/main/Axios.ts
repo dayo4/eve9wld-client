@@ -1,14 +1,29 @@
 "use strict"
 
 // import Vue from 'vue'
+import { AxiosInstance, AxiosPromise, Method, ResponseType, AxiosRequestConfig, AxiosResponse } from 'axios'
 import axios from 'axios'
 import { setupCache } from 'axios-cache-adapter'
+import { $Router } from './'
 
-import { createRouter } from '@/router'
-import { $Auth } from '@/myStore'
+// import { createRouter } from '@/router'
+import { $Auth } from '@/store'
 import LSAgent from '@/plugins/storage/LSAgent'
 
-const router = createRouter()
+// axios.get('').then((a) => {
+
+// })
+
+// function a (method: Method, url: string, options: {
+//   data: any,
+//   config: AxiosRequestConfig,
+// }) {
+//   const argLength = arguments.length
+//   return axios[ method ](url, options.data )
+
+// }
+
+const router = $Router
 const devMode = process.env.NODE_ENV === 'development'
 
 // Full config:  https://github.com/axios/axios#request-config
@@ -24,9 +39,10 @@ const cache = setupCache({
   clearOnStale: false
 })
 const config = {
-  baseURL: (devMode ? 'https://orb.heroestoggery.com/wp-json/' : process.env.BASE_URL),
+  // baseURL: 'http://127.0.0.1:3000/scv-v1/',
+  // baseURL: 'https://orb.heroestoggery.com/wp-json/',
   // baseURL: (devMode ? 'http://localhost/wplocal/wp-json/' : process.env.BASE_URL),
-  // baseURL: (devMode ? 'http://127.0.0.1:3000/' : process.env.BASE_URL) + 'scv-v1/',
+  baseURL: (devMode ? 'http://127.0.0.1:3000/' : process.env.BASE_URL) + 'scv-v1/',
   timeout: 60 * 1000, // Timeout
   // withCredentials: true, // Check cross-site Access-Control
   adapter: cache.adapter,
@@ -39,7 +55,9 @@ _axios.interceptors.request.use(
   function (config) {
     // Do something before request is sent
     const token = LSAgent.getToken()
-    config.headers.common[ 'Authorization' ] = 'Bearer ' + token
+    if (!config.url.match(/auth$/))
+      // if (!config.url.match(/auth\/v1\/token$/))
+      config.headers.common[ 'Authorization' ] = 'Bearer ' + token
 
     return config
   },
@@ -66,45 +84,22 @@ _axios.interceptors.response.use(
     if (devMode)
       console.log(response)
 
-    if (response)
-    {
-      if (response.status === 401)
-      {
+    if (response) {
+      if (response.status === 401) {
         const redirectUrl = router.currentRoute.path
-        if (error === 'Re-login!')
-        {
+        if (error === 'Re-login!') {
           $Auth.$form.logout()
           $Auth.$form.show({ showQuery: true, message: 'Please, Re-login to continue!', redirect: redirectUrl })
-        } else
-        {
+        } else {
           router.replace({ path: '/401' })
         }
       }
-      if (response.status === 404)
-      {
+      if (response.status === 404) {
         router.push({ name: '404', /* query: { data: error } */ })
       }
     }
     return Promise.reject(error)
   }
 )
-// Plugin.install = function (Vue, options) {
-//   Vue.axios = _axios
-//   window.axios = _axios
-//   Object.defineProperties(Vue.prototype, {
-//     axios: {
-//       get() {
-//         return _axios
-//       }
-//     },
-//     $Axios: {
-//       get() {
-//         return _axios
-//       }
-//     },
-//   })
-// }
-
-// Vue.use(Plugin)
 
 export default _axios

@@ -1,13 +1,14 @@
 <template>
-  <router-view v-slot="{ Component }">
+    <!-- <router-view v-slot="{ Component }"> -->
     <transition name="slide-fade">
-      <component :is="Component" />
+        <router-view></router-view>
+        <!-- <component :is="Component" /> -->
     </transition>
-  </router-view>
+    <!-- </router-view> -->
 </template>
 <script lang="ts">
-import Vue from "vue";
+import Vue from "vue"
 export default Vue.extend({
-  layout: "profile",
+    layout: "profile",
 });
 </script>

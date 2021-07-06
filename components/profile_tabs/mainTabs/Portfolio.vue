@@ -8,20 +8,22 @@
     <div class="Cont px-10">
       <div
         class="PTF bg-white mb-10 br3 shadow-1"
-        v-for="proj in projects"
-        :key="proj.id"
+        v-for="proj in 3"
+        :key="proj"
       >
         <div
           class="t-pink--3 shadow-1 text-up text-center b4 br3 bold-3 font-8 py-4 letter-space-1 noselect"
         >
           <span class="font-12"></span>
-          {{ proj.title }}
+          proj.title
         </div>
 
-        <div
-          v-html="proj.detail"
-          class="bg-cyan- t-whit font-5 bold-2 pl-10 mt-3 p-1"
-        ></div>
+        <div class="bg-cyan- t-whit font-5 bold-2 pl-10 mt-3 p-1">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga dolores
+          cupiditate temporibus iusto ullam, voluptas veritatis? Sapiente
+          molestias qui nesciunt, nemo inventore provident ratione voluptates
+          ipsa hic sunt deserunt dicta!
+        </div>
       </div>
     </div>
   </TabsContainer>
@@ -29,16 +31,16 @@
 <script lang="ts">
 import Vue from "vue";
 import TabsContainer from "@/components/profile_tabs/TabsContainer.vue";
-import { $Auth, $Profile, $Posts } from "@/myStore";
+import { $Auth, $Profile, $Posts } from "@/store";
 
 export default Vue.extend({
   components: {
-    TabsContainer,
+    TabsContainer
   },
   computed: {
-    projects: () => $Profile.$Portfolio.projects_A,
-    profile: () => $Profile.data,
-  },
+    // projects: () => $Profile.$Portfolio.projects_A,
+    profile: () => $Profile.data
+  }
 });
 // export default class PTFL extends Vue {
 // projects!: any
