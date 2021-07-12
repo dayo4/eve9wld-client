@@ -2,6 +2,7 @@
 import { SinglePost } from './modules/Single'
 
 import { $Vue, $Axios, $Notify } from '@/plugins'
+import Query from '@/types'
 
 class Posts {
     $single = new SinglePost()

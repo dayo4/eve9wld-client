@@ -112,6 +112,7 @@ export default Vue.extend({
 		$Posts.fetchAll(this.query).then(ok => {
 			this.pagin.pages = Math.ceil(this.count / this.query.limit)
 			$Obstacl.destroy("#MC-AllPosts")
+			document.dispatchEvent(new Event("x-event-render"))
 		})
 		// this.$gtag.event('login', { method: 'Google' })
 	}

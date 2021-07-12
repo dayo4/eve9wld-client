@@ -3,13 +3,8 @@ import { Cart } from './modules/Cart'
 import { Order } from './modules/Order'
 
 import { $Vue, $Axios, $Notify } from '@/plugins'
+import Query from '@/types'
 // import WW from '@woocommerce/woocommerce-rest-api'
-interface Query {
-    limit?: number
-    offset?: number
-    sort?: string
-
-}
 
 class Shopping {
     $cart = new Cart()

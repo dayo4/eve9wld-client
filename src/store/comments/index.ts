@@ -4,6 +4,7 @@ import { SubComments } from './modules/SubComments'
 
 import { $Auth } from '@/store'
 import { $Vue, $Axios, $Notify, $Process, WS } from '@/plugins'
+import Query from '@/types'
 
 export class Comments {
     $SubComments = new SubComments()

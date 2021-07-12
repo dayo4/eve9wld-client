@@ -73,7 +73,7 @@
           @click="openPost(post.slug)"
         >
           <img
-            :src="post.featured_image || post.images[0]"
+            :src="post.featured_image"
             draggable="false"
             class="br2"
           />
@@ -215,7 +215,7 @@ export default Vue.extend({
       $ReadQueue.add({
         id: post_id,
         //@ts-ignore
-        image: post_image.featured_image || post_image.images[0],
+        image: post_image,
         title: post_title,
         slug: slug
       });

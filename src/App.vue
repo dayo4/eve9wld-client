@@ -1,5 +1,5 @@
 <template>
-	<div id="GBLMContainer">
+	<div class="GBLMContainer">
 		<TopNav />
 		<HoverPanel />
 		<Notify />
@@ -50,7 +50,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-#GBLMContainer {
+.GBLMContainer {
 	position: relative;
 	margin-top: 52px;
 	padding-top: 10px;
@@ -61,7 +61,7 @@ export default Vue.extend({
 }
 
 @include sm-and-down {
-	#GBLMContainer {
+	.GBLMContainer {
 		margin-top: 50px;
 	}
 }

@@ -1,6 +1,7 @@
 
-import { $Auth } from '@/store'
-import { $Vue, $Axios, $Notify, $Process } from '@/plugins'
+// import { $Auth } from '@/store'
+// import { $Vue, $Axios, $Notify, $Process } from '@/plugins'
+import Query from '@/types'
 
 export class SubComments {
     // showComments = false

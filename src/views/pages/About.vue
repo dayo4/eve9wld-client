@@ -129,6 +129,9 @@ export default Vue.extend({
 				//     },
 			]
 		}
+	},
+	mounted(){
+		document.dispatchEvent(new Event("x-event-render"))
 	}
 });
 </script>

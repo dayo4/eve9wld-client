@@ -2,7 +2,7 @@
 import { SingleProduct } from './modules/Single'
 
 import { $Vue, $Axios, $Notify } from '@/plugins'
-// import WW from '@woocommerce/woocommerce-rest-api'
+import Query from '@/types'
 
 class Products {
     $single = new SingleProduct()

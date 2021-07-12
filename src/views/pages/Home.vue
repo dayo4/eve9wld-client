@@ -77,7 +77,11 @@
 		<div class="Divider">
 			<span></span>
 		</div>
-
+<article v-for="(post, i) in posts" :key="i">
+<div>{{post.title}}</div>
+<div>{{post.featured_image}}</div>
+<div>{{post.user}}</div>
+</article>
 		<div class="Quote">
 			Every person and every business deserves a virtual online profile
 			that stands out, and We specialize in providing that.
@@ -279,7 +283,9 @@ export default Vue.extend({
 			]
 		}
 	},
-
+computed:{
+			posts: () => $Posts.data,
+},
 	methods: {
 		fkLoading () {
 			$Obstacl.create(this.$refs.fkloading, {
@@ -287,6 +293,16 @@ export default Vue.extend({
 				icon: "icon-spin6"
 			})
 		}
+	},
+	mounted(){
+		$Posts.fetchAll({
+				limit: 30,
+				offset: 0,
+				sort: [ "created_at", "desc" ]
+			}).then(data=>{
+				if(data)
+				 document.dispatchEvent(new Event("x-event-render"))
+			})
 	}
 });
 </script>

@@ -1,4 +1,5 @@
-import Validator from "../../../../NPM packages/HGValidator/src/index"
+// import Validator from "../../../../NPM pkgs/validator/src"
+import Validator from "./validator"
 
 
 export const $Validator = Validator
