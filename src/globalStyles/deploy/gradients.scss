@@ -9,26 +9,26 @@
 }
 
 /* gradient backgrounds */
-.bg-gradient-1{
-	background-color: #006064;
-	background:linear-gradient(
-			#e0343477 0%,
-			#006064 25%,
-			#00bcd4 50%,
-			#0061646c 75%,
-			#e0343477 100%
-		);
-}
 // .bg-gradient-1{
 // 	background-color: #006064;
 // 	background:linear-gradient(
-// 			#880e4f 0%,
+// 			#e0343477 0%,
 // 			#006064 25%,
 // 			#00bcd4 50%,
-// 			#006064 75%,
-// 			#880e4f 100%
+// 			#0061646c 75%,
+// 			#e0343477 100%
 // 		);
 // }
+.bg-gradient-1{
+	background-color: #006064;
+	background:linear-gradient(
+			#880e4f 0%,
+			#006064 25%,
+			#00bcd4 50%,
+			#006064 75%,
+			#880e4f 100%
+		);
+}
 .bg-gradient-2 {
 	background-color: #006064;
 	background:linear-gradient(
