@@ -93,14 +93,14 @@ export default Vue.extend({
           link: "",
           store: "",
           auth: "user"
-        }
-        // { font: 'icon-cog-1', text: 'Settings', link: 'manage-settings', auth: 'user' },
+        },
+        // { font: 'icon-cog', text: 'Settings', link: 'manage-settings', auth: 'user' },
       ],
 
       pageIcons: [
         { font: "icon-mail", text: "Mail", link: "contact" },
         { font: "icon-info", text: "About", link: "about" },
-        { font: "icon-doc-text", text: "Posts", link: "posts" },
+        { font: "icon-doc", text: "Posts", link: "posts" },
         { font: "icon-doc-text", text: "Gallery", link: "gallery" },
         { font: "icon-cart-arrow-down", text: "Checkout", link: "checkout" }
       ],
@@ -171,9 +171,15 @@ export default Vue.extend({
     overflow-y: scroll;
     width: 100%;
     height: 100%;
+    // background: linear-gradient(
+    //   #324851 0%,
+    //   #006064 10%,
+    //   #006064 90%,
+    //   #880e4f 100%
+    // );
     background: linear-gradient(
       #880e4f 0%,
-      #006064 10%,
+      #003b46 10%,
       #006064 90%,
       #880e4f 100%
     );

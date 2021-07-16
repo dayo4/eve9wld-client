@@ -124,7 +124,7 @@
 					@click="$router.push({ name: 'about' })"
 					class="btn cyan-gradient-btn shadow-5 font-5 br4 mt-3"
 				>
-					<span class="icon-right-big mr-2"></span>
+					<span class="icon-right mr-2"></span>
 					<span>More About Scavorb</span>
 				</button>
 			</div>
@@ -166,7 +166,7 @@
 					"
 					class="btn cyan-gradient-btn shadow-5 font-5 br4 mt-5"
 				>
-					<span class="icon-right-big mr-3"></span>
+					<span class="icon-right mr-3"></span>
 					<span>View Profile</span>
 				</button>
 			</div>
@@ -203,7 +203,7 @@
 					class="btn cyan-gradient-btn shadow-5 font-5 br4 mt-5"
 					@click="fkLoading"
 				>
-					<span class="icon-right-big mr-3"></span>
+					<span class="icon-right mr-3"></span>
 					<span>Full Gallery</span>
 				</button>
 			</div>
@@ -214,7 +214,7 @@
 		</div>
 
 		<h2 class="text-center t-blue-grey--1">
-			<span class="icon-mail-alt mr-3"></span>
+			<span class="icon-mail mr-3"></span>
 			<span>
 				Reach Out To Us
 				<i class="font-3">Let's Get Things Done!</i>

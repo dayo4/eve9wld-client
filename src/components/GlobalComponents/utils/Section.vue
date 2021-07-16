@@ -27,7 +27,13 @@ export default Vue.extend({
 	align-items: center;
 	justify-content: space-between;
 	flex-wrap: wrap;
-	background-color: rgb(45, 45, 45);
+	background-color: #003b46;
+	// background-color: $pink--4;
+	// background-color: rgb(45, 45, 45);
+	    background: linear-gradient(to right,
+      #003b46 10%,
+      #006064 90%,
+    );
 	border-radius: 4px 20px 4px 4px;
 	color: white;
 	font-size: 13px;
@@ -35,13 +41,13 @@ export default Vue.extend({
 	padding: 8px 12px 8px 12px;
 	margin-bottom: 8px;
 }
-.SectBody {
+// .SectBody {
 	// background-color: rgb(45, 45, 45);
 	// color: white;
 	// border-radius: 8px 20px 4px 4px;
 	// font-size: 13px;
 	// font-weight: bold;
-}
+// }
 
 @include xs-only {
 	.SectHead {

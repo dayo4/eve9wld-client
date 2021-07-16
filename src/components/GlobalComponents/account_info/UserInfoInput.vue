@@ -42,8 +42,8 @@
 			</div>
 			<div v-if="!exclude.includes('country')">
 				<label>Country <i>*</i></label>
-				<select v-model="country">
-					<option value="-1" selected>Select Country</option>
+				<select ref="country" @change="setCountry">
+					<option value="" selected>Select Country</option>
 					<option v-for="i in countries" :key="i" :value="i">
 						{{ i }}
 					</option>
@@ -100,7 +100,7 @@
 
 		<!-- Save Button -->
 		<section class="flex j-c-center my-4">
-			<button @click="saveAll" class="btn shadow-0">
+			<button @click="saveAll" class="btn bg-pink--4 shadow-0">
 				<i class="icon-check mr-1"></i>Save Changes
 			</button>
 		</section>
@@ -157,6 +157,9 @@ export default Vue.extend({
 	methods: {
 		setAbout (e: any) {
 			this.about = e.target.textContent
+		},
+		setCountry(e){
+			this.country = e.target.value
 		},
 		saveAll () {
 			const data = this.getData()
@@ -270,7 +273,7 @@ export default Vue.extend({
 				},
 				postcode: {
 					fieldName: "Zip/Postal Code",
-					data: this.postcode,
+					data: Number(this.postcode),
 					rules: {
 						required: true,
 						number: true,
@@ -339,6 +342,9 @@ export default Vue.extend({
 						this.$data[ data ] = $Account.data[ data ]
 						if (data === 'about') {
 							(this.$refs.about as HTMLDivElement).textContent = $Account.data[ data ]
+						}
+						if (data === 'country') {
+							(this.$refs.country as HTMLSelectElement).value = $Account.data[ data ]
 						}
 					}
 					else {

@@ -72,12 +72,20 @@ export default Vue.extend({
 	background-color: rgba(45, 45, 45, 0.8);
 	background: linear-gradient(
 		to right,
-		rgba(45, 45, 45, 0) 0%,
-		rgba(45, 45, 45, 0.5) 10%,
-		rgba(45, 45, 45, 0.9),
-		rgba(45, 45, 45, 0.5) 90%,
-		rgba(45, 45, 45, 0) 100%
+		rgba(2, 28, 30, 0) 0%,
+		rgba(2, 28, 30, 0.5) 10%,
+		rgba(2, 28, 30, 0.9),
+		rgba(2, 28, 30, 0.5) 90%,
+		rgba(2, 28, 30, 0) 100%
 	);
+	// background: linear-gradient(
+	// 	to right,
+	// 	rgba(45, 45, 45, 0) 0%,
+	// 	rgba(45, 45, 45, 0.5) 10%,
+	// 	rgba(45, 45, 45, 0.9),
+	// 	rgba(45, 45, 45, 0.5) 90%,
+	// 	rgba(45, 45, 45, 0) 100%
+	// );
 
 	& i {
 		position: absolute;
@@ -88,12 +96,12 @@ export default Vue.extend({
 		width: 80px;
 		border-radius: 100%;
 		z-index: -1;
-		background-color: rgba(45, 45, 45, 0.8);
+		background-color: rgba(136, 14, 79, 0.8);
 
 		&::after {
 			content: "";
 			position: absolute;
-			background-color: rgba(45, 45, 45, 0.9);
+			background-color: rgba(136, 14, 79, 0.9);
 			border-radius: 100%;
 			animation: xpand 2s linear infinite forwards;
 		}
@@ -115,6 +123,11 @@ export default Vue.extend({
 	justify-content: space-between;
 	flex-wrap: wrap;
 	background-color: rgb(45, 45, 45);
+		    background: linear-gradient(to right,
+      #003b46 10%,
+      #006064 50%,
+      #003b46 90%,
+    );
 	color: white;
 	border-radius: 20px 20px 4px 4px;
 	padding: 8px 12px 8px 12px;
@@ -147,8 +160,8 @@ export default Vue.extend({
 		opacity: 0.7;
 	}
 	100% {
-		width: 130%;
-		height: 130%;
+		width: 150%;
+		height: 150%;
 		opacity: 0;
 	}
 }
