@@ -1,5 +1,5 @@
 import "../../../../../styles/greycore/dist/greycore.css"
-import "../../../../../styles/icons/css/fontello.css"
+import "../../../../../styles/greycore/icons/css/fontello.css"
 import './general.scss'
 import './gradients.scss'
 import './logo.scss'
