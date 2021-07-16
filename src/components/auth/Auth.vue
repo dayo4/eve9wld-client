@@ -236,6 +236,8 @@ export default Vue.extend({
       font-size: 18px;
       border-top: 1px $blue-grey-3 solid;
       border-bottom: 1px $blue-grey-3 solid;
+      border-left: none;
+      border-right: none;
     }
   }
 }

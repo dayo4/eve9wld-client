@@ -35,7 +35,7 @@
       </div>
 
       <div class="Section">
-        <span class="Head icon-lock-open-alt">Password</span>
+        <span class="Head icon-key">Password</span>
         <span v-if="pass_err" class="Error t-red-1">{{ pass_err }}</span>
         <input
           v-model="password"

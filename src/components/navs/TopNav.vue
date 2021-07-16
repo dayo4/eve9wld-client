@@ -16,7 +16,7 @@
 				/>
 				<span
 					@click="showSearch = true"
-					class="SearchIcon icon-search-2 flex a-i-center font-6 px-3"
+					class="SearchIcon icon-search flex a-i-center font-6 px-3"
 				></span>
 				<!-- Search Component -->
 				<Search :show="showSearch" @close="showSearch = false" />
@@ -162,10 +162,10 @@ export default Vue.extend({
 			showSearch: false,
 
 			navLinks: [
-				{ name: "home", icon: "icon-home-1" },
-				{ name: "contact", icon: "icon-mail-alt" },
+				{ name: "home", icon: "icon-home" },
+				{ name: "contact", icon: "icon-mail" },
 				{ name: "about", icon: "icon-info" },
-				{ name: "posts", icon: "icon-doc-text" }
+				{ name: "posts", icon: "icon-doc" }
 			]
 		}
 	},

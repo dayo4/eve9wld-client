@@ -8,7 +8,7 @@
         </div>
         <div class="flex a-i-center j-c-center font-12">
           <a
-            class="icon-mail-alt t-pink--3"
+            class="icon-mail t-pink--3"
             title="e-mail"
             href="mailto:scavorb@gmail.com"
           ></a>

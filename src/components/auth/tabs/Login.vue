@@ -27,7 +27,7 @@
         </div>
 
         <div class="Section">
-          <span class="Head icon-lock-open-alt">Password</span>
+          <span class="Head icon-key">Password</span>
           <span
             v-if="pass_err"
             :class="pass_err ? 'vibrate' : ''"

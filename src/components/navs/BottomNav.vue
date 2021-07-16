@@ -23,7 +23,7 @@
     </div>
     <div @click="scrollUp">
       <span
-        class="icon-up-big"
+        class="icon-up"
         :class="!scrolled ? 't-grey--1' : 't-white'"
       ></span>
       <span>Scroll Up</span>

@@ -2,11 +2,11 @@
     <transition name="expand">
         <div v-if="show" class="SearchModal br3 pl-3 p-1">
             <div class="InputBox flex bg-white br4 p-1">
-                <span class="SearchIcon icon-search-2 flex a-i-center font-6 px-5"></span>
+                <span class="SearchIcon icon-search flex a-i-center font-6 px-1"></span>
                 <input ref="search" type="text" placeholder="Search..." class="p-2 w-full" />
                 <span
                     @click="$emit('close')"
-                    class="SearchIcon icon-cancel flex a-i-center font-9 px-3"
+                    class="SearchIcon icon-cancel flex a-i-center font-9 px-1"
                 ></span>
             </div>
             <hr />
@@ -70,9 +70,10 @@ export default Vue.extend({
 .InputBox {
     height: 35px;
     width: 100%;
-}
-input {
+& input {
     height: 100%;
+    border: none;
+}
 }
 .Result {
     min-height: 50px;

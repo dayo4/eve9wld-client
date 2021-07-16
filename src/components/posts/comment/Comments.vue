@@ -20,7 +20,7 @@
               <span>Back</span>
             </div>
             <div class="labeled-action" @click="scrollUp">
-              <span class="icon-up-big"></span>
+              <span class="icon-up"></span>
               <span>Scroll Up</span>
             </div>
             <div class="labeled-action" @click="close">
